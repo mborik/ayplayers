@@ -1,0 +1,738 @@
+A92E C337A9       JP   A937
+A931 C38CA9       JP   A98C
+A934 C3F7AA       JP   AAF7
+A937 F3           DI
+A938 2AE8AD       LD   HL,(ADE8)
+A93B 2213AA       LD   (AA13),HL
+A93E 2AEAAD       LD   HL,(ADEA)
+A941 2227AA       LD   (AA27),HL
+A944 2AECAD       LD   HL,(ADEC)
+A947 223BAA       LD   (AA3B),HL
+A94A 3E01         LD   A,01
+A94C 3215AA       LD   (AA15),A
+A94F 3229AA       LD   (AA29),A
+A952 323DAA       LD   (AA3D),A
+A955 3E08         LD   A,08
+A957 3216AA       LD   (AA16),A
+A95A 322AAA       LD   (AA2A),A
+A95D 323EAA       LD   (AA3E),A
+A960 21D3A9       LD   HL,A9D3
+A963 112000       LD   DE,0020
+A966 22ADA9       LD   (A9AD),HL
+A969 19           ADD  HL,DE
+A96A 22AFA9       LD   (A9AF),HL
+A96D 19           ADD  HL,DE
+A96E 22B1A9       LD   (A9B1),HL
+A971 210000       LD   HL,0000
+A974 2221AA       LD   (AA21),HL
+A977 2235AA       LD   (AA35),HL
+A97A 2249AA       LD   (AA49),HL
+A97D 2223AA       LD   (AA23),HL
+A980 2237AA       LD   (AA37),HL
+A983 224BAA       LD   (AA4B),HL
+A986 AF           XOR  A
+A987 32A7A9       LD   (A9A7),A
+A98A FB           EI
+A98B C9           RET
+A98C F3           DI
+A98D 3EFF         LD   A,FF
+A98F 1607         LD   D,07
+A991 CD4EAB       CALL AB4E
+A994 CD38AB       CALL AB38
+A997 FB           EI
+A998 C9           RET
+
+;DATA
+A999 00           NOP
+A99A 00           NOP
+A99B 00           NOP
+A99C 00           NOP
+A99D 00           NOP
+A99E 00           NOP
+A99F 00           NOP
+A9A0 00           NOP
+A9A1 00           NOP
+A9A2 00           NOP
+A9A3 00           NOP
+A9A4 00           NOP
+A9A5 00           NOP
+A9A6 00           NOP
+A9A7 00           NOP
+A9A8 00           NOP
+A9A9 00           NOP
+A9AA 00           NOP
+A9AB 00           NOP
+A9AC 00           NOP
+A9AD 00           NOP
+A9AE 00           NOP
+A9AF 00           NOP
+A9B0 00           NOP
+A9B1 00           NOP
+A9B2 00           NOP
+A9B3 00           NOP
+A9B4 00           NOP
+A9B5 00           NOP
+A9B6 00           NOP
+A9B7 00           NOP
+A9B8 00           NOP
+A9B9 00           NOP
+A9BA 00           NOP
+A9BB 00           NOP
+A9BC 00           NOP
+A9BD 00           NOP
+A9BE 00           NOP
+A9BF 00           NOP
+A9C0 00           NOP
+A9C1 00           NOP
+A9C2 00           NOP
+A9C3 00           NOP
+A9C4 00           NOP
+A9C5 00           NOP
+A9C6 00           NOP
+A9C7 00           NOP
+A9C8 00           NOP
+A9C9 00           NOP
+A9CA 00           NOP
+A9CB 00           NOP
+A9CC 00           NOP
+A9CD 00           NOP
+A9CE 00           NOP
+A9CF 00           NOP
+A9D0 00           NOP
+A9D1 00           NOP
+A9D2 00           NOP
+A9D3 00           NOP
+A9D4 00           NOP
+A9D5 00           NOP
+A9D6 00           NOP
+A9D7 00           NOP
+A9D8 00           NOP
+A9D9 00           NOP
+A9DA 00           NOP
+A9DB 00           NOP
+A9DC 00           NOP
+A9DD 00           NOP
+A9DE 00           NOP
+A9DF 00           NOP
+A9E0 00           NOP
+A9E1 00           NOP
+A9E2 00           NOP
+A9E3 00           NOP
+A9E4 00           NOP
+A9E5 00           NOP
+A9E6 00           NOP
+A9E7 00           NOP
+A9E8 00           NOP
+A9E9 00           NOP
+A9EA 00           NOP
+A9EB 00           NOP
+A9EC 00           NOP
+A9ED 00           NOP
+A9EE 00           NOP
+A9EF 00           NOP
+A9F0 00           NOP
+A9F1 00           NOP
+A9F2 00           NOP
+A9F3 00           NOP
+A9F4 00           NOP
+A9F5 00           NOP
+A9F6 00           NOP
+A9F7 00           NOP
+A9F8 00           NOP
+A9F9 00           NOP
+A9FA 00           NOP
+A9FB 00           NOP
+A9FC 00           NOP
+A9FD 00           NOP
+A9FE 00           NOP
+A9FF 00           NOP
+AA00 00           NOP
+AA01 00           NOP
+AA02 00           NOP
+AA03 00           NOP
+AA04 00           NOP
+AA05 00           NOP
+AA06 00           NOP
+AA07 00           NOP
+AA08 00           NOP
+AA09 00           NOP
+AA0A 00           NOP
+AA0B 00           NOP
+AA0C 00           NOP
+AA0D 00           NOP
+AA0E 00           NOP
+AA0F 00           NOP
+AA10 00           NOP
+AA11 00           NOP
+AA12 00           NOP
+AA13 00           NOP
+AA14 00           NOP
+AA15 00           NOP
+AA16 00           NOP
+AA17 00           NOP
+AA18 00           NOP
+AA19 00           NOP
+AA1A 00           NOP
+AA1B 00           NOP
+AA1C 00           NOP
+AA1D 00           NOP
+AA1E 00           NOP
+AA1F 00           NOP
+AA20 00           NOP
+AA21 00           NOP
+AA22 00           NOP
+AA23 00           NOP
+AA24 00           NOP
+AA25 00           NOP
+AA26 00           NOP
+AA27 00           NOP
+AA28 00           NOP
+AA29 00           NOP
+AA2A 00           NOP
+AA2B 00           NOP
+AA2C 00           NOP
+AA2D 00           NOP
+AA2E 00           NOP
+AA2F 00           NOP
+AA30 00           NOP
+AA31 00           NOP
+AA32 00           NOP
+AA33 00           NOP
+AA34 00           NOP
+AA35 00           NOP
+AA36 00           NOP
+AA37 00           NOP
+AA38 00           NOP
+AA39 00           NOP
+AA3A 00           NOP
+AA3B 00           NOP
+AA3C 00           NOP
+AA3D 00           NOP
+AA3E 00           NOP
+AA3F 00           NOP
+AA40 00           NOP
+AA41 00           NOP
+AA42 00           NOP
+AA43 00           NOP
+AA44 00           NOP
+AA45 00           NOP
+AA46 00           NOP
+AA47 00           NOP
+AA48 00           NOP
+AA49 00           NOP
+AA4A 00           NOP
+AA4B 00           NOP
+AA4C 00           NOP
+AA4D 00           NOP
+AA4E 00           NOP
+AA4F BF           CP   A
+AA50 0F           RRCA
+AA51 DC0E07       CALL C,070E
+AA54 0E3D         LD   C,3D
+AA56 0D           DEC  C
+AA57 7F           LD   A,A
+AA58 0C           INC  C
+AA59 CC0B22       CALL Z,220B
+AA5C 0B           DEC  BC
+AA5D 82           ADD  A,D
+AA5E 0A           LD   A,(BC)
+AA5F EB           EX   DE,HL
+AA60 09           ADD  HL,BC
+AA61 5D           LD   E,L
+AA62 09           ADD  HL,BC
+AA63 D608         SUB  08
+AA65 57           LD   D,A
+AA66 08           EX   AF,AF'
+AA67 DF           RST  18
+AA68 07           RLCA
+AA69 6E           LD   L,(HL)
+AA6A 07           RLCA
+AA6B 03           INC  BC
+AA6C 07           RLCA
+AA6D 9F           SBC  A,A
+AA6E 0640         LD   B,40
+AA70 06E6         LD   B,E6
+AA72 05           DEC  B
+AA73 91           SUB  C
+AA74 05           DEC  B
+AA75 41           LD   B,C
+AA76 05           DEC  B
+AA77 F604         OR   04
+AA79 AE           XOR  (HL)
+AA7A 04           INC  B
+AA7B 6B           LD   L,E
+AA7C 04           INC  B
+AA7D 2C           INC  L
+AA7E 04           INC  B
+AA7F F0           RET  P
+AA80 03           INC  BC
+AA81 B7           OR   A
+AA82 03           INC  BC
+AA83 82           ADD  A,D
+AA84 03           INC  BC
+AA85 4F           LD   C,A
+AA86 03           INC  BC
+AA87 2003         JR   NZ,AA8C
+AA89 F3           DI
+AA8A 02           LD   (BC),A
+AA8B C8           RET  Z
+AA8C 02           LD   (BC),A
+AA8D A1           AND  C
+AA8E 02           LD   (BC),A
+AA8F 7B           LD   A,E
+AA90 02           LD   (BC),A
+AA91 57           LD   D,A
+AA92 02           LD   (BC),A
+AA93 3602         LD   (HL),02
+AA95 1602         LD   D,02
+AA97 F8           RET  M
+AA98 01DC01       LD   BC,01DC
+AA9B C1           POP  BC
+AA9C 01A801       LD   BC,01A8
+AA9F 90           SUB  B
+AAA0 017901       LD   BC,0179
+AAA3 64           LD   H,H
+AAA4 015001       LD   BC,0150
+AAA7 3D           DEC  A
+AAA8 012C01       LD   BC,012C
+AAAB 1B           DEC  DE
+AAAC 010B01       LD   BC,010B
+AAAF FC00EE       CALL M,EE00
+AAB2 00           NOP
+AAB3 E0           RET  PO
+AAB4 00           NOP
+AAB5 D400C8       CALL NC,C800
+AAB8 00           NOP
+AAB9 BD           CP   L
+AABA 00           NOP
+AABB B2           OR   D
+AABC 00           NOP
+AABD A8           XOR  B
+AABE 00           NOP
+AABF 9F           SBC  A,A
+AAC0 00           NOP
+AAC1 96           SUB  (HL)
+AAC2 00           NOP
+AAC3 8D           ADC  A,L
+AAC4 00           NOP
+AAC5 85           ADD  A,L
+AAC6 00           NOP
+AAC7 7E           LD   A,(HL)
+AAC8 00           NOP
+AAC9 77           LD   (HL),A
+AACA 00           NOP
+AACB 70           LD   (HL),B
+AACC 00           NOP
+AACD 6A           LD   L,D
+AACE 00           NOP
+AACF 64           LD   H,H
+AAD0 00           NOP
+AAD1 5E           LD   E,(HL)
+AAD2 00           NOP
+AAD3 59           LD   E,C
+AAD4 00           NOP
+AAD5 54           LD   D,H
+AAD6 00           NOP
+AAD7 4F           LD   C,A
+AAD8 00           NOP
+AAD9 4B           LD   C,E
+AADA 00           NOP
+AADB 47           LD   B,A
+AADC 00           NOP
+AADD 43           LD   B,E
+AADE 00           NOP
+AADF 3F           CCF
+AAE0 00           NOP
+AAE1 3B           DEC  SP
+AAE2 00           NOP
+AAE3 3800         JR   C,AAE5
+AAE5 35           DEC  (HL)
+AAE6 00           NOP
+AAE7 32002F       LD   (2F00),A
+AAEA 00           NOP
+AAEB 2D           DEC  L
+AAEC 00           NOP
+AAED 2A0028       LD   HL,(2800)
+AAF0 00           NOP
+AAF1 25           DEC  H
+AAF2 00           NOP
+AAF3 23           INC  HL
+AAF4 00           NOP
+AAF5 2100
+
+;Player
+AAF7 DD2113AA     LD   IX,AA13
+AAFB 2AADA9       LD   HL,(A9AD)
+AAFE 3E01         LD   A,01
+AB00 CD63AB       CALL AB63
+AB03 22ADA9       LD   (A9AD),HL
+AB06 DD2127AA     LD   IX,AA27
+AB0A 2AAFA9       LD   HL,(A9AF)
+AB0D 3E02         LD   A,02
+AB0F CD63AB       CALL AB63
+AB12 22AFA9       LD   (A9AF),HL
+AB15 DD213BAA     LD   IX,AA3B
+AB19 2AB1A9       LD   HL,(A9B1)
+AB1C 3E03         LD   A,03
+AB1E CD63AB       CALL AB63
+AB21 22B1A9       LD   (A9B1),HL
+AB24 3A3EAA       LD   A,(AA3E)
+AB27 07           RLCA
+AB28 47           LD   B,A
+AB29 3A2AAA       LD   A,(AA2A)
+AB2C B0           OR   B
+AB2D 07           RLCA
+AB2E 47           LD   B,A
+AB2F 3A16AA       LD   A,(AA16)
+AB32 B0           OR   B
+AB33 1607         LD   D,07
+AB35 CD4EAB       CALL AB4E
+AB38 160D         LD   D,0D
+AB3A 21A6A9       LD   HL,A9A6
+AB3D 7A           LD   A,D
+AB3E 01FDFF       LD   BC,FFFD
+AB41 ED79         OUT  (C),A
+AB43 7E           LD   A,(HL)
+AB44 06BF         LD   B,BF
+AB46 ED79         OUT  (C),A
+AB48 2B           DEC  HL
+AB49 15           DEC  D
+AB4A F23DAB       JP   P,AB3D
+AB4D C9           RET
+AB4E 0199A9       LD   BC,A999
+AB51 6A           LD   L,D
+AB52 2600         LD   H,00
+AB54 09           ADD  HL,BC
+AB55 77           LD   (HL),A
+AB56 C9           RET
+AB57 ED73ABA9     LD   (A9AB),SP
+AB5B 2AABA9       LD   HL,(A9AB)
+AB5E ED7BA9A9     LD   SP,(A9A9)
+AB62 C9           RET
+AB63 ED73A9A9     LD   (A9A9),SP
+AB67 F9           LD   SP,HL
+AB68 32A8A9       LD   (A9A8),A
+AB6B DD3502       DEC  (IX+02)
+AB6E CA72AC       JP   Z,AC72
+AB71 DD3506       DEC  (IX+06)
+AB74 2036         JR   NZ,ABAC
+AB76 DD6E04       LD   L,(IX+04)
+AB79 DD6605       LD   H,(IX+05)
+AB7C 7E           LD   A,(HL)
+AB7D FE80         CP   80
+AB7F 200C         JR   NZ,AB8D
+AB81 23           INC  HL
+AB82 5E           LD   E,(HL)
+AB83 23           INC  HL
+AB84 56           LD   D,(HL)
+AB85 DD7304       LD   (IX+04),E
+AB88 DD7205       LD   (IX+05),D
+AB8B 18E9         JR   AB76
+AB8D FE1E         CP   1E
+AB8F 380C         JR   C,AB9D
+AB91 D632         SUB  32
+AB93 DD7709       LD   (IX+09),A
+AB96 DD360601     LD   (IX+06),01
+AB9A 23           INC  HL
+AB9B 1809         JR   ABA6
+AB9D DD7709       LD   (IX+09),A
+ABA0 23           INC  HL
+ABA1 7E           LD   A,(HL)
+ABA2 DD7706       LD   (IX+06),A
+ABA5 23           INC  HL
+ABA6 DD7504       LD   (IX+04),L
+ABA9 DD7405       LD   (IX+05),H
+ABAC DD7E07       LD   A,(IX+07)
+ABAF DDB608       OR   (IX+08)
+ABB2 CA35AC       JP   Z,AC35
+ABB5 DDCB0E56     BIT  2,(IX+0E)
+ABB9 C235AC       JP   NZ,AC35
+ABBC DD6E0C       LD   L,(IX+0C)
+ABBF DD660D       LD   H,(IX+0D)
+ABC2 7E           LD   A,(HL)
+ABC3 23           INC  HL
+ABC4 DD750C       LD   (IX+0C),L
+ABC7 DD740D       LD   (IX+0D),H
+ABCA FE80         CP   80
+ABCC 2006         JR   NZ,ABD4
+ABCE 7E           LD   A,(HL)
+ABCF 23           INC  HL
+ABD0 66           LD   H,(HL)
+ABD1 6F           LD   L,A
+ABD2 18EE         JR   ABC2
+ABD4 FE82         CP   82
+ABD6 C2E0AB       JP   NZ,ABE0
+ABD9 DDCB0EDE     SET  3,(IX+0E)
+ABDD C3C2AB       JP   ABC2
+ABE0 FE83         CP   83
+ABE2 C2ECAB       JP   NZ,ABEC
+ABE5 DDCB0E9E     RES  3,(IX+0E)
+ABE9 C3C2AB       JP   ABC2
+ABEC FE84         CP   84
+ABEE C2FCAB       JP   NZ,ABFC
+ABF1 3E09         LD   A,09
+ABF3 DDAE03       XOR  (IX+03)
+ABF6 DD7703       LD   (IX+03),A
+ABF9 C3C2AB       JP   ABC2
+ABFC DDCB0E5E     BIT  3,(IX+0E)
+AC00 CA1EAC       JP   Z,AC1E
+AC03 DD8612       ADD  A,(IX+12)
+AC06 DD7712       LD   (IX+12),A
+AC09 3D           DEC  A
+AC0A 87           ADD  A,A
+AC0B 5F           LD   E,A
+AC0C 1600         LD   D,00
+AC0E 214FAA       LD   HL,AA4F
+AC11 19           ADD  HL,DE
+AC12 7E           LD   A,(HL)
+AC13 DD7707       LD   (IX+07),A
+AC16 23           INC  HL
+AC17 7E           LD   A,(HL)
+AC18 DD7708       LD   (IX+08),A
+AC1B C335AC       JP   AC35
+AC1E 5F           LD   E,A
+AC1F 1600         LD   D,00
+AC21 DD6E07       LD   L,(IX+07)
+AC24 DD6608       LD   H,(IX+08)
+AC27 E680         AND  80
+AC29 CA2EAC       JP   Z,AC2E
+AC2C 16FF         LD   D,FF
+AC2E 19           ADD  HL,DE
+AC2F DD7507       LD   (IX+07),L
+AC32 DD7408       LD   (IX+08),H
+AC35 3AA7A9       LD   A,(A9A7)
+AC38 1606         LD   D,06
+AC3A CD4EAB       CALL AB4E
+AC3D DDCB0E96     RES  2,(IX+0E)
+AC41 3AA8A9       LD   A,(A9A8)
+AC44 C607         ADD  A,07
+AC46 57           LD   D,A
+AC47 DD7E07       LD   A,(IX+07)
+AC4A DDB608       OR   (IX+08)
+AC4D 2803         JR   Z,AC52
+AC4F DD7E09       LD   A,(IX+09)
+AC52 CD4EAB       CALL AB4E
+AC55 3AA8A9       LD   A,(A9A8)
+AC58 3D           DEC  A
+AC59 87           ADD  A,A
+AC5A 57           LD   D,A
+AC5B DD7E07       LD   A,(IX+07)
+AC5E CD4EAB       CALL AB4E
+AC61 14           INC  D
+AC62 DD7E08       LD   A,(IX+08)
+AC65 CD4EAB       CALL AB4E
+AC68 C357AB       JP   AB57
+AC6B DD7500       LD   (IX+00),L
+AC6E DD7401       LD   (IX+01),H
+AC71 C9           RET
+AC72 DD6E00       LD   L,(IX+00)
+AC75 DD6601       LD   H,(IX+01)
+AC78 7E           LD   A,(HL)
+AC79 23           INC  HL
+AC7A CD6BAC       CALL AC6B
+AC7D CB7F         BIT  7,A
+AC7F C2EFAC       JP   NZ,ACEF
+AC82 22ABA9       LD   (A9AB),HL
+AC85 B7           OR   A
+AC86 281B         JR   Z,ACA3
+AC88 DD860F       ADD  A,(IX+0F)
+AC8B DD7712       LD   (IX+12),A
+AC8E DDCB0E9E     RES  3,(IX+0E)
+AC92 3D           DEC  A
+AC93 87           ADD  A,A
+AC94 5F           LD   E,A
+AC95 1600         LD   D,00
+AC97 214FAA       LD   HL,AA4F
+AC9A 19           ADD  HL,DE
+AC9B 5E           LD   E,(HL)
+AC9C 23           INC  HL
+AC9D 56           LD   D,(HL)
+AC9E 2AABA9       LD   HL,(A9AB)
+ACA1 1803         JR   ACA6
+ACA3 110000       LD   DE,0000
+ACA6 7E           LD   A,(HL)
+ACA7 23           INC  HL
+ACA8 CD6BAC       CALL AC6B
+ACAB DD7702       LD   (IX+02),A
+ACAE DD7307       LD   (IX+07),E
+ACB1 DD7208       LD   (IX+08),D
+ACB4 DD7E10       LD   A,(IX+10)
+ACB7 DD770C       LD   (IX+0C),A
+ACBA DD7E11       LD   A,(IX+11)
+ACBD DD770D       LD   (IX+0D),A
+ACC0 DDCB0ED6     SET  2,(IX+0E)
+ACC4 DDCB0E4E     BIT  1,(IX+0E)
+ACC8 C271AB       JP   NZ,AB71
+ACCB DDCB0E46     BIT  0,(IX+0E)
+ACCF CAD6AC       JP   Z,ACD6
+ACD2 DDCB0ECE     SET  1,(IX+0E)
+ACD6 DD4E0A       LD   C,(IX+0A)
+ACD9 DD460B       LD   B,(IX+0B)
+ACDC 0A           LD   A,(BC)
+ACDD DD7709       LD   (IX+09),A
+ACE0 03           INC  BC
+ACE1 0A           LD   A,(BC)
+ACE2 03           INC  BC
+ACE3 DD7706       LD   (IX+06),A
+ACE6 DD7104       LD   (IX+04),C
+ACE9 DD7005       LD   (IX+05),B
+ACEC C335AC       JP   AC35
+ACEF E67F         AND  7F
+ACF1 22ABA9       LD   (A9AB),HL
+ACF4 87           ADD  A,A
+ACF5 5F           LD   E,A
+ACF6 1600         LD   D,00
+ACF8 2105AD       LD   HL,AD05
+ACFB 19           ADD  HL,DE
+ACFC 7E           LD   A,(HL)
+ACFD 23           INC  HL
+ACFE 66           LD   H,(HL)
+ACFF 6F           LD   L,A
+AD00 E5           PUSH HL
+AD01 2AABA9       LD   HL,(A9AB)
+AD04 C9           RET
+AD05 23           INC  HL
+AD06 AD           XOR  L
+AD07 2F           CPL
+AD08 AD           XOR  L
+AD09 3D           DEC  A
+AD0A AD           XOR  L
+AD0B 47           LD   B,A
+AD0C AD           XOR  L
+AD0D 59           LD   E,C
+AD0E AD           XOR  L
+AD0F 64           LD   H,H
+AD10 AD           XOR  L
+AD11 91           SUB  C
+AD12 AD           XOR  L
+AD13 6F           LD   L,A
+AD14 AD           XOR  L
+AD15 7F           LD   A,A
+AD16 AD           XOR  L
+AD17 8A           ADC  A,D
+AD18 AD           XOR  L
+AD19 A1           AND  C
+AD1A AD           XOR  L
+AD1B AF           XOR  A
+AD1C AD           XOR  L
+AD1D BD           CP   L
+AD1E AD           XOR  L
+AD1F CAADDA       JP   Z,DAAD
+AD22 AD           XOR  L
+AD23 7E           LD   A,(HL)
+AD24 DD7700       LD   (IX+00),A
+AD27 23           INC  HL
+AD28 7E           LD   A,(HL)
+AD29 DD7701       LD   (IX+01),A
+AD2C C372AC       JP   AC72
+AD2F 7E           LD   A,(HL)
+AD30 DD7700       LD   (IX+00),A
+AD33 23           INC  HL
+AD34 7E           LD   A,(HL)
+AD35 DD7701       LD   (IX+01),A
+AD38 23           INC  HL
+AD39 E5           PUSH HL
+AD3A C372AC       JP   AC72
+AD3D 46           LD   B,(HL)
+AD3E C5           PUSH BC
+AD3F 23           INC  HL
+AD40 E5           PUSH HL
+AD41 CD6BAC       CALL AC6B
+AD44 C372AC       JP   AC72
+AD47 D1           POP  DE
+AD48 C1           POP  BC
+AD49 1003         DJNZ AD4E
+AD4B C372AC       JP   AC72
+AD4E C5           PUSH BC
+AD4F D5           PUSH DE
+AD50 DD7300       LD   (IX+00),E
+AD53 DD7201       LD   (IX+01),D
+AD56 C372AC       JP   AC72
+AD59 7E           LD   A,(HL)
+AD5A 23           INC  HL
+AD5B 32A7A9       LD   (A9A7),A
+AD5E CD6BAC       CALL AC6B
+AD61 C372AC       JP   AC72
+AD64 7E           LD   A,(HL)
+AD65 23           INC  HL
+AD66 CD6BAC       CALL AC6B
+AD69 DD7703       LD   (IX+03),A
+AD6C C372AC       JP   AC72
+AD6F 7E           LD   A,(HL)
+AD70 DD770A       LD   (IX+0A),A
+AD73 23           INC  HL
+AD74 7E           LD   A,(HL)
+AD75 DD770B       LD   (IX+0B),A
+AD78 23           INC  HL
+AD79 CD6BAC       CALL AC6B
+AD7C C372AC       JP   AC72
+AD7F 7E           LD   A,(HL)
+AD80 23           INC  HL
+AD81 CD6BAC       CALL AC6B
+AD84 DD770F       LD   (IX+0F),A
+AD87 C372AC       JP   AC72
+AD8A E1           POP  HL
+AD8B CD6BAC       CALL AC6B
+AD8E C372AC       JP   AC72
+AD91 7E           LD   A,(HL)
+AD92 DD7710       LD   (IX+10),A
+AD95 23           INC  HL
+AD96 7E           LD   A,(HL)
+AD97 DD7711       LD   (IX+11),A
+AD9A 23           INC  HL
+AD9B CD6BAC       CALL AC6B
+AD9E C372AC       JP   AC72
+ADA1 DDCB0EC6     SET  0,(IX+0E)
+ADA5 DDCB0E8E     RES  1,(IX+0E)
+ADA9 CD6BAC       CALL AC6B
+ADAC C372AC       JP   AC72
+ADAF DDCB0E86     RES  0,(IX+0E)
+ADB3 DDCB0E8E     RES  1,(IX+0E)
+ADB7 CD6BAC       CALL AC6B
+ADBA C372AC       JP   AC72
+ADBD 5E           LD   E,(HL)
+ADBE 23           INC  HL
+ADBF 56           LD   D,(HL)
+ADC0 23           INC  HL
+ADC1 CD6BAC       CALL AC6B
+ADC4 0172AC       LD   BC,AC72
+ADC7 C5           PUSH BC
+ADC8 D5           PUSH DE
+ADC9 C9           RET
+ADCA 3AA7A9       LD   A,(A9A7)
+ADCD 86           ADD  A,(HL)
+ADCE E61F         AND  1F
+ADD0 32A7A9       LD   (A9A7),A
+ADD3 23           INC  HL
+ADD4 CD6BAC       CALL AC6B
+ADD7 C372AC       JP   AC72
+ADDA 7E           LD   A,(HL)
+ADDB DD860F       ADD  A,(IX+0F)
+ADDE DD770F       LD   (IX+0F),A
+ADE1 23           INC  HL
+ADE2 CD6BAC       CALL AC6B
+ADE5 C372AC       JP   AC72
+
+;Module
+ADE8 EEAD         XOR  AD
+ADEA 8A           ADC  A,D
+ADEB AE           XOR  (HL)
+ADEC 43           LD   B,E
+ADED B0           OR   B
+ADEE 87           ADD  A,A
+ADEF 67           LD   H,A
+ADF0 AE           XOR  (HL)
+ADF1 88           ADC  A,B
+ADF2 1886         JR   AD7A
+ADF4 7A           LD   A,D
+ADF5 AE           XOR  (HL)
+ADF6 81           ADD  A,C
+ADF7 6C           LD   L,H
+ADF8 AF           XOR  A
+ADF9 88           ADC  A,B
+ADFA 24           INC  H
+ADFB 81           ADD  A,C
+ADFC 6C           LD   L,H
+ADFD AF           XOR  A
+ADFE 88           ADC  A,B
+ADFF 00           NOP

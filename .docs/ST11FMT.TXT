@@ -1,0 +1,147 @@
+                      SOUNDTRACKER TECHNICAL REFERENCE                
+                      --------------------------------        
+                              (C) 1993 RAMSOFT
+                      
+                      Document revision 1.0  (30/07/93)
+                                                                
+
+
+UNCOMPILED SONGS STRUCTURE                                      
+                                                                
+Start address= 25000  (61A8h)                                   
+Lenght= 3009 (0BC1h)+576 (0240h)x[number of patterns]           
+                                                                
+Start                = uncompiled samples                       
+Start + 1950 (079Eh) = positions map                            
+Start + 2462 (099Eh) = song's lenght in patterns                
+Start + 2463 (099Fh) = uncompiled ornaments                     
+Start + 3007 (0BBFh) = delay value                              
+Start + 3008 (0BC0h) = patterns lenght                          
+Start + 3009 (0BC1h) = patterns data                            
+                                                                
+                                                                
+UNCOMPILED SAMPLES STRUCTURE                                    
+                                                                
+Length= 130 (82h) bytes per sample                              
+                                                                
+Bytes 00-31  (00h-1Fh) = envelope values (volumes)              
+Bytes 32-63  (20h-3Fh) = noise values                           
+Bytes 64-127 (40h-7Fh) = addition for effects                   
+Byte   128     (80h)   = repeat value                           
+Byte   129     (81h)   = repeat lenght value                    
+                                                                
+Note: bit 4 of additions is for sign.                           
+                                                                
+                                                                
+UNCOMPILED POSITIONS MAP STRUCTURE                              
+                                                                
+Lenght= 2 bytes per positions                                   
+                                                                
+Byte 1 = pattern number in position                             
+Byte 2 = height of pattern in this position                     
+                                                                
+                                                                
+UNCOMPILED ORNAMENT STRUCTURE                                   
+                                                                
+Lenght= 32 (20h) bytes per ornament                             
+                                                                
+Positive values = normal                                        
+Negative values = obtained with one's complement                
+                                                                
+                                                                
+UNCOMPILED PATTERN STRUCTURE                                    
+                                                                
+Lenght= 576 (0240h) bytes per pattern                           
+Lenght of location data= 9 bytes (3 bytes per channel)          
+Channel data sequence= A,B,C.                                   
+                                                                
+Byte n.1:     bits 0-2  = octave number                         
+              bit   3   = flat note flag (0=no;1=yes)           
+              bits 4-6  = note name (0=A;7=G)                   
+              bit   7   = rest flag                             
+                                                                
+Byte n.2:     bits 0-3  = effect selected number                
+              bits 4-7  = sample number                         
+                                                                
+Byte n.3:     bits 0-3  = low part of effect or ornament number 
+              bits 4-7  = high part of effect                   
+                                                                
+----------------------------------------------------------------
+                                                                
+COMPILED SONG STRUCTURE                                         
+                                                                
+Start            = delay value                                  
+Start + 1        = offset of positions map                      
+Start + 3        = offset of compiled ornaments                 
+Start + 5        = offset of patterns data                      
+Start + 27 (1Bh) = compiled samples                             
+                                                                
+Note: every offset must be added to 'Start' address.            
+                                                                
+                                                                
+COMPILED POSITIONS MAP STRUCTURE                                
+                                                                
+Byte 1 = song's lenght in patterns                              
+Remaining bytes are the same as uncompiled.                     
+End marker = 255 (FFh)                                          
+                                                                
+                                                                
+COMPILED ORNAMENTS STRUCTURE                                    
+                                                                
+Lenght of compiled ornament = 33 (21h) bytes                    
+Byte 1 = ornament number                                        
+Remaining bytes are the same as uncompiled.                     
+                                                                
+Note:ornaments are stored from number 0 (empty ornament)        
+                                                                
+                                                                
+COMPILED PATTERNS DATA STRUCTURE                                
+                                                                
+Lenght of each pattern data = 7 bytes                           
+                                                                
+Byte    1   = pattern number                                    
+Bytes  2/3  = offset of channel A data                          
+Bytes  4/5  = offset of channel B data                          
+Bytes  6/7  = offset of channel C data                          
+                                                                
+                                                                
+COMPILED SAMPLES STRUCTURE                                      
+                                                                
+Lenght of compiled sample = 99 (63h) bytes                      
+                                                                
+Byte      1     (01h) = sample number                           
+Bytes 02-97 (02h-61h) = 32 (20h) groups of 3 bytes; each group  
+                        holds the values for envelope,noise     
+                        and addition for effects                
+Byte     98     (62h) = repeat value                            
+Byte     99     (63h) = repeat lenght value                     
+                                                                
+Each group of 3 bytes is arranged as below:                     
+                                                                
+Byte n.1:     bits 0-3 = envelope value (volume)                
+              bits 4-7 = high part of addition for effects      
+                                                                
+Byte n.2:     bits 0-4 = noise value                            
+              bit   5  = addition for effects sign              
+              bit   6  = envelope mask setting                  
+              bit   7  = noise mask setting                     
+                                                                
+Byte n.3:     bits 0-8 = low part of addition for effects       
+                                                                
+                                                                
+CODES MEANING ON CHANNEL DATA                                   
+                                                                
+If:    code<96  (60h)  => bits 0-4 = note in semitones (00=C-1) 
+       code<112 (70h)  => bits 0-4 = sample number              
+       code<128 (80h)  => bits 0-4 = ornament number            
+       code=128 (80h)  => rest (shuts channel)                  
+       code=129 (81h)  => empty location                        
+       code=130 (82h)  => selects ornament 0                    
+       code<143 (8Fh)  => selects effect                        
+       code=255 (FFh)  => end channel data                      
+                                                                
+Codes between 161 (A1h) and 224 (E0h),by subtracting 161 (A1h), 
+tell the number of empty locations after the subsequent code.
+
+-----------------------------------------------------------------------------
+Converted from Tasword II with Ramsoft TAS2TXT

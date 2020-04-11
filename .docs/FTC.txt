@@ -1,0 +1,1612 @@
+C000  2165CB         LD   HL,LCB65
+C003  C3B8C7         JP   LC7B8
+C006  F3             DI   
+C007  2164CB         LD   HL,LCB64
+C00A  35             DEC  (HL)
+C00B  C2C7C0         JP   NZ,LC0C7
+C00E  3606           LD   (HL),#06
+C010  3E02           LD   A,#02
+C012  08             EX   AF,AF'
+C013  CD1AC1         CALL LC11A
+C016  79             LD   A,C
+C017  B7             OR   A
+C018  2033           JR   NZ,LC04D
+C01A  3E00           LD   A,#00
+C01C  F5             PUSH AF
+C01D  3E2F           LD   A,#2F
+C01F  CDCEC8         CALL LC8CE
+C022  5E             LD   E,(HL)
+C023  23             INC  HL
+C024  56             LD   D,(HL)
+C025  3A1EC3         LD   A,(LC31E)
+C028  CDCEC8         CALL LC8CE
+C02B  4E             LD   C,(HL)
+C02C  23             INC  HL
+C02D  46             LD   B,(HL)
+C02E  EB             EX   DE,HL
+C02F  F1             POP  AF
+C030  5F             LD   E,A
+C031  B7             OR   A
+C032  ED42           SBC  HL,BC
+C034  2228C3         LD   (LC328),HL
+C037  3EC2           LD   A,#C2
+C039  3802           JR   C,LC03D
+C03B  3ECA           LD   A,#CA
+C03D  3233C3   LC03D LD   (LC333),A
+C040  2600           LD   H,#00
+C042  6B             LD   L,E
+C043  3805           JR   C,LC04A
+C045  6C             LD   L,H
+C046  55             LD   D,L
+C047  B7             OR   A
+C048  ED52           SBC  HL,DE
+C04A  222BC3   LC04A LD   (LC32B),HL
+C04D  3E02     LC04D LD   A,#02
+C04F  08             EX   AF,AF'
+C050  CD50C3         CALL LC350
+C053  79             LD   A,C
+C054  B7             OR   A
+C055  2033           JR   NZ,LC08A
+C057  3E00           LD   A,#00
+C059  F5             PUSH AF
+C05A  3E37           LD   A,#37
+C05C  CDCEC8         CALL LC8CE
+C05F  5E             LD   E,(HL)
+C060  23             INC  HL
+C061  56             LD   D,(HL)
+C062  3A4FC5         LD   A,(LC54F)
+C065  CDCEC8         CALL LC8CE
+C068  4E             LD   C,(HL)
+C069  23             INC  HL
+C06A  46             LD   B,(HL)
+C06B  EB             EX   DE,HL
+C06C  F1             POP  AF
+C06D  5F             LD   E,A
+C06E  B7             OR   A
+C06F  ED42           SBC  HL,BC
+C071  2259C5         LD   (LC559),HL
+C074  3EC2           LD   A,#C2
+C076  3802           JR   C,LC07A
+C078  3ECA           LD   A,#CA
+C07A  3264C5   LC07A LD   (LC564),A
+C07D  2600           LD   H,#00
+C07F  6B             LD   L,E
+C080  3805           JR   C,LC087
+C082  6C             LD   L,H
+C083  55             LD   D,L
+C084  B7             OR   A
+C085  ED52           SBC  HL,DE
+C087  225CC5   LC087 LD   (LC55C),HL
+C08A  3E02     LC08A LD   A,#02
+C08C  08             EX   AF,AF'
+C08D  CD84C5         CALL LC584
+C090  79             LD   A,C
+C091  B7             OR   A
+C092  2033           JR   NZ,LC0C7
+C094  3E00           LD   A,#00
+C096  F5             PUSH AF
+C097  3E28           LD   A,#28
+C099  CDCEC8         CALL LC8CE
+C09C  5E             LD   E,(HL)
+C09D  23             INC  HL
+C09E  56             LD   D,(HL)
+C09F  3A83C7         LD   A,(LC783)
+C0A2  CDCEC8         CALL LC8CE
+C0A5  4E             LD   C,(HL)
+C0A6  23             INC  HL
+C0A7  46             LD   B,(HL)
+C0A8  EB             EX   DE,HL
+C0A9  F1             POP  AF
+C0AA  5F             LD   E,A
+C0AB  B7             OR   A
+C0AC  ED42           SBC  HL,BC
+C0AE  228DC7         LD   (LC78D),HL
+C0B1  3EC2           LD   A,#C2
+C0B3  3802           JR   C,LC0B7
+C0B5  3ECA           LD   A,#CA
+C0B7  3298C7   LC0B7 LD   (LC798),A
+C0BA  2600           LD   H,#00
+C0BC  6B             LD   L,E
+C0BD  3805           JR   C,LC0C4
+C0BF  6C             LD   L,H
+C0C0  55             LD   D,L
+C0C1  B7             OR   A
+C0C2  ED52           SBC  HL,DE
+C0C4  2290C7   LC0C4 LD   (LC790),HL
+C0C7  CD31C2   LC0C7 CALL LC231
+C0CA  CD62C4         CALL LC462
+C0CD  CD96C6         CALL LC696
+C0D0  DD*            NOP     
+C0D1  7D             LD   A,L
+C0D2  325ACB         LD   (LCB5A),A
+C0D5  AF             XOR  A
+C0D6  C3C3CA         JP   LCAC3
+C0D9  213FCC   LC0D9 LD   HL,LCC3F
+C0DC  7E             LD   A,(HL)
+C0DD  23             INC  HL
+C0DE  4E             LD   C,(HL)
+C0DF  87             ADD  A,A
+C0E0  3007           JR   NC,LC0E9
+C0E2  213BCC         LD   HL,LCC3B
+C0E5  CDB864         CALL #64B8
+C0E8  87             ADD  A,A
+C0E9  23       LC0E9 INC  HL
+C0EA  22DAC0         LD   (LC0DA),HL
+C0ED  6F             LD   L,A
+C0EE  2600           LD   H,#00
+C0F0  87             ADD  A,A
+C0F1  85             ADD  A,L
+C0F2  6F             LD   L,A
+C0F3  3001           JR   NC,LC0F6
+C0F5  24             INC  H
+C0F6  1162CC   LC0F6 LD   DE,LCC62
+C0F9  19             ADD  HL,DE
+C0FA  79             LD   A,C
+C0FB  32FBC1         LD   (LC1FB),A
+C0FE  322CC4         LD   (LC42C),A
+C101  3260C6         LD   (LC660),A
+C104  ED7317C1       LD   (LC117),SP
+C108  F9             LD   SP,HL
+C109  E1             POP  HL
+C10A  2221C1         LD   (LC121),HL
+C10D  EB             EX   DE,HL
+C10E  E1             POP  HL
+C10F  2257C3         LD   (LC357),HL
+C112  E1             POP  HL
+C113  228BC5         LD   (LC58B),HL
+C116  31E15F         LD   SP,#5FE1
+C119  C9             RET  
+C11A  2161CB   LC11A LD   HL,LCB61
+C11D  35             DEC  (HL)
+C11E  F0             RET  P
+C11F  34             INC  (HL)
+C120  117FCF         LD   DE,#CF7F
+C123  1A             LD   A,(DE)
+C124  3C             INC  A
+C125  CCD9C0         CALL Z,LC0D9
+C128  CD9FC1         CALL LC19F
+C12B  ED5321C1       LD   (LC121),DE
+C12F  C9             RET  
+C130  3261CB   LC130 LD   (LCB61),A
+C133  0E01           LD   C,#01
+C135  C9             RET  
+C136  21F7CB   LC136 LD   HL,LCBF7
+C139  CDB8C8         CALL LC8B8
+C13C  23             INC  HL
+C13D  7E             LD   A,(HL)
+C13E  23             INC  HL
+C13F  323CC2         LD   (LC23C),A
+C142  AF             XOR  A
+C143  46             LD   B,(HL)
+C144  04             INC  B
+C145  23             INC  HL
+C146  4F             LD   C,A
+C147  ED4335C2       LD   (LC235),BC
+C14B  2232C2         LD   (LC232),HL
+C14E  325DC2         LD   (LC25D),A
+C151  3250C2         LD   (LC250),A
+C154  1849           JR   LC19F
+C156  21B7CB   LC156 LD   HL,LCBB7
+C159  CDB8C8         CALL LC8B8
+C15C  23             INC  HL
+C15D  7E             LD   A,(HL)
+C15E  23             INC  HL
+C15F  3278C2         LD   (LC278),A
+C162  7E             LD   A,(HL)
+C163  3C             INC  A
+C164  23             INC  HL
+C165  3272C2         LD   (LC272),A
+C168  226EC2         LD   (LC26E),HL
+C16B  1832           JR   LC19F
+C16D  2827     LC16D JR   Z,LC196
+C16F  FE0F           CP   #0F
+C171  281C           JR   Z,LC18F
+C173  3260CB         LD   (LCB60),A
+C176  3E37           LD   A,#37
+C178  3208C3         LD   (LC308),A
+C17B  1A             LD   A,(DE)
+C17C  13             INC  DE
+C17D  6F             LD   L,A
+C17E  1A             LD   A,(DE)
+C17F  67             LD   H,A
+C180  22FFC2         LD   (LC2FF),HL
+C183  F6FF           OR   #FF
+C185  32CDCA         LD   (LCACD),A
+C188  6F             LD   L,A
+C189  67             LD   H,A
+C18A  22DECA         LD   (LCADE),HL
+C18D  180F           JR   LC19E
+C18F  3EB7     LC18F LD   A,#B7
+C191  3208C3         LD   (LC308),A
+C194  1809           JR   LC19F
+C196  3EB7     LC196 LD   A,#B7
+C198  3269C2         LD   (LC269),A
+C19B  C304C2         JP   LC204
+C19E  13       LC19E INC  DE
+C19F  1A       LC19F LD   A,(DE)
+C1A0  13             INC  DE
+C1A1  C613           ADD  A,#13
+C1A3  C621           ADD  A,#21
+C1A5  388F           JR   C,LC136
+C1A7  C66C           ADD  A,#6C
+C1A9  3847           JR   C,LC1F2
+C1AB  C620           ADD  A,#20
+C1AD  3881           JR   C,LC130
+C1AF  C610           ADD  A,#10
+C1B1  38BA           JR   C,LC16D
+C1B3  C610           ADD  A,#10
+C1B5  3832           JR   C,LC1E9
+C1B7  C620           ADD  A,#20
+C1B9  389B           JR   C,LC156
+C1BB  C613           ADD  A,#13
+C1BD  2817           JR   Z,LC1D6
+C1BF  3D             DEC  A
+C1C0  280C           JR   Z,LC1CE
+C1C2  3D             DEC  A
+C1C3  281E           JR   Z,LC1E3
+C1C5  1A             LD   A,(DE)
+C1C6  3264CB         LD   (LCB64),A
+C1C9  320FC0         LD   (LC00F),A
+C1CC  18D0           JR   LC19E
+C1CE  1A       LC1CE LD   A,(DE)
+C1CF  321BC0         LD   (LC01B),A
+C1D2  AF             XOR  A
+C1D3  08             EX   AF,AF'
+C1D4  18C8           JR   LC19E
+C1D6  1A       LC1D6 LD   A,(DE)
+C1D7  6F             LD   L,A
+C1D8  13             INC  DE
+C1D9  1A             LD   A,(DE)
+C1DA  67             LD   H,A
+C1DB  222BC3         LD   (LC32B),HL
+C1DE  3E01           LD   A,#01
+C1E0  08             EX   AF,AF'
+C1E1  18BB           JR   LC19E
+C1E3  1A       LC1E3 LD   A,(DE)
+C1E4  329BC2         LD   (LC29B),A
+C1E7  18B5           JR   LC19E
+C1E9  CDC2C8   LC1E9 CALL LC8C2
+C1EC  2213C3         LD   (LC313),HL
+C1EF  C39FC1         JP   LC19F
+C1F2  F5       LC1F2 PUSH AF
+C1F3  3A1EC3         LD   A,(LC31E)
+C1F6  321EC0         LD   (LC01E),A
+C1F9  F1             POP  AF
+C1FA  C600           ADD  A,#00
+C1FC  321EC3         LD   (LC31E),A
+C1FF  3E37           LD   A,#37
+C201  3269C2         LD   (LC269),A
+C204  AF       LC204 XOR  A
+C205  3271C2         LD   (LC271),A
+C208  3289C2         LD   (LC289),A
+C20B  32BDC2         LD   (LC2BD),A
+C20E  325DC2         LD   (LC25D),A
+C211  3250C2         LD   (LC250),A
+C214  3235C2         LD   (LC235),A
+C217  67             LD   H,A
+C218  6F             LD   L,A
+C219  22A4C2         LD   (LC2A4),HL
+C21C  22EBC2         LD   (LC2EB),HL
+C21F  08             EX   AF,AF'
+C220  4F             LD   C,A
+C221  B7             OR   A
+C222  C8             RET  Z
+C223  2228C3         LD   (LC328),HL
+C226  3D             DEC  A
+C227  3EC3           LD   A,#C3
+C229  3233C3         LD   (LC333),A
+C22C  C8             RET  Z
+C22D  222BC3         LD   (LC32B),HL
+C230  C9             RET  
+C231  11E1DD   LC231 LD   DE,#DDE1
+C234  210303         LD   HL,#0303
+C237  7D             LD   A,L
+C238  BC             CP   H
+C239  2003           JR   NZ,LC23E
+C23B  2E00           LD   L,#00
+C23D  7D             LD   A,L
+C23E  2C       LC23E INC  L
+C23F  2235C2         LD   (LC235),HL
+C242  87             ADD  A,A
+C243  83             ADD  A,E
+C244  5F             LD   E,A
+C245  3001           JR   NC,LC248
+C247  14             INC  D
+C248  EB       LC248 EX   DE,HL
+C249  ED731BC3       LD   (LC31B),SP
+C24D  F9             LD   SP,HL
+C24E  C1             POP  BC
+C24F  3E00           LD   A,#00
+C251  80             ADD  A,B
+C252  CB71           BIT  6,C
+C254  2803           JR   Z,LC259
+C256  3250C2         LD   (LC250),A
+C259  3220C3   LC259 LD   (LC320),A
+C25C  3E00           LD   A,#00
+C25E  81             ADD  A,C
+C25F  CB79           BIT  7,C
+C261  2803           JR   Z,LC266
+C263  325DC2         LD   (LC25D),A
+C266  329DC2   LC266 LD   (LC29D),A
+C269  37       LC269 SCF  
+C26A  D24AC3         JP   NC,LC34A
+C26D  1150DC         LD   DE,#DC50
+C270  211E20         LD   HL,#201E
+C273  7D             LD   A,L
+C274  BC             CP   H
+C275  2003           JR   NZ,LC27A
+C277  2E10           LD   L,#10
+C279  7D             LD   A,L
+C27A  2C       LC27A INC  L
+C27B  2271C2         LD   (LC271),HL
+C27E  6F             LD   L,A
+C27F  4F             LD   C,A
+C280  2600           LD   H,#00
+C282  44             LD   B,H
+C283  29             ADD  HL,HL
+C284  29             ADD  HL,HL
+C285  09             ADD  HL,BC
+C286  19             ADD  HL,DE
+C287  F9             LD   SP,HL
+C288  3E00           LD   A,#00
+C28A  C1             POP  BC
+C28B  3B             DEC  SP
+C28C  81             ADD  A,C
+C28D  CB79           BIT  7,C
+C28F  2803           JR   Z,LC294
+C291  3289C2         LD   (LC289),A
+C294  CB71     LC294 BIT  6,C
+C296  1EFF           LD   E,#FF
+C298  2009           JR   NZ,LC2A3
+C29A  C600           ADD  A,#00
+C29C  C600           ADD  A,#00
+C29E  3259CB         LD   (LCB59),A
+C2A1  CB9B           RES  3,E
+C2A3  210000   LC2A3 LD   HL,#0000
+C2A6  C1             POP  BC
+C2A7  09             ADD  HL,BC
+C2A8  CB78           BIT  7,B
+C2AA  2803           JR   Z,LC2AF
+C2AC  22A4C2         LD   (LC2A4),HL
+C2AF  CB70     LC2AF BIT  6,B
+C2B1  2002           JR   NZ,LC2B5
+C2B3  CB83           RES  0,E
+C2B5  DD*      LC2B5 NOP     
+C2B6  6B             LD   L,E
+C2B7  2222C3         LD   (LC322),HL
+C2BA  C1             POP  BC
+C2BB  AF             XOR  A
+C2BC  1600           LD   D,#00
+C2BE  CB69           BIT  5,C
+C2C0  2819           JR   Z,LC2DB
+C2C2  3D             DEC  A
+C2C3  CB61           BIT  4,C
+C2C5  2002           JR   NZ,LC2C9
+C2C7  E601           AND  #01
+C2C9  82       LC2C9 ADD  A,D
+C2CA  F2D3C2         JP   P,LC2D3
+C2CD  FEF1           CP   #F1
+C2CF  CE00           ADC  A,#00
+C2D1  1804           JR   LC2D7
+C2D3  FE10     LC2D3 CP   #10
+C2D5  CEFF           ADC  A,#FF
+C2D7  32BDC2   LC2D7 LD   (LC2BD),A
+C2DA  57             LD   D,A
+C2DB  79       LC2DB LD   A,C
+C2DC  E60F           AND  #0F
+C2DE  82             ADD  A,D
+C2DF  F2E3C2         JP   P,LC2E3
+C2E2  AF             XOR  A
+C2E3  FE10     LC2E3 CP   #10
+C2E5  3802           JR   C,LC2E9
+C2E7  3E0F           LD   A,#0F
+C2E9  5F       LC2E9 LD   E,A
+C2EA  210000         LD   HL,#0000
+C2ED  51             LD   D,C
+C2EE  48             LD   C,B
+C2EF  CB00           RLC  B
+C2F1  9F             SBC  A,A
+C2F2  47             LD   B,A
+C2F3  09             ADD  HL,BC
+C2F4  CB7A           BIT  7,D
+C2F6  2803           JR   Z,LC2FB
+C2F8  22EBC2         LD   (LC2EB),HL
+C2FB  B7       LC2FB OR   A
+C2FC  4D             LD   C,L
+C2FD  44             LD   B,H
+C2FE  210000         LD   HL,#0000
+C301  ED42           SBC  HL,BC
+C303  AF             XOR  A
+C304  CB72           BIT  6,D
+C306  2808           JR   Z,LC310
+C308  B7       LC308 OR   A
+C309  3005           JR   NC,LC310
+C30B  225ECB         LD   (LCB5E),HL
+C30E  F610           OR   #10
+C310  1600     LC310 LD   D,#00
+C312  216FCA         LD   HL,LCA6F
+C315  19             ADD  HL,DE
+C316  B6             OR   (HL)
+C317  325BCB   LC317 LD   (LCB5B),A
+C31A  31E35F         LD   SP,#5FE3
+C31D  3E2F           LD   A,#2F
+C31F  C608           ADD  A,#08
+C321  11FE1F         LD   DE,#1FFE
+C324  CDA9C8         CALL LC8A9
+C327  210000         LD   HL,#0000
+C32A  010000         LD   BC,#0000
+C32D  09             ADD  HL,BC
+C32E  2228C3         LD   (LC328),HL
+C331  CB7C           BIT  7,H
+C333  C345C3   LC333 JP   LC345
+C336  19             ADD  HL,DE
+C337  ED5353CB       LD   (LCB53),DE
+C33B  210000         LD   HL,#0000
+C33E  2228C3         LD   (LC328),HL
+C341  222BC3         LD   (LC32B),HL
+C344  C9             RET  
+C345  19       LC345 ADD  HL,DE
+C346  2253CB         LD   (LCB53),HL
+C349  C9             RET  
+C34A  AF       LC34A XOR  A
+C34B  DD*            NOP       
+C34C  2EFF           LD   L,#FF
+C34E  18C7           JR   LC317
+C350  2162CB   LC350 LD   HL,LCB62
+C353  35             DEC  (HL)
+C354  F0             RET  P
+C355  34             INC  (HL)
+C356  1106CD         LD   DE,#CD06
+C359  CDD0C3         CALL LC3D0
+C35C  ED5357C3       LD   (LC357),DE
+C360  C9             RET  
+C361  3262CB   LC361 LD   (LCB62),A
+C364  0E01           LD   C,#01
+C366  C9             RET  
+C367  21F7CB   LC367 LD   HL,LCBF7
+C36A  CDB8C8         CALL LC8B8
+C36D  23             INC  HL
+C36E  7E             LD   A,(HL)
+C36F  23             INC  HL
+C370  326DC4         LD   (LC46D),A
+C373  AF             XOR  A
+C374  46             LD   B,(HL)
+C375  04             INC  B
+C376  23             INC  HL
+C377  4F             LD   C,A
+C378  ED4366C4       LD   (LC466),BC
+C37C  2263C4         LD   (LC463),HL
+C37F  328EC4         LD   (LC48E),A
+C382  3281C4         LD   (LC481),A
+C385  1849           JR   LC3D0
+C387  21B7CB   LC387 LD   HL,LCBB7
+C38A  CDB8C8         CALL LC8B8
+C38D  23             INC  HL
+C38E  7E             LD   A,(HL)
+C38F  23             INC  HL
+C390  32A9C4         LD   (LC4A9),A
+C393  7E             LD   A,(HL)
+C394  3C             INC  A
+C395  23             INC  HL
+C396  32A3C4         LD   (LC4A3),A
+C399  229FC4         LD   (LC49F),HL
+C39C  1832           JR   LC3D0
+C39E  2827     LC39E JR   Z,LC3C7
+C3A0  FE0F           CP   #0F
+C3A2  281C           JR   Z,LC3C0
+C3A4  3260CB         LD   (LCB60),A
+C3A7  3E37           LD   A,#37
+C3A9  3239C5         LD   (LC539),A
+C3AC  1A             LD   A,(DE)
+C3AD  13             INC  DE
+C3AE  6F             LD   L,A
+C3AF  1A             LD   A,(DE)
+C3B0  67             LD   H,A
+C3B1  2230C5         LD   (LC530),HL
+C3B4  F6FF           OR   #FF
+C3B6  32CDCA         LD   (LCACD),A
+C3B9  6F             LD   L,A
+C3BA  67             LD   H,A
+C3BB  22DECA         LD   (LCADE),HL
+C3BE  180F           JR   LC3CF
+C3C0  3EB7     LC3C0 LD   A,#B7
+C3C2  3239C5         LD   (LC539),A
+C3C5  1809           JR   LC3D0
+C3C7  3EB7     LC3C7 LD   A,#B7
+C3C9  329AC4         LD   (LC49A),A
+C3CC  C335C4         JP   LC435
+C3CF  13       LC3CF INC  DE
+C3D0  1A       LC3D0 LD   A,(DE)
+C3D1  13             INC  DE
+C3D2  C613           ADD  A,#13
+C3D4  C621           ADD  A,#21
+C3D6  388F           JR   C,LC367
+C3D8  C66C           ADD  A,#6C
+C3DA  3847           JR   C,LC423
+C3DC  C620           ADD  A,#20
+C3DE  3881           JR   C,LC361
+C3E0  C610           ADD  A,#10
+C3E2  38BA           JR   C,LC39E
+C3E4  C610           ADD  A,#10
+C3E6  3832           JR   C,LC41A
+C3E8  C620           ADD  A,#20
+C3EA  389B           JR   C,LC387
+C3EC  C613           ADD  A,#13
+C3EE  2817           JR   Z,LC407
+C3F0  3D             DEC  A
+C3F1  280C           JR   Z,LC3FF
+C3F3  3D             DEC  A
+C3F4  281E           JR   Z,LC414
+C3F6  1A             LD   A,(DE)
+C3F7  3264CB         LD   (LCB64),A
+C3FA  320FC0         LD   (LC00F),A
+C3FD  18D0           JR   LC3CF
+C3FF  1A       LC3FF LD   A,(DE)
+C400  3258C0         LD   (LC058),A
+C403  AF             XOR  A
+C404  08             EX   AF,AF'
+C405  18C8           JR   LC3CF
+C407  1A       LC407 LD   A,(DE)
+C408  6F             LD   L,A
+C409  13             INC  DE
+C40A  1A             LD   A,(DE)
+C40B  67             LD   H,A
+C40C  225CC5         LD   (LC55C),HL
+C40F  3E01           LD   A,#01
+C411  08             EX   AF,AF'
+C412  18BB           JR   LC3CF
+C414  1A       LC414 LD   A,(DE)
+C415  32CCC4         LD   (LC4CC),A
+C418  18B5           JR   LC3CF
+C41A  CDC2C8   LC41A CALL LC8C2
+C41D  2244C5         LD   (LC544),HL
+C420  C3D0C3         JP   LC3D0
+C423  F5       LC423 PUSH AF
+C424  3A4FC5         LD   A,(LC54F)
+C427  325BC0         LD   (LC05B),A
+C42A  F1             POP  AF
+C42B  C600           ADD  A,#00
+C42D  324FC5         LD   (LC54F),A
+C430  3E37           LD   A,#37
+C432  329AC4         LD   (LC49A),A
+C435  AF       LC435 XOR  A
+C436  32A2C4         LD   (LC4A2),A
+C439  32BAC4         LD   (LC4BA),A
+C43C  32EEC4         LD   (LC4EE),A
+C43F  328EC4         LD   (LC48E),A
+C442  3281C4         LD   (LC481),A
+C445  3266C4         LD   (LC466),A
+C448  67             LD   H,A
+C449  6F             LD   L,A
+C44A  22D5C4         LD   (LC4D5),HL
+C44D  221CC5         LD   (LC51C),HL
+C450  08             EX   AF,AF'
+C451  4F             LD   C,A
+C452  B7             OR   A
+C453  C8             RET  Z
+C454  2259C5         LD   (LC559),HL
+C457  3D             DEC  A
+C458  3EC3           LD   A,#C3
+C45A  3264C5         LD   (LC564),A
+C45D  C8             RET  Z
+C45E  225CC5         LD   (LC55C),HL
+C461  C9             RET  
+C462  1105DE   LC462 LD   DE,#DE05
+C465  210202         LD   HL,#0202
+C468  7D             LD   A,L
+C469  BC             CP   H
+C46A  2003           JR   NZ,LC46F
+C46C  2E01           LD   L,#01
+C46E  7D             LD   A,L
+C46F  2C       LC46F INC  L
+C470  2266C4         LD   (LC466),HL
+C473  87             ADD  A,A
+C474  83             ADD  A,E
+C475  5F             LD   E,A
+C476  3001           JR   NC,LC479
+C478  14             INC  D
+C479  EB       LC479 EX   DE,HL
+C47A  ED734CC5       LD   (LC54C),SP
+C47E  F9             LD   SP,HL
+C47F  C1             POP  BC
+C480  3E00           LD   A,#00
+C482  80             ADD  A,B
+C483  CB71           BIT  6,C
+C485  2803           JR   Z,LC48A
+C487  3281C4         LD   (LC481),A
+C48A  3251C5   LC48A LD   (LC551),A
+C48D  3E00           LD   A,#00
+C48F  81             ADD  A,C
+C490  CB79           BIT  7,C
+C492  2803           JR   Z,LC497
+C494  328EC4         LD   (LC48E),A
+C497  32CEC4   LC497 LD   (LC4CE),A
+C49A  37       LC49A SCF  
+C49B  D27BC5         JP   NC,LC57B
+C49E  1136DD         LD   DE,#DD36
+C4A1  21061F         LD   HL,#1F06
+C4A4  7D             LD   A,L
+C4A5  BC             CP   H
+C4A6  2003           JR   NZ,LC4AB
+C4A8  2E1E           LD   L,#1E
+C4AA  7D             LD   A,L
+C4AB  2C       LC4AB INC  L
+C4AC  22A2C4         LD   (LC4A2),HL
+C4AF  6F             LD   L,A
+C4B0  4F             LD   C,A
+C4B1  2600           LD   H,#00
+C4B3  44             LD   B,H
+C4B4  29             ADD  HL,HL
+C4B5  29             ADD  HL,HL
+C4B6  09             ADD  HL,BC
+C4B7  19             ADD  HL,DE
+C4B8  F9             LD   SP,HL
+C4B9  3E00           LD   A,#00
+C4BB  C1             POP  BC
+C4BC  3B             DEC  SP
+C4BD  81             ADD  A,C
+C4BE  CB79           BIT  7,C
+C4C0  2803           JR   Z,LC4C5
+C4C2  32BAC4         LD   (LC4BA),A
+C4C5  CB71     LC4C5 BIT  6,C
+C4C7  DD*            NOP     
+C4C8  5D             LD   E,L
+C4C9  2009           JR   NZ,LC4D4
+C4CB  C600           ADD  A,#00
+C4CD  C600           ADD  A,#00
+C4CF  3259CB         LD   (LCB59),A
+C4D2  CBA3           RES  4,E
+C4D4  210000   LC4D4 LD   HL,#0000
+C4D7  C1             POP  BC
+C4D8  09             ADD  HL,BC
+C4D9  CB78           BIT  7,B
+C4DB  2803           JR   Z,LC4E0
+C4DD  22D5C4         LD   (LC4D5),HL
+C4E0  CB70     LC4E0 BIT  6,B
+C4E2  2002           JR   NZ,LC4E6
+C4E4  CB8B           RES  1,E
+C4E6  DD*      LC4E6 NOP     
+C4E7  6B             LD   L,E
+C4E8  2253C5         LD   (LC553),HL
+C4EB  C1             POP  BC
+C4EC  AF             XOR  A
+C4ED  1600           LD   D,#00
+C4EF  CB69           BIT  5,C
+C4F1  2819           JR   Z,LC50C
+C4F3  3D             DEC  A
+C4F4  CB61           BIT  4,C
+C4F6  2002           JR   NZ,LC4FA
+C4F8  E601           AND  #01
+C4FA  82       LC4FA ADD  A,D
+C4FB  F204C5         JP   P,LC504
+C4FE  FEF1           CP   #F1
+C500  CE00           ADC  A,#00
+C502  1804           JR   LC508
+C504  FE10     LC504 CP   #10
+C506  CEFF           ADC  A,#FF
+C508  32EEC4   LC508 LD   (LC4EE),A
+C50B  57             LD   D,A
+C50C  79       LC50C LD   A,C
+C50D  E60F           AND  #0F
+C50F  82             ADD  A,D
+C510  F214C5         JP   P,LC514
+C513  AF             XOR  A
+C514  FE10     LC514 CP   #10
+C516  3802           JR   C,LC51A
+C518  3E0F           LD   A,#0F
+C51A  5F       LC51A LD   E,A
+C51B  210000         LD   HL,#0000
+C51E  51             LD   D,C
+C51F  48             LD   C,B
+C520  CB00           RLC  B
+C522  9F             SBC  A,A
+C523  47             LD   B,A
+C524  09             ADD  HL,BC
+C525  CB7A           BIT  7,D
+C527  2803           JR   Z,LC52C
+C529  221CC5         LD   (LC51C),HL
+C52C  B7       LC52C OR   A
+C52D  4D             LD   C,L
+C52E  44             LD   B,H
+C52F  210000         LD   HL,#0000
+C532  ED42           SBC  HL,BC
+C534  AF             XOR  A
+C535  CB72           BIT  6,D
+C537  2808           JR   Z,LC541
+C539  B7       LC539 OR   A
+C53A  3005           JR   NC,LC541
+C53C  225ECB         LD   (LCB5E),HL
+C53F  F610           OR   #10
+C541  1600     LC541 LD   D,#00
+C543  219FCA         LD   HL,LCA9F
+C546  19             ADD  HL,DE
+C547  B6             OR   (HL)
+C548  325CCB   LC548 LD   (LCB5C),A
+C54B  31E35F         LD   SP,#5FE3
+C54E  3E2F           LD   A,#2F
+C550  C600           ADD  A,#00
+C552  110000         LD   DE,#0000
+C555  CDA9C8         CALL LC8A9
+C558  210000         LD   HL,#0000
+C55B  010000         LD   BC,#0000
+C55E  09             ADD  HL,BC
+C55F  2259C5         LD   (LC559),HL
+C562  CB7C           BIT  7,H
+C564  C376C5   LC564 JP   LC576
+C567  19             ADD  HL,DE
+C568  ED5355CB       LD   (LCB55),DE
+C56C  210000         LD   HL,#0000
+C56F  2259C5         LD   (LC559),HL
+C572  225CC5         LD   (LC55C),HL
+C575  C9             RET  
+C576  19       LC576 ADD  HL,DE
+C577  2255CB         LD   (LCB55),HL
+C57A  C9             RET  
+C57B  DD*      LC57B NOP     
+C57C  7D             LD   A,L
+C57D  F612           OR   #12
+C57F  DD*            NOP     
+C580  6F             LD   L,A
+C581  AF             XOR  A
+C582  18C4           JR   LC548
+C584  2163CB   LC584 LD   HL,LCB63
+C587  35             DEC  (HL)
+C588  F0             RET  P
+C589  34             INC  (HL)
+C58A  1132CE         LD   DE,#CE32
+C58D  CD04C6         CALL LC604
+C590  ED538BC5       LD   (LC58B),DE
+C594  C9             RET  
+C595  3263CB   LC595 LD   (LCB63),A
+C598  0E01           LD   C,#01
+C59A  C9             RET  
+C59B  21F7CB   LC59B LD   HL,LCBF7
+C59E  CDB8C8         CALL LC8B8
+C5A1  23             INC  HL
+C5A2  7E             LD   A,(HL)
+C5A3  23             INC  HL
+C5A4  32A1C6         LD   (LC6A1),A
+C5A7  AF             XOR  A
+C5A8  46             LD   B,(HL)
+C5A9  04             INC  B
+C5AA  23             INC  HL
+C5AB  4F             LD   C,A
+C5AC  ED439AC6       LD   (LC69A),BC
+C5B0  2297C6         LD   (LC697),HL
+C5B3  32C2C6         LD   (LC6C2),A
+C5B6  32B5C6         LD   (LC6B5),A
+C5B9  1849           JR   LC604
+C5BB  21B7CB   LC5BB LD   HL,LCBB7
+C5BE  CDB8C8         CALL LC8B8
+C5C1  23             INC  HL
+C5C2  7E             LD   A,(HL)
+C5C3  23             INC  HL
+C5C4  32DDC6         LD   (LC6DD),A
+C5C7  7E             LD   A,(HL)
+C5C8  3C             INC  A
+C5C9  23             INC  HL
+C5CA  32D7C6         LD   (LC6D7),A
+C5CD  22D3C6         LD   (LC6D3),HL
+C5D0  1832           JR   LC604
+C5D2  2827     LC5D2 JR   Z,LC5FB
+C5D4  FE0F           CP   #0F
+C5D6  281C           JR   Z,LC5F4
+C5D8  3260CB         LD   (LCB60),A
+C5DB  3E37           LD   A,#37
+C5DD  326DC7         LD   (LC76D),A
+C5E0  1A             LD   A,(DE)
+C5E1  13             INC  DE
+C5E2  6F             LD   L,A
+C5E3  1A             LD   A,(DE)
+C5E4  67             LD   H,A
+C5E5  2264C7         LD   (LC764),HL
+C5E8  F6FF           OR   #FF
+C5EA  32CDCA         LD   (LCACD),A
+C5ED  6F             LD   L,A
+C5EE  67             LD   H,A
+C5EF  22DECA         LD   (LCADE),HL
+C5F2  180F           JR   LC603
+C5F4  3EB7     LC5F4 LD   A,#B7
+C5F6  326DC7         LD   (LC76D),A
+C5F9  1809           JR   LC604
+C5FB  3EB7     LC5FB LD   A,#B7
+C5FD  32CEC6         LD   (LC6CE),A
+C600  C369C6         JP   LC669
+C603  13       LC603 INC  DE
+C604  1A       LC604 LD   A,(DE)
+C605  13             INC  DE
+C606  C613           ADD  A,#13
+C608  C621           ADD  A,#21
+C60A  388F           JR   C,LC59B
+C60C  C66C           ADD  A,#6C
+C60E  3847           JR   C,LC657
+C610  C620           ADD  A,#20
+C612  3881           JR   C,LC595
+C614  C610           ADD  A,#10
+C616  38BA           JR   C,LC5D2
+C618  C610           ADD  A,#10
+C61A  3832           JR   C,LC64E
+C61C  C620           ADD  A,#20
+C61E  389B           JR   C,LC5BB
+C620  C613           ADD  A,#13
+C622  2817           JR   Z,LC63B
+C624  3D             DEC  A
+C625  280C           JR   Z,LC633
+C627  3D             DEC  A
+C628  281E           JR   Z,LC648
+C62A  1A             LD   A,(DE)
+C62B  3264CB         LD   (LCB64),A
+C62E  320FC0         LD   (LC00F),A
+C631  18D0           JR   LC603
+C633  1A       LC633 LD   A,(DE)
+C634  3295C0         LD   (LC095),A
+C637  AF             XOR  A
+C638  08             EX   AF,AF'
+C639  18C8           JR   LC603
+C63B  1A       LC63B LD   A,(DE)
+C63C  6F             LD   L,A
+C63D  13             INC  DE
+C63E  1A             LD   A,(DE)
+C63F  67             LD   H,A
+C640  2290C7         LD   (LC790),HL
+C643  3E01           LD   A,#01
+C645  08             EX   AF,AF'
+C646  18BB           JR   LC603
+C648  1A       LC648 LD   A,(DE)
+C649  3200C7         LD   (LC700),A
+C64C  18B5           JR   LC603
+C64E  CDC2C8   LC64E CALL LC8C2
+C651  2278C7         LD   (LC778),HL
+C654  C304C6         JP   LC604
+C657  F5       LC657 PUSH AF
+C658  3A83C7         LD   A,(LC783)
+C65B  3298C0         LD   (LC098),A
+C65E  F1             POP  AF
+C65F  C600           ADD  A,#00
+C661  3283C7         LD   (LC783),A
+C664  3E37           LD   A,#37
+C666  32CEC6         LD   (LC6CE),A
+C669  AF       LC669 XOR  A
+C66A  32D6C6         LD   (LC6D6),A
+C66D  32EEC6         LD   (LC6EE),A
+C670  3222C7         LD   (LC722),A
+C673  32C2C6         LD   (LC6C2),A
+C676  32B5C6         LD   (LC6B5),A
+C679  329AC6         LD   (LC69A),A
+C67C  67             LD   H,A
+C67D  6F             LD   L,A
+C67E  2209C7         LD   (LC709),HL
+C681  2250C7         LD   (LC750),HL
+C684  08             EX   AF,AF'
+C685  4F             LD   C,A
+C686  B7             OR   A
+C687  C8             RET  Z
+C688  228DC7         LD   (LC78D),HL
+C68B  3D             DEC  A
+C68C  3EC3           LD   A,#C3
+C68E  3298C7         LD   (LC798),A
+C691  C8             RET  Z
+C692  2290C7         LD   (LC790),HL
+C695  C9             RET  
+C696  11DCDD   LC696 LD   DE,#DDDC
+C699  210101         LD   HL,#0101
+C69C  7D             LD   A,L
+C69D  BC             CP   H
+C69E  2003           JR   NZ,LC6A3
+C6A0  2E00           LD   L,#00
+C6A2  7D             LD   A,L
+C6A3  2C       LC6A3 INC  L
+C6A4  229AC6         LD   (LC69A),HL
+C6A7  87             ADD  A,A
+C6A8  83             ADD  A,E
+C6A9  5F             LD   E,A
+C6AA  3001           JR   NC,LC6AD
+C6AC  14             INC  D
+C6AD  EB       LC6AD EX   DE,HL
+C6AE  ED7380C7       LD   (LC780),SP
+C6B2  F9             LD   SP,HL
+C6B3  C1             POP  BC
+C6B4  3E00           LD   A,#00
+C6B6  80             ADD  A,B
+C6B7  CB71           BIT  6,C
+C6B9  2803           JR   Z,LC6BE
+C6BB  32B5C6         LD   (LC6B5),A
+C6BE  3285C7   LC6BE LD   (LC785),A
+C6C1  3E00           LD   A,#00
+C6C3  81             ADD  A,C
+C6C4  CB79           BIT  7,C
+C6C6  2803           JR   Z,LC6CB
+C6C8  32C2C6         LD   (LC6C2),A
+C6CB  3202C7   LC6CB LD   (LC702),A
+C6CE  37       LC6CE SCF  
+C6CF  D2AFC7         JP   NC,LC7AF
+C6D2  11F3DC         LD   DE,#DCF3
+C6D5  210101         LD   HL,#0101
+C6D8  7D             LD   A,L
+C6D9  BC             CP   H
+C6DA  2003           JR   NZ,LC6DF
+C6DC  2E00           LD   L,#00
+C6DE  7D             LD   A,L
+C6DF  2C       LC6DF INC  L
+C6E0  22D6C6         LD   (LC6D6),HL
+C6E3  6F             LD   L,A
+C6E4  4F             LD   C,A
+C6E5  2600           LD   H,#00
+C6E7  44             LD   B,H
+C6E8  29             ADD  HL,HL
+C6E9  29             ADD  HL,HL
+C6EA  09             ADD  HL,BC
+C6EB  19             ADD  HL,DE
+C6EC  F9             LD   SP,HL
+C6ED  3E00           LD   A,#00
+C6EF  C1             POP  BC
+C6F0  3B             DEC  SP
+C6F1  81             ADD  A,C
+C6F2  CB79           BIT  7,C
+C6F4  2803           JR   Z,LC6F9
+C6F6  32EEC6         LD   (LC6EE),A
+C6F9  CB71     LC6F9 BIT  6,C
+C6FB  DD*            NOP     
+C6FC  5D             LD   E,L
+C6FD  2009           JR   NZ,LC708
+C6FF  C600           ADD  A,#00
+C701  C600           ADD  A,#00
+C703  3259CB         LD   (LCB59),A
+C706  CBAB           RES  5,E
+C708  210000   LC708 LD   HL,#0000
+C70B  C1             POP  BC
+C70C  09             ADD  HL,BC
+C70D  CB78           BIT  7,B
+C70F  2803           JR   Z,LC714
+C711  2209C7         LD   (LC709),HL
+C714  CB70     LC714 BIT  6,B
+C716  2002           JR   NZ,LC71A
+C718  CB93           RES  2,E
+C71A  DD*      LC71A NOP     
+C71B  6B             LD   L,E
+C71C  2287C7         LD   (LC787),HL
+C71F  C1             POP  BC
+C720  AF             XOR  A
+C721  1600           LD   D,#00
+C723  CB69           BIT  5,C
+C725  2819           JR   Z,LC740
+C727  3D             DEC  A
+C728  CB61           BIT  4,C
+C72A  2002           JR   NZ,LC72E
+C72C  E601           AND  #01
+C72E  82       LC72E ADD  A,D
+C72F  F238C7         JP   P,LC738
+C732  FEF1           CP   #F1
+C734  CE00           ADC  A,#00
+C736  1804           JR   LC73C
+C738  FE10     LC738 CP   #10
+C73A  CEFF           ADC  A,#FF
+C73C  3222C7   LC73C LD   (LC722),A
+C73F  57             LD   D,A
+C740  79       LC740 LD   A,C
+C741  E60F           AND  #0F
+C743  82             ADD  A,D
+C744  F248C7         JP   P,LC748
+C747  AF             XOR  A
+C748  FE10     LC748 CP   #10
+C74A  3802           JR   C,LC74E
+C74C  3E0F           LD   A,#0F
+C74E  5F       LC74E LD   E,A
+C74F  210000         LD   HL,#0000
+C752  51             LD   D,C
+C753  48             LD   C,B
+C754  CB00           RLC  B
+C756  9F             SBC  A,A
+C757  47             LD   B,A
+C758  09             ADD  HL,BC
+C759  CB7A           BIT  7,D
+C75B  2803           JR   Z,LC760
+C75D  2250C7         LD   (LC750),HL
+C760  B7       LC760 OR   A
+C761  4D             LD   C,L
+C762  44             LD   B,H
+C763  213C00         LD   HL,#003C
+C766  ED42           SBC  HL,BC
+C768  AF             XOR  A
+C769  CB72           BIT  6,D
+C76B  2808           JR   Z,LC775
+C76D  37       LC76D SCF  
+C76E  3005           JR   NC,LC775
+C770  225ECB         LD   (LCB5E),HL
+C773  F610           OR   #10
+C775  1600     LC775 LD   D,#00
+C777  219FCA         LD   HL,LCA9F
+C77A  19             ADD  HL,DE
+C77B  B6             OR   (HL)
+C77C  325DCB   LC77C LD   (LCB5D),A
+C77F  31E35F         LD   SP,#5FE3
+C782  3E24           LD   A,#24
+C784  C600           ADD  A,#00
+C786  110040         LD   DE,#4000
+C789  CDA9C8         CALL LC8A9
+C78C  210000         LD   HL,#0000
+C78F  010000         LD   BC,#0000
+C792  09             ADD  HL,BC
+C793  228DC7         LD   (LC78D),HL
+C796  CB7C           BIT  7,H
+C798  C3AAC7   LC798 JP   LC7AA
+C79B  19             ADD  HL,DE
+C79C  ED5357CB       LD   (LCB57),DE
+C7A0  210000         LD   HL,#0000
+C7A3  228DC7         LD   (LC78D),HL
+C7A6  2290C7         LD   (LC790),HL
+C7A9  C9             RET  
+C7AA  19       LC7AA ADD  HL,DE
+C7AB  2257CB         LD   (LCB57),HL
+C7AE  C9             RET  
+C7AF  DD*      LC7AF NOP     
+C7B0  7D             LD   A,L
+C7B1  F624           OR   #24
+C7B3  DD*            NOP     
+C7B4  6F             LD   L,A
+C7B5  AF             XOR  A
+C7B6  18C4           JR   LC77C
+C7B8  F3       LC7B8 DI   
+C7B9  E5             PUSH HL
+C7BA  014500         LD   BC,#0045
+C7BD  09             ADD  HL,BC
+C7BE  7E             LD   A,(HL)
+C7BF  23             INC  HL
+C7C0  320FC0         LD   (LC00F),A
+C7C3  3E01           LD   A,#01
+C7C5  3264CB         LD   (LCB64),A
+C7C8  7E             LD   A,(HL)
+C7C9  87             ADD  A,A
+C7CA  C1             POP  BC
+C7CB  21D400         LD   HL,#00D4
+C7CE  5F             LD   E,A
+C7CF  54             LD   D,H
+C7D0  09             ADD  HL,BC
+C7D1  22DAC0         LD   (LC0DA),HL
+C7D4  19             ADD  HL,DE
+C7D5  22E3C0         LD   (LC0E3),HL
+C7D8  215200         LD   HL,#0052
+C7DB  09             ADD  HL,BC
+C7DC  ED73A4C8       LD   (LC8A4),SP
+C7E0  E5             PUSH HL
+C7E1  2257C1         LD   (LC157),HL
+C7E4  2288C3         LD   (LC388),HL
+C7E7  22BCC5         LD   (LC5BC),HL
+C7EA  219200         LD   HL,#0092
+C7ED  09             ADD  HL,BC
+C7EE  2237C1         LD   (LC137),HL
+C7F1  2268C3         LD   (LC368),HL
+C7F4  229CC5         LD   (LC59C),HL
+C7F7  E1             POP  HL
+C7F8  F9             LD   SP,HL
+C7F9  23             INC  HL
+C7FA  7E             LD   A,(HL)
+C7FB  FE40           CP   #40
+C7FD  3009           JR   NC,LC808
+C7FF  3E41           LD   A,#41
+C801  E1       LC801 POP  HL
+C802  09             ADD  HL,BC
+C803  E5             PUSH HL
+C804  E1             POP  HL
+C805  3D             DEC  A
+C806  20F9           JR   NZ,LC801
+C808  214B00   LC808 LD   HL,#004B
+C80B  09             ADD  HL,BC
+C80C  F9             LD   SP,HL
+C80D  E1             POP  HL
+C80E  09             ADD  HL,BC
+C80F  22F7C0         LD   (LC0F7),HL
+C812  F9             LD   SP,HL
+C813  23             INC  HL
+C814  7E             LD   A,(HL)
+C815  FE40           CP   #40
+C817  300E           JR   NC,LC827
+C819  E1       LC819 POP  HL
+C81A  7C             LD   A,H
+C81B  3C             INC  A
+C81C  2004           JR   NZ,LC822
+C81E  7D             LD   A,L
+C81F  3C             INC  A
+C820  2805           JR   Z,LC827
+C822  09       LC822 ADD  HL,BC
+C823  E5             PUSH HL
+C824  E1             POP  HL
+C825  18F2           JR   LC819
+C827  215200   LC827 LD   HL,#0052
+C82A  09             ADD  HL,BC
+C82B  226EC2         LD   (LC26E),HL
+C82E  229FC4         LD   (LC49F),HL
+C831  22D3C6         LD   (LC6D3),HL
+C834  219200         LD   HL,#0092
+C837  09             ADD  HL,BC
+C838  F9             LD   SP,HL
+C839  E1             POP  HL
+C83A  2232C2         LD   (LC232),HL
+C83D  2263C4         LD   (LC463),HL
+C840  2297C6         LD   (LC697),HL
+C843  AF             XOR  A
+C844  329BC2         LD   (LC29B),A
+C847  32CCC4         LD   (LC4CC),A
+C84A  3200C7         LD   (LC700),A
+C84D  325DC2         LD   (LC25D),A
+C850  328EC4         LD   (LC48E),A
+C853  32C2C6         LD   (LC6C2),A
+C856  3250C2         LD   (LC250),A
+C859  3281C4         LD   (LC481),A
+C85C  32B5C6         LD   (LC6B5),A
+C85F  323CC2         LD   (LC23C),A
+C862  326DC4         LD   (LC46D),A
+C865  32A1C6         LD   (LC6A1),A
+C868  321BC0         LD   (LC01B),A
+C86B  3258C0         LD   (LC058),A
+C86E  3295C0         LD   (LC095),A
+C871  210001         LD   HL,#0100
+C874  2235C2         LD   (LC235),HL
+C877  2266C4         LD   (LC466),HL
+C87A  229AC6         LD   (LC69A),HL
+C87D  3EB7           LD   A,#B7
+C87F  3269C2         LD   (LC269),A
+C882  329AC4         LD   (LC49A),A
+C885  32CEC6         LD   (LC6CE),A
+C888  3208C3         LD   (LC308),A
+C88B  3239C5         LD   (LC539),A
+C88E  326DC7         LD   (LC76D),A
+C891  219FCA         LD   HL,LCA9F
+C894  2213C3         LD   (LC313),HL
+C897  2244C5         LD   (LC544),HL
+C89A  2278C7         LD   (LC778),HL
+C89D  21BACA         LD   HL,LCABA
+C8A0  2221C1         LD   (LC121),HL
+C8A3  31FB5F         LD   SP,#5FFB
+C8A6  C3AFCA         JP   LCAAF
+C8A9  87       LC8A9 ADD  A,A
+C8AA  C6D7           ADD  A,#D7
+C8AC  6F             LD   L,A
+C8AD  CEC8           ADC  A,#C8
+C8AF  95             SUB  L
+C8B0  67             LD   H,A
+C8B1  7E             LD   A,(HL)
+C8B2  23             INC  HL
+C8B3  66             LD   H,(HL)
+C8B4  6F             LD   L,A
+C8B5  19             ADD  HL,DE
+C8B6  EB             EX   DE,HL
+C8B7  C9             RET  
+C8B8  87       LC8B8 ADD  A,A
+C8B9  4F             LD   C,A
+C8BA  0600           LD   B,#00
+C8BC  09             ADD  HL,BC
+C8BD  7E             LD   A,(HL)
+C8BE  23             INC  HL
+C8BF  66             LD   H,(HL)
+C8C0  6F             LD   L,A
+C8C1  C9             RET  
+C8C2  87       LC8C2 ADD  A,A
+C8C3  87             ADD  A,A
+C8C4  87             ADD  A,A
+C8C5  87             ADD  A,A
+C8C6  C6AF           ADD  A,#AF
+C8C8  6F             LD   L,A
+C8C9  CEC9           ADC  A,#C9
+C8CB  95             SUB  L
+C8CC  67             LD   H,A
+C8CD  C9             RET  
+C8CE  87       LC8CE ADD  A,A
+C8CF  C6D7           ADD  A,#D7
+C8D1  6F             LD   L,A
+C8D2  CEC8           ADC  A,#C8
+C8D4  95             SUB  L
+C8D5  67             LD   H,A
+C8D6  C9             RET  
+C8D7  F80E10         DEFB #F8,#0E,#10
+C8DA  0E600D         DEFB #0E,"`",#0D
+C8DD  800CD8         DEFB #80,#0C,#D8
+C8E0  0B280B         DEFB #0B,"(",#0B
+C8E3  880AF0         DEFB #88,#0A,#F0
+C8E6  096009         DEFB #09,"`",#09
+C8E9  E00858         DEFB #E0,#08,"X"
+C8EC  08E007         DEFB #08,#E0,#07
+C8EF  7C0708         DEFB "|",#07,#08
+C8F2  07B006         DEFB #07,#B0,#06
+C8F5  4006EC         DEFB "@",#06,#EC
+C8F8  059405         DEFB #05,#94,#05
+C8FB  4405F8         DEFB "D",#05,#F8
+C8FE  04B004         DEFB #04,#B0,#04
+C901  70042C         DEFB "p",#04,","
+C904  04FD03         DEFB #04,#FD,#03
+C907  BE0384         DEFB #BE,#03,#84
+C90A  035803         DEFB #03,"X",#03
+C90D  2003F6         DEFB " ",#03,#F6
+C910  02CA02         DEFB #02,#CA,#02
+C913  A2027C         DEFB #A2,#02,"|"
+C916  025802         DEFB #02,"X",#02
+C919  380216         DEFB "8",#02,#16
+C91C  02F801         DEFB #02,#F8,#01
+C91F  DF01C2         DEFB #DF,#01,#C2
+C922  01AC01         DEFB #01,#AC,#01
+C925  90017B         DEFB #90,#01,"{"
+C928  016501         DEFB #01,"e",#01
+C92B  51013E         DEFB "Q",#01,">"
+C92E  012C01         DEFB #01,",",#01
+C931  1C010A         DEFB #1C,#01,#0A
+C934  01FC00         DEFB #01,#FC,#00
+C937  EF00E1         DEFB #EF,#00,#E1
+C93A  00D600         DEFB #00,#D6,#00
+C93D  C800BD         DEFB #C8,#00,#BD
+C940  00B200         DEFB #00,#B2,#00
+C943  A8009F         DEFB #A8,#00,#9F
+C946  009600         DEFB #00,#96,#00
+C949  8E0085         DEFB #8E,#00,#85
+C94C  007E00         DEFB #00,"~",#00
+C94F  770070         DEFB "w",#00,"p"
+C952  006B00         DEFB #00,"k",#00
+C955  64005E         DEFB "d",#00,"^"
+C958  005900         DEFB #00,"Y",#00
+C95B  54004F         DEFB "T",#00,"O"
+C95E  004B00         DEFB #00,"K",#00
+C961  470042         DEFB "G",#00,"B"
+C964  003F00         DEFB #00,"?",#00
+C967  3B0038         DEFB ";",#00,"8"
+C96A  003500         DEFB #00,"5",#00
+C96D  32002F         DEFB "2",#00,"/"
+C970  002C00         DEFB #00,",",#00
+C973  2A0027         DEFB "*",#00,"'"
+C976  002500         DEFB #00,"%",#00
+C979  230021         DEFB "#",#00,"!"
+C97C  001F00         DEFB #00,#1F,#00
+C97F  1D001C         DEFB #1D,#00,#1C
+C982  001A00         DEFB #00,#1A,#00
+C985  190017         DEFB #19,#00,#17
+C988  001600         DEFB #00,#16,#00
+C98B  150013         DEFB #15,#00,#13
+C98E  001200         DEFB #00,#12,#00
+C991  110010         DEFB #11,#00,#10
+C994  000F00         DEFB #00,#0F,#00
+C997  000000         DEFB #00,#00,#00
+C99A  000000         DEFB #00,#00,#00
+C99D  000000         DEFB #00,#00,#00
+C9A0  000000         DEFB #00,#00,#00
+C9A3  000000         DEFB #00,#00,#00
+C9A6  000000         DEFB #00,#00,#00
+C9A9  000000         DEFB #00,#00,#00
+C9AC  000000         DEFB #00,#00,#00
+C9AF  000000         DEFB #00,#00,#00
+C9B2  000000         DEFB #00,#00,#00
+C9B5  000000         DEFB #00,#00,#00
+C9B8  000000         DEFB #00,#00,#00
+C9BB  000000         DEFB #00,#00,#00
+C9BE  000000         DEFB #00,#00,#00
+C9C1  000000         DEFB #00,#00,#00
+C9C4  000000         DEFB #00,#00,#00
+C9C7  010101         DEFB #01,#01,#01
+C9CA  010101         DEFB #01,#01,#01
+C9CD  010100         DEFB #01,#01,#00
+C9D0  000000         DEFB #00,#00,#00
+C9D3  010101         DEFB #01,#01,#01
+C9D6  010101         DEFB #01,#01,#01
+C9D9  010102         DEFB #01,#01,#02
+C9DC  020202         DEFB #02,#02,#02
+C9DF  000000         DEFB #00,#00,#00
+C9E2  010101         DEFB #01,#01,#01
+C9E5  010102         DEFB #01,#01,#02
+C9E8  020202         DEFB #02,#02,#02
+C9EB  020303         DEFB #02,#03,#03
+C9EE  030000         DEFB #03,#00,#00
+C9F1  010101         DEFB #01,#01,#01
+C9F4  010202         DEFB #01,#02,#02
+C9F7  020203         DEFB #02,#02,#03
+C9FA  030303         DEFB #03,#03,#03
+C9FD  040400         DEFB #04,#04,#00
+CA00  000101         DEFB #00,#01,#01
+CA03  010202         DEFB #01,#02,#02
+CA06  020303         DEFB #02,#03,#03
+CA09  030404         DEFB #03,#04,#04
+CA0C  040505         DEFB #04,#05,#05
+CA0F  000001         DEFB #00,#00,#01
+CA12  010202         DEFB #01,#02,#02
+CA15  020303         DEFB #02,#03,#03
+CA18  040404         DEFB #04,#04,#04
+CA1B  050506         DEFB #05,#05,#06
+CA1E  060000         DEFB #06,#00,#00
+CA21  010102         DEFB #01,#01,#02
+CA24  020303         DEFB #02,#03,#03
+CA27  040405         DEFB #04,#04,#05
+CA2A  050606         DEFB #05,#06,#06
+CA2D  070700         DEFB #07,#07,#00
+CA30  010102         DEFB #01,#01,#02
+CA33  020303         DEFB #02,#03,#03
+CA36  040405         DEFB #04,#04,#05
+CA39  050606         DEFB #05,#06,#06
+CA3C  070708         DEFB #07,#07,#08
+CA3F  000101         DEFB #00,#01,#01
+CA42  020203         DEFB #02,#02,#03
+CA45  040405         DEFB #04,#04,#05
+CA48  050607         DEFB #05,#06,#07
+CA4B  070808         DEFB #07,#08,#08
+CA4E  090001         DEFB #09,#00,#01
+CA51  010203         DEFB #01,#02,#03
+CA54  030405         DEFB #03,#04,#05
+CA57  050607         DEFB #05,#06,#07
+CA5A  070809         DEFB #07,#08,#09
+CA5D  090A00         DEFB #09,#0A,#00
+CA60  010102         DEFB #01,#01,#02
+CA63  030404         DEFB #03,#04,#04
+CA66  050607         DEFB #05,#06,#07
+CA69  070809         DEFB #07,#08,#09
+CA6C  0A0A0B         DEFB #0A,#0A,#0B
+CA6F  000102   LCA6F DEFB #00,#01,#02
+CA72  020304         DEFB #02,#03,#04
+CA75  050606         DEFB #05,#06,#06
+CA78  070809         DEFB #07,#08,#09
+CA7B  0A0A0B         DEFB #0A,#0A,#0B
+CA7E  0C0001         DEFB #0C,#00,#01
+CA81  020303         DEFB #02,#03,#03
+CA84  040506         DEFB #04,#05,#06
+CA87  070809         DEFB #07,#08,#09
+CA8A  0A0A0B         DEFB #0A,#0A,#0B
+CA8D  0C0D00         DEFB #0C,#0D,#00
+CA90  010203         DEFB #01,#02,#03
+CA93  040506         DEFB #04,#05,#06
+CA96  070708         DEFB #07,#07,#08
+CA99  090A0B         DEFB #09,#0A,#0B
+CA9C  0C0D0E         DEFB #0C,#0D,#0E
+CA9F  000102   LCA9F DEFB #00,#01,#02
+CAA2  030405         DEFB #03,#04,#05
+CAA5  060708         DEFB #06,#07,#08
+CAA8  090A0B         DEFB #09,#0A,#0B
+CAAB  0C0D0E         DEFB #0C,#0D,#0E
+CAAE  0F             RRCA 
+CAAF  010011   LCAAF LD   BC,#1100
+CAB2  2153CB         LD   HL,LCB53
+CAB5  71       LCAB5 LD   (HL),C
+CAB6  23             INC  HL
+CAB7  10FC           DJNZ LCAB5
+CAB9  F6FF           OR   #FF
+CABB  32CDCA         LD   (LCACD),A
+CABE  6F             LD   L,A
+CABF  67             LD   H,A
+CAC0  22DECA         LD   (LCADE),HL
+CAC3  2160CB   LCAC3 LD   HL,LCB60
+CAC6  0EFD           LD   C,#FD
+CAC8  11BFFF         LD   DE,#FFBF
+CACB  7E             LD   A,(HL)
+CACC  FE0E           CP   #0E
+CACE  280D           JR   Z,LCADD
+CAD0  32CDCA         LD   (LCACD),A
+CAD3  F5             PUSH AF
+CAD4  3E0D           LD   A,#0D
+CAD6  42             LD   B,D
+CAD7  ED79           OUT  (C),A
+CAD9  43             LD   B,E
+CADA  F1             POP  AF
+CADB  ED79           OUT  (C),A
+CADD  113C00   LCADD LD   DE,#003C
+CAE0  2A5ECB         LD   HL,(LCB5E)
+CAE3  B7             OR   A
+CAE4  ED52           SBC  HL,DE
+CAE6  11BFFF         LD   DE,#FFBF
+CAE9  2815           JR   Z,LCB00
+CAEB  2A5ECB         LD   HL,(LCB5E)
+CAEE  22DECA         LD   (LCADE),HL
+CAF1  3E0C           LD   A,#0C
+CAF3  42             LD   B,D
+CAF4  ED79           OUT  (C),A
+CAF6  43             LD   B,E
+CAF7  ED61           OUT  (C),H
+CAF9  3D             DEC  A
+CAFA  42             LD   B,D
+CAFB  ED79           OUT  (C),A
+CAFD  43             LD   B,E
+CAFE  ED69           OUT  (C),L
+CB00  215DCB   LCB00 LD   HL,LCB5D
+CB03  3E0A           LD   A,#0A
+CB05  42             LD   B,D
+CB06  ED79           OUT  (C),A
+CB08  43             LD   B,E
+CB09  EDAB           OUTD 
+CB0B  3D             DEC  A
+CB0C  42             LD   B,D
+CB0D  ED79           OUT  (C),A
+CB0F  43             LD   B,E
+CB10  EDAB           OUTD 
+CB12  3D             DEC  A
+CB13  42             LD   B,D
+CB14  ED79           OUT  (C),A
+CB16  43             LD   B,E
+CB17  EDAB           OUTD 
+CB19  3D             DEC  A
+CB1A  42             LD   B,D
+CB1B  ED79           OUT  (C),A
+CB1D  43             LD   B,E
+CB1E  EDAB           OUTD 
+CB20  3D             DEC  A
+CB21  42             LD   B,D
+CB22  ED79           OUT  (C),A
+CB24  43             LD   B,E
+CB25  EDAB           OUTD 
+CB27  3D             DEC  A
+CB28  42             LD   B,D
+CB29  ED79           OUT  (C),A
+CB2B  43             LD   B,E
+CB2C  EDAB           OUTD 
+CB2E  3D             DEC  A
+CB2F  42             LD   B,D
+CB30  ED79           OUT  (C),A
+CB32  43             LD   B,E
+CB33  EDAB           OUTD 
+CB35  3D             DEC  A
+CB36  42             LD   B,D
+CB37  ED79           OUT  (C),A
+CB39  43             LD   B,E
+CB3A  EDAB           OUTD 
+CB3C  3D             DEC  A
+CB3D  42             LD   B,D
+CB3E  ED79           OUT  (C),A
+CB40  43             LD   B,E
+CB41  EDAB           OUTD 
+CB43  3D             DEC  A
+CB44  42             LD   B,D
+CB45  ED79           OUT  (C),A
+CB47  43             LD   B,E
+CB48  EDAB           OUTD 
+CB4A  3D             DEC  A
+CB4B  42             LD   B,D
+CB4C  ED79           OUT  (C),A
+CB4E  43             LD   B,E
+CB4F  EDAB           OUTD 
+CB51  FB             EI   
+CB52  C9             RET  
+CB53  9D20     LCB53 DEFB #9D," "
+CB55  FC00     LCB55 DEFB #FC,#00
+CB57  DF41     LCB57 DEFB #DF,"A"
+CB59  00       LCB59 DEFB #00
+CB5A  FC       LCB5A DEFB #FC
+CB5B  0A       LCB5B DEFB #0A
+CB5C  0B       LCB5C DEFB #0B
+CB5D  10       LCB5D DEFB #10
+CB5E  3C00     LCB5E DEFB "<",#00
+CB60  0E       LCB60 DEFB #0E
+CB61  0B       LCB61 DEFB #0B
+CB62  00       LCB62 DEFB #00
+CB63  0B       LCB63 DEFB #0B
+CB64  01       LCB64 DEFB #01
+CB65  4D6F64   LCB65 DEFB "M","o","d"
+CB68  756C65         DEFB "u","l","e"
+CB6B  3A2020         DEFB ":"," "," "
+CB6E  202020         DEFB " "," "," "
+CB71  20204E         DEFB " "," ","N"
+CB74  4F5354         DEFB "O","S","T"
+CB77  414C47         DEFB "A","L","G"
+CB7A  592F54         DEFB "Y","/","T"
+CB7D  554E45         DEFB "U","N","E"
+CB80  204259         DEFB " ","B","Y"
+CB83  204A4F         DEFB " ","J","O"
+CB86  452F44         DEFB "E","/","D"
+CB89  522F41         DEFB "R","/","A"
+CB8C  55542E         DEFB "U","T","."
+CB8F  393620         DEFB "9","6"," "
+CB92  202020         DEFB " "," "," "
+CB95  20203B         DEFB " "," ",";"
+CB98  466173         DEFB "F","a","s"
+CB9B  742054         DEFB "t"," ","T"
+CB9E  726163         DEFB "r","a","c"
+CBA1  6B6572         DEFB "k","e","r"
+CBA4  207631         DEFB " ","v","1"
+CBA7  2E3030         DEFB ".","0","0"
+CBAA  060100         DEFB #06,#01,#00
+CBAD  000100         DEFB #00,#01,#00
+CBB0  FD00F5         DEFB #FD,#00,#F5
+CBB3  00F900         DEFB #00,#F9,#00
+CBB6  00             DEFB #00
+CBB7  D2D77A   LCBB7 DEFB #D2,#D7,"z"
+CBBA  D822D9         DEFB #D8,""",#D9
+CBBD  1ADA5E         DEFB #1A,#DA,"^"
+CBC0  DAD9DA         DEFB #DA,#D9,#DA
+CBC3  31DB89         DEFB "1",#DB,#89
+CBC6  DBAADB         DEFB #DB,#AA,#DB
+CBC9  4DDCF0         DEFB "M",#DC,#F0
+CBCC  DCF8DC         DEFB #DC,#F8,#DC
+CBCF  00DD08         DEFB #00,#DD,#08
+CBD2  DD33DD         DEFB #DD,"3",#DD
+CBD5  00DD00         DEFB #00,#DD,#00
+CBD8  DD00DD         DEFB #DD,#00,#DD
+CBDB  00DD00         DEFB #00,#DD,#00
+CBDE  DD00DD         DEFB #DD,#00,#DD
+CBE1  00DD00         DEFB #00,#DD,#00
+CBE4  DD00DD         DEFB #DD,#00,#DD
+CBE7  00DD00         DEFB #00,#DD,#00
+CBEA  DD00DD         DEFB #DD,#00,#DD
+CBED  00DD00         DEFB #00,#DD,#00
+CBF0  DD00DD         DEFB #DD,#00,#DD
+CBF3  00DDD1         DEFB #00,#DD,#D1
+CBF6  DD             DEFB #DD
+CBF7  D9DDDE   LCBF7 DEFB #D9,#DD,#DE
+CBFA  DDE7DD         DEFB #DD,#E7,#DD
+CBFD  F0DDF9         DEFB #F0,#DD,#F9
+CC00  DDF0DD         DEFB #DD,#F0,#DD
+CC03  02DE09         DEFB #02,#DE,#09
+CC06  DE14DE         DEFB #DE,#14,#DE
+CC09  1DDE24         DEFB #1D,#DE,"$"
+CC0C  DE2DDE         DEFB #DE,"-",#DE
+CC0F  36DE36         DEFB "6",#DE,"6"
+CC12  DE36DE         DEFB #DE,"6",#DE
+CC15  3BDE36         DEFB ";",#DE,"6"
+CC18  DE36DE         DEFB #DE,"6",#DE
+CC1B  36DE36         DEFB "6",#DE,"6"
+CC1E  DE36DE         DEFB #DE,"6",#DE
+CC21  36DE36         DEFB "6",#DE,"6"
+CC24  DE36DE         DEFB #DE,"6",#DE
+CC27  36DE36         DEFB "6",#DE,"6"
+CC2A  DE36DE         DEFB #DE,"6",#DE
+CC2D  36DE36         DEFB "6",#DE,"6"
+CC30  DE36DE         DEFB #DE,"6",#DE
+CC33  36DE36         DEFB "6",#DE,"6"
+CC36  DE36DE         DEFB #DE,"6",#DE
+CC39  0200           DEFB #02,#00
+CC3B  000004   LCC3B DEFB #00,#00,#04
+CC3E  00             DEFB #00
+CC3F  010008   LCC3F DEFB #01,#00,#08
+CC42  000300         DEFB #00,#03,#00
+CC45  060007         DEFB #06,#00,#07
+CC48  000A00         DEFB #00,#0A,#00
+CC4B  07000A         DEFB #07,#00,#0A
+CC4E  000B00         DEFB #00,#0B,#00
+CC51  0F0010         DEFB #0F,#00,#10
+CC54  000D00         DEFB #00,#0D,#00
+CC57  0E00FF         DEFB #0E,#00,#FF
+CC5A  FFFFFF         DEFB #FF,#FF,#FF
+CC5D  FFFFFF         DEFB #FF,#FF,#FF
+CC60  FFFF           DEFB #FF,#FF
+CC62  CACCD9   LCC62 DEFB #CA,#CC,#D9
+CC65  CC5CCD         DEFB #CC,"\",#CD
+CC68  72CDF1         DEFB "r",#CD,#F1
+CC6B  CD26CE         DEFB #CD,"&",#CE
+CC6E  3CCE3E         DEFB "<",#CE,">"
+CC71  CE3CCE         DEFB #CE,"<",#CE
+CC74  4ACED1         DEFB "J",#CE,#D1
+CC77  CE06CF         DEFB #CE,#06,#CF
+CC7A  77CFD9         DEFB "w",#CF,#D9
+CC7D  CC26CE         DEFB #CC,"&",#CE
+CC80  65CB65         DEFB "e",#CB,"e"
+CC83  CB65CB         DEFB #CB,"e",#CB
+CC86  8ACF11         DEFB #8A,#CF,#11
+CC89  D050D0         DEFB #D0,"P",#D0
+CC8C  C1D04A         DEFB #C1,#D0,"J"
+CC8F  D150D0         DEFB #D1,"P",#D0
+CC92  BDD13C         DEFB #BD,#D1,"<"
+CC95  D226CE         DEFB #D2,"&",#CE
+CC98  65CB65         DEFB "e",#CB,"e"
+CC9B  CB65CB         DEFB #CB,"e",#CB
+CC9E  63D2ED         DEFB "c",#D2,#ED
+CCA1  D250D0         DEFB #D2,"P",#D0
+CCA4  63D3E7         DEFB "c",#D3,#E7
+CCA7  D350D0         DEFB #D3,"P",#D0
+CCAA  65CB65         DEFB "e",#CB,"e"
+CCAD  CB65CB         DEFB #CB,"e",#CB
+CCB0  F5D36F         DEFB #F5,#D3,"o"
+CCB3  D4E4D4         DEFB #D4,#E4,#D4
+CCB6  59D5E3         DEFB "Y",#D5,#E3
+CCB9  D559D6         DEFB #D5,"Y",#D6
+CCBC  CAD6E7         DEFB #CA,#D6,#E7
+CCBF  D350D0         DEFB #D3,"P",#D0
+CCC2  53D763         DEFB "S",#D7,"c"
+CCC5  D7A1D7         DEFB #D7,#A1,#D7
+CCC8  FFFF2D         DEFB #FF,#FF,"-"
+CCCB  3FCD09         DEFB "?",#CD,#09
+CCCE  8F4E8F         DEFB #8F,"N",#8F
+CCD1  4ECE8F         DEFB "N",#CE,#8F
+CCD4  4ECD8F         DEFB "N",#CD,#8F
+CCD7  4EFF2F         DEFB "N",#FF,"/"
+CCDA  3FD20E         DEFB "?",#D2,#0E
+CCDD  972B8F         DEFB #97,"+",#8F
+CCE0  2F942B         DEFB "/",#94,"+"
+CCE3  972F8F         DEFB #97,"/",#8F
+CCE6  2B942F         DEFB "+",#94,"/"
+CCE9  962B8F         DEFB #96,"+",#8F
+CCEC  2F922B         DEFB "/",#92,"+"
+CCEF  962F8F         DEFB #96,"/",#8F
+CCF2  2B922F         DEFB "+",#92,"/"
+CCF5  992B8F         DEFB #99,"+",#8F
+CCF8  2F922B         DEFB "/",#92,"+"
+CCFB  992F97         DEFB #99,"/",#97
+CCFE  2B922F         DEFB "+",#92,"/"

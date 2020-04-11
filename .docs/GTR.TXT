@@ -1,0 +1,859 @@
+;---------------------------------------------------------------
+;               PLAYER OF GLOBAL TRACKER 1.0 SONGS
+;           CODING BY DOCTOR MAX / GLOBAL CORPORATION
+;                          12-08-1998
+;---------------------------------------------------------------
+
+;îéêåÄí åìáõäÄãúçéÉé åéÑìãü GLOBAL TRACKER 1.0
+;
+;0  DB 6           - SPEED
+;1  DB "GTR"       - IDENTIFICATOR
+;4  DB 0           - VERSION NUMBER IN DBC (#10)
+;5  DW 0           - SUB PARAMETER 4 DISP
+;7  DS 32          - SONG NAME
+;39 DS 15,DISP     - SMP 16BIT DISP
+;69 DS 16,DISP     - ORN 16BIT DISP
+;101DS 32,A,B,C    - CHN 16BIT DISP
+;293DB 1           - ORD LEN
+;294DB 0           - ORD LOOP
+;295DS N*(PTNNUM*6)- ORDER
+;...               - PTN
+;...               - SMP
+;...               - ORN
+
+;       #00 - #5F : NOTE
+;       #60 - #6F : INSTRUMENT 0..E
+;       #70 - #7F : ORNAMENT 0..F
+;       #80 - #BF : SKIP ON NEXT NOTE
+;       #C0 - #CF : ENVELOPE
+;       #D0 - #EF : EXIT
+;       #E0 - #EF : VOLUME 1-F; 0 - CHANNEL OFF
+;       #F0 - #FE : RESERVED
+;       #FF       : PATTERN END
+
+;---------------------------------------------------------------
+
+        ORG     #8000
+M_INIT  LD      HL,SONG
+        JP      SNGINIT
+M_PLAY  JP      PLAY
+        DEFB    "GLOBAL TRACKER v1.0 BY GLOBAL CORPORATION 1998"
+
+FRQTBL  DEFB    #F8,#0E,#10,#0E,#60,#0D,#80,#0C
+        DEFB    #D8,#0B,#28,#0B,#88,#0A,#F0,#09
+        DEFB    #60,#09,#E0,#08,#58,#08,#E0,#07
+        DEFB    #7C,#07,#08,#07,#B0,#06,#40,#06
+        DEFB    #EC,#05,#94,#05,#44,#05,#F8,#04
+        DEFB    #B0,#04,#70,#04,#2C,#04,#FD,#03
+        DEFB    #BE,#03,#84,#03,#58,#03,#20,#03
+        DEFB    #F6,#02,#CA,#02,#A2,#02,#7C,#02
+        DEFB    #58,#02,#38,#02,#16,#02,#F8,#01
+        DEFB    #DF,#01,#C2,#01,#AC,#01,#90,#01
+        DEFB    #7B,#01,#65,#01,#51,#01,#3E,#01
+        DEFB    #2C,#01,#1C,#01,#0A,#01,#FC,#00
+        DEFB    #EF,#00,#E1,#00,#D6,#00,#C8,#00
+        DEFB    #BD,#00,#B2,#00,#A8,#00,#9F,#00
+        DEFB    #96,#00,#8E,#00,#85,#00,#7E,#00
+        DEFB    #77,#00,#70,#00,#6B,#00,#64,#00
+        DEFB    #5E,#00,#59,#00,#54,#00,#4F,#00
+        DEFB    #4B,#00,#47,#00,#42,#00,#3F,#00
+        DEFB    #3B,#00,#38,#00,#35,#00,#32,#00
+        DEFB    #2F,#00,#2C,#00,#2A,#00,#27,#00
+        DEFB    #25,#00,#23,#00,#21,#00,#1F,#00
+        DEFB    #1D,#00,#1C,#00,#1A,#00,#19,#00
+        DEFB    #17,#00,#16,#00,#15,#00,#13,#00
+        DEFB    #12,#00,#11,#00,#10,#00,#0F,#00
+
+SNGSPD  DEFB    6
+A_CNT   DEFB    0
+B_CNT   DEFB    0
+C_CNT   DEFB    0
+
+EMPTSMP
+EMPTORN DEFB    0,0,0,0
+EMPTPTN DEFB    -1
+
+
+AY_0    DEFW    0
+AY_2    DEFW    0
+AY_4    DEFW    0
+AY_6    DEFB    0
+AY_7    DEFB    0
+AY_8    DEFB    0
+AY_9    DEFB    0
+AY_10   DEFB    0
+AY_11   DEFB    0
+AY_13   DEFB    0
+
+SNGINIT DI 
+        LD      A,(HL)
+        LD      (SNGSPD),A
+        LD      E,L
+        LD      D,H
+        LD      BC,5
+        ADD     HL,BC
+        LD      C,(HL)
+        LD      (HL),E
+        INC     HL
+        LD      B,(HL)
+        LD      (HL),D
+        PUSH    BC
+        LD      BC,39-6
+        ADD     HL,BC
+        LD      (SMPOFSA+1),HL
+        LD      (SMPOFSB+1),HL
+        LD      (SMPOFSC+1),HL
+        LD      BC,69-39
+        ADD     HL,BC
+        LD      (ORNOFSA+1),HL
+        LD      (ORNOFSB+1),HL
+        LD      (ORNOFSC+1),HL
+        LD      BC,101-69
+        ADD     HL,BC
+        LD      (PTNOFFS+1),HL
+        LD      BC,293-101
+        ADD     HL,BC
+        LD      A,(HL)
+        LD      (ORDLEN+1),A
+        INC     HL
+        LD      A,(HL)
+        LD      (ORDLOOP+1),A
+        INC     HL
+        LD      (ORDOFFS+1),HL
+        LD      A,-1
+        LD      (ORDPOS+1),A
+        POP     BC
+
+        LD      IX,(SMPOFSA+1)
+        LD      A,15
+        CALL    ADDDISP
+        LD      IX,(ORNOFSA+1)
+        LD      A,16
+        CALL    ADDDISP
+        LD      IX,(PTNOFFS+1)
+        LD      A,32*3
+        CALL    ADDDISP
+
+        LD      HL,EMPTSMP
+        LD      (smpadrA+1),HL
+        LD      (smpadrB+1),HL
+        LD      (smpadrC+1),HL
+
+        LD      (ornadrA+1),HL
+        LD      (ornadrB+1),HL
+        LD      (ornadrC+1),HL
+
+        LD      (SMPADRA+1),HL
+        LD      (SMPADRB+1),HL
+
+        LD      (ORNADRA+1),HL
+        LD      (ORNADRB+1),HL
+
+        LD      HL,EMPTPTN
+        LD      (CHNPOSA+1),HL
+
+        XOR     A
+        LD      (smpdisA+1),A
+        LD      (smpdisB+1),A
+        LD      (smpdisC+1),A
+
+        LD      (orndisA+1),A
+        LD      (orndisB+1),A
+        LD      (orndisC+1),A
+
+        LD      (smpbegA+1),A
+        LD      (smpbegB+1),A
+        LD      (smpbegC+1),A
+
+        LD      (ornbegA+1),A
+        LD      (ornbegB+1),A
+        LD      (ornbegC+1),A
+
+        LD      (SMPBEGA+1),A
+        LD      (SMPBEGB+1),A
+
+        LD      (ORNBEGA+1),A
+        LD      (ORNBEGB+1),A
+
+        LD      (A_CNT),A
+        LD      (B_CNT),A
+        LD      (C_CNT),A
+
+        LD      (off_A+1),A
+        LD      (off_B+1),A
+        LD      (off_C+1),A
+
+        LD      (OFF_A+1),A
+        LD      (OFF_B+1),A
+
+        INC     A
+        LD      (ornendA+1),A
+        LD      (ornendB+1),A
+        LD      (ornendC+1),A
+
+        LD      (ORNENDA+1),A
+        LD      (ORNENDB+1),A
+
+        LD      A,3
+        LD      (SNGspd+1),A
+
+        INC     A
+        LD      (smpendA+1),A
+        LD      (smpendB+1),A
+        LD      (smpendC+1),A
+
+        LD      (SMPENDA+1),A
+        LD      (SMPENDB+1),A
+
+        LD      HL,AY_0
+        LD      DE,AY_0+1
+        LD      BC,12
+        LD      (HL),B
+        LDIR 
+        LD      BC,#FFFD
+        LD      A,12
+        OUT     (C),A
+        LD      B,#BF
+        XOR     A
+        OUT     (C),A
+        JP      AY_OUT
+
+;ADDING DISP TO 16 BIT TABLE
+;A - TABLE SIZE
+ADDDISP LD      L,(IX)
+        LD      H,(IX+1)
+        OR      A
+        SBC     HL,BC
+        ADD     HL,DE
+        LD      (IX),L
+        LD      (IX+1),H
+        INC     IX
+        INC     IX
+        DEC     A
+        JR      NZ,ADDDISP
+        RET 
+
+
+;-----------------------------------------------PLAYING SONG----
+PLAY    LD      (PLAY_SP+1),SP
+        LD      IX,0
+        LD      DE,#8020
+        EXX 
+        LD      D,0
+        EXX 
+
+SNGspd  LD      A,3
+        DEC     A
+        LD      (SNGspd+1),A
+        JP      Z,CHN_C
+        DEC     A
+        JP      Z,CHN_B
+        DEC     A
+        JP      NZ,SMPplay
+
+CHN_A   LD      HL,A_CNT
+        DEC     (HL)
+        JP      P,SMPplay
+        LD      (HL),0
+CHNPOSA LD      HL,EMPTPTN
+        LD      A,(HL)
+        INC     A
+        JP      NZ,P_AJP
+
+ORDPOS  LD      A,-1
+        INC     A
+ORDLEN  CP      0
+        JR      NZ,$+4
+ORDLOOP LD      A,0
+        LD      (ORDPOS+1),A
+ORDOFFS LD      HL,0
+        LD      C,A
+        LD      B,0
+        ADD     HL,BC
+        LD      C,(HL)
+PTNOFFS LD      HL,0
+        ADD     HL,BC
+        LD      SP,HL
+        POP     HL
+        LD      (CHNPOSA+1),HL
+        POP     HL
+        LD      (CHNPOSB+1),HL
+        POP     HL
+        LD      (CHNPOSC+1),HL
+        JR      CHNPOSA
+
+P_AJP   LD      BC,#C010
+P_ALP   LD      A,(HL)
+        INC     HL
+        CP      B
+        JR      C,P_A0
+        ADD     A,E
+        JR      C,P_A1          ;VOL
+        ADD     A,C
+        JR      C,P_A2          ;EXIT
+        ADD     A,C
+        JR      P_A3            ;ENV
+P_A0    SUB     D
+        JR      NC,P_A4         ;SKIP
+        ADD     A,C
+        JR      C,P_A5          ;ORN
+        ADD     A,C
+        JR      C,P_A6          ;INST
+        ADD     A,#60           ;NOTE
+        LD      (NOTEA+1),A
+        LD      (CHNPOSA+1),HL
+        XOR     A
+        LD      (ORNDISA),A
+        LD      (SMPDISA),A
+        DEC     A
+        LD      (OFF_A+1),A
+        JP      SMPplay
+
+P_A1    JR      Z,P_A10         ;VOL
+        CPL 
+        AND     #0F
+        LD      (VOLUMEA+1),A
+        JP      P_ALP
+
+P_A10   LD      (OFF_A+1),A     ;CHN OFF
+        JP      P_ALP
+
+P_A2    LD      (CHNPOSA+1),HL  ;EXIT
+        JP      SMPplay
+
+P_A3    LD      (ENV13+1),A     ;ENV
+        LD      A,(HL)
+        INC     HL
+        LD      (ENV11+1),A
+        LD      A,C
+        LD      (ENVA+1),A
+        JP      P_ALP
+
+P_A4    LD      (A_CNT),A
+        JP      P_ALP
+
+P_A5    ADD     A,A             ;ORN
+        EXX 
+        LD      E,A
+ORNOFSA LD      HL,0
+        ADD     HL,DE
+        LD      SP,HL
+        POP     HL
+        LD      A,(HL)
+        INC     HL
+        LD      (ORNBEGA+1),A
+        LD      A,(HL)
+        INC     HL
+        LD      (ORNENDA+1),A
+        LD      (ORNADRA+1),HL
+        EXX 
+        XOR     A
+        LD      (ORNDISA),A
+        JP      P_ALP
+
+P_A6    ADD     A,A             ;SMP
+        EXX 
+        LD      E,A
+SMPOFSA LD      HL,0
+        ADD     HL,DE
+        LD      SP,HL
+        POP     HL
+        LD      A,(HL)
+        INC     HL
+        LD      (SMPBEGA+1),A
+        LD      A,(HL)
+        INC     HL
+        LD      (SMPENDA+1),A
+        LD      (SMPADRA+1),HL
+        EXX 
+        JP      P_ALP
+
+
+
+CHN_B   LD      HL,B_CNT
+        DEC     (HL)
+        JP      P,SMPplay
+        LD      (HL),0
+CHNPOSB LD      HL,EMPTPTN
+        LD      BC,#C010
+P_BLP   LD      A,(HL)
+        INC     HL
+        CP      B
+        JR      C,P_B0
+        ADD     A,E
+        JR      C,P_B1          ;VOL
+        ADD     A,C
+        JR      C,P_B2          ;EXIT
+        ADD     A,C
+        JR      P_B3            ;ENV
+P_B0    SUB     D
+        JR      NC,P_B4         ;SKIP
+        ADD     A,C
+        JR      C,P_B5          ;ORN
+        ADD     A,C
+        JR      C,P_B6          ;INST
+        ADD     A,#60           ;NOTE
+        LD      (NOTEB+1),A
+        LD      (CHNPOSB+1),HL
+        XOR     A
+        LD      (ORNDISB),A
+        LD      (SMPDISB),A
+        DEC     A
+        LD      (OFF_B+1),A
+        JP      SMPplay
+
+P_B1    JR      Z,P_B10         ;VOL
+        CPL 
+        AND     #0F
+        LD      (VOLUMEB+1),A
+        JP      P_BLP
+
+P_B10   LD      (OFF_B+1),A     ;CHN OFF
+        JP      P_BLP
+
+P_B2    LD      (CHNPOSB+1),HL  ;EXIT
+        JP      SMPplay
+
+P_B3    LD      (ENV13+1),A     ;ENV
+        LD      A,(HL)
+        INC     HL
+        LD      (ENV11+1),A
+        LD      A,C
+        LD      (ENVB+1),A
+        JP      P_BLP
+
+P_B4    LD      (B_CNT),A
+        JP      P_BLP
+
+P_B5    ADD     A,A             ;ORN
+        EXX 
+        LD      E,A
+ORNOFSB LD      HL,0
+        ADD     HL,DE
+        LD      SP,HL
+        POP     HL
+        LD      A,(HL)
+        INC     HL
+        LD      (ORNBEGB+1),A
+        LD      A,(HL)
+        INC     HL
+        LD      (ORNENDB+1),A
+        LD      (ORNADRB+1),HL
+        EXX 
+        XOR     A
+        LD      (ORNDISB),A
+        JP      P_BLP
+
+P_B6    ADD     A,A             ;SMP
+        EXX 
+        LD      E,A
+SMPOFSB LD      HL,0
+        ADD     HL,DE
+        LD      SP,HL
+        POP     HL
+        LD      A,(HL)
+        INC     HL
+        LD      (SMPBEGB+1),A
+        LD      A,(HL)
+        INC     HL
+        LD      (SMPENDB+1),A
+        LD      (SMPADRB+1),HL
+        EXX 
+        JP      P_BLP
+
+
+
+CHN_C   LD      HL,C_CNT
+        DEC     (HL)
+        JP      P,SMPPLAY
+        LD      (HL),0
+CHNPOSC LD      HL,EMPTPTN
+        LD      BC,#C010
+P_CLP   LD      A,(HL)
+        INC     HL
+        CP      B
+        JR      C,P_C0
+        ADD     A,E
+        JR      C,P_C1          ;VOL
+        ADD     A,C
+        JR      C,P_C2          ;EXIT
+        ADD     A,C
+        JR      P_C3            ;ENV
+P_C0    SUB     D
+        JR      NC,P_C4         ;SKIP
+        ADD     A,C
+        JR      C,P_C5          ;ORN
+        ADD     A,C
+        JR      C,P_C6          ;INST
+        ADD     A,#60           ;NOTE
+        LD      (noteC+1),A
+        LD      (CHNPOSC+1),HL
+        XOR     A
+        LD      (orndisC+1),A
+        LD      (smpdisC+1),A
+        DEC     A
+        LD      (off_C+1),A
+        JP      SMPPLAY
+
+P_C1    JR      Z,P_C10         ;VOL
+        CPL 
+        AND     #0F
+        LD      (volumeC+1),A
+        JP      P_CLP
+
+P_C10   LD      (off_C+1),A     ;CHN OFF
+        JP      P_CLP
+
+P_C2    LD      (CHNPOSC+1),HL  ;EXIT
+        JP      SMPPLAY
+
+P_C3    LD      (ENV13+1),A     ;ENV
+        LD      A,(HL)
+        INC     HL
+        LD      (ENV11+1),A
+        LD      A,C
+        LD      (envC+1),A
+        JP      P_CLP
+
+P_C4    LD      (C_CNT),A
+        JP      P_CLP
+
+P_C5    ADD     A,A             ;ORN
+        EXX 
+        LD      E,A
+ORNOFSC LD      HL,0
+        ADD     HL,DE
+        LD      SP,HL
+        POP     HL
+        LD      A,(HL)
+        INC     HL
+        LD      (ornbegC+1),A
+        LD      A,(HL)
+        INC     HL
+        LD      (ornendC+1),A
+        LD      (ornadrC+1),HL
+        EXX 
+        XOR     A
+        LD      (orndisC+1),A
+        JP      P_CLP
+
+P_C6    ADD     A,A             ;SMP
+        EXX 
+        LD      E,A
+SMPOFSC LD      HL,0
+        ADD     HL,DE
+        LD      SP,HL
+        POP     HL
+        LD      A,(HL)
+        INC     HL
+        LD      (smpbegC+1),A
+        LD      A,(HL)
+        INC     HL
+        LD      (smpendC+1),A
+        LD      (smpadrC+1),HL
+        EXX 
+        JP      P_CLP
+
+
+SMPPLAY
+        LD      A,(SNGSPD)
+        LD      (SNGspd+1),A
+
+NOTEA   LD      A,0
+        LD      (noteA+1),A
+SMPADRA LD      HL,EMPTSMP
+        LD      (smpadrA+1),HL
+ORNADRA LD      HL,EMPTORN
+        LD      (ornadrA+1),HL
+SMPBEGA LD      A,0
+        LD      (smpbegA+1),A
+SMPENDA LD      A,4
+        LD      (smpendA+1),A
+ORNBEGA LD      A,0
+        LD      (ornbegA+1),A
+ORNENDA LD      A,1
+        LD      (ornendA+1),A
+VOLUMEA LD      A,0
+        LD      (volumeA+1),A
+ENVA    LD      A,0
+        LD      (envA+1),A
+OFF_A   LD      A,0
+        LD      (off_A+1),A
+
+NOTEB   LD      A,0
+        LD      (noteB+1),A
+SMPADRB LD      HL,EMPTSMP
+        LD      (smpadrB+1),HL
+ORNADRB LD      HL,EMPTORN
+        LD      (ornadrB+1),HL
+SMPBEGB LD      A,0
+        LD      (smpbegB+1),A
+SMPENDB LD      A,4
+        LD      (smpendB+1),A
+ORNBEGB LD      A,0
+        LD      (ornbegB+1),A
+ORNENDB LD      A,1
+        LD      (ornendB+1),A
+VOLUMEB LD      A,0
+        LD      (volumeB+1),A
+ENVB    LD      A,0
+        LD      (envB+1),A
+OFF_B   LD      A,0
+        LD      (off_B+1),A
+
+ENV13   LD      A,0
+        LD      (AY_13),A
+ENV11   LD      A,0
+        LD      (AY_11),A
+
+        XOR     A
+ORNDISA NOP 
+        JR      NZ,$+5
+        LD      (orndisA+1),A
+        XOR     A
+SMPDISA NOP 
+        JR      NZ,$+5
+        LD      (smpdisA+1),A
+
+        XOR     A
+ORNDISB NOP 
+        JR      NZ,$+5
+        LD      (orndisB+1),A
+        XOR     A
+SMPDISB NOP 
+        JR      NZ,$+5
+        LD      (smpdisB+1),A
+
+
+        XOR     A
+        LD      (ENV13+1),A
+        LD      A,#3C           ;INC A
+        LD      (ORNDISA),A
+        LD      (SMPDISA),A
+        LD      (ORNDISB),A
+        LD      (SMPDISB),A
+
+
+SMPplay LD      D,0
+off_A   LD      A,0
+        OR      A
+        JR      NZ,ornadrA
+        LD      (AY_8),A
+        LD      HX,A
+        LD      LX,9
+        JR      off_B
+ornadrA LD      HL,0
+orndisA LD      E,0
+        ADD     HL,DE
+        LD      A,E
+        INC     A
+ornendA CP      1
+        JR      NZ,$+4
+ornbegA LD      A,0
+        LD      (orndisA+1),A
+noteA   LD      A,0
+        ADD     A,(HL)
+        ADD     A,A
+        LD      E,A
+        LD      HL,FRQTBL
+        ADD     HL,DE
+        LD      SP,HL
+        POP     BC
+smpadrA LD      HL,0
+smpdisA LD      E,0
+        ADD     HL,DE
+        LD      A,E
+        ADD     A,4
+smpendA CP      4
+        JR      NZ,$+4
+smpbegA LD      A,0
+        LD      (smpdisA+1),A
+        LD      SP,HL
+        POP     HL
+        LD      A,H
+        LD      HX,A
+        LD      A,L
+volumeA SUB     0
+        JR      NC,$+3
+        XOR     A
+        RL      H
+        JR      NC,$+4
+envA    OR      0
+        LD      (AY_8),A
+        XOR     A
+        RL      H
+        JR      NC,$+4
+        LD      A,8
+        RL      H
+        ADC     A,0
+        LD      LX,A
+        POP     HL
+        ADD     HL,BC
+        LD      (AY_0),HL
+
+off_B   LD      A,0
+        OR      A
+        JR      NZ,ornadrB
+        LD      (AY_9),A
+        LD      A,LX
+        OR      #12
+        LD      LX,A
+        JR      off_C
+ornadrB LD      HL,0
+orndisB LD      E,0
+        ADD     HL,DE
+        LD      A,E
+        INC     A
+ornendB CP      1
+        JR      NZ,$+4
+ornbegB LD      A,0
+        LD      (orndisB+1),A
+noteB   LD      A,0
+        ADD     A,(HL)
+        ADD     A,A
+        LD      E,A
+        LD      HL,FRQTBL
+        ADD     HL,DE
+        LD      SP,HL
+        POP     BC
+smpadrB LD      HL,0
+smpdisB LD      E,0
+        ADD     HL,DE
+        LD      A,E
+        ADD     A,4
+smpendB CP      4
+        JR      NZ,$+4
+smpbegB LD      A,0
+        LD      (smpdisB+1),A
+        LD      SP,HL
+        POP     HL
+        LD      A,HX
+        OR      H
+        LD      HX,A
+        LD      A,L
+volumeB SUB     0
+        JR      NC,$+3
+        XOR     A
+        RL      H
+        JR      NC,$+4
+envB    OR      0
+        LD      (AY_9),A
+        LD      A,LX
+        RL      H
+        JR      NC,$+4
+        OR      #10
+        RL      H
+        JR      NC,$+4
+        OR      2
+        LD      LX,A
+        POP     HL
+        ADD     HL,BC
+        LD      (AY_2),HL
+
+off_C   LD      A,0
+        OR      A
+        JR      NZ,ornadrC
+        LD      (AY_10),A
+        LD      A,LX
+        OR      #24
+        LD      LX,A
+        JR      SMPPLE
+ornadrC LD      HL,0
+orndisC LD      E,0
+        ADD     HL,DE
+        LD      A,E
+        INC     A
+ornendC CP      1
+        JR      NZ,$+4
+ornbegC LD      A,0
+        LD      (orndisC+1),A
+noteC   LD      A,0
+        ADD     A,(HL)
+        ADD     A,A
+        LD      E,A
+        LD      HL,FRQTBL
+        ADD     HL,DE
+        LD      SP,HL
+        POP     BC
+smpadrC LD      HL,0
+smpdisC LD      E,0
+        ADD     HL,DE
+        LD      A,E
+        ADD     A,4
+smpendC CP      4
+        JR      NZ,$+4
+smpbegC LD      A,0
+        LD      (smpdisC+1),A
+        LD      SP,HL
+        POP     HL
+        LD      A,HX
+        OR      H
+        LD      HX,A
+        LD      A,L
+volumeC SUB     0
+        JR      NC,$+3
+        XOR     A
+        RL      H
+        JR      NC,$+4
+envC    OR      0
+        LD      (AY_10),A
+        LD      A,LX
+        RL      H
+        JR      NC,$+4
+        OR      #20
+        RL      H
+        JR      NC,$+4
+        OR      4
+        LD      LX,A
+        POP     HL
+        ADD     HL,BC
+        LD      (AY_4),HL
+
+SMPPLE  LD      A,LX
+        LD      (AY_7),A
+        LD      A,HX
+        LD      (AY_6),A
+
+PLAY_SP LD      SP,0
+
+AY_OUT  LD      DE,#FFBF
+        LD      BC,#FFFD
+        LD      HL,AY_13
+        XOR     A
+        OR      (HL)
+        LD      A,13
+        JR      NZ,AYout0
+        LD      A,10
+        LD      HL,AY_10
+        JR      AYout1
+
+AYout0  OUT     (C),A
+        LD      B,E
+        OUTD 
+        LD      A,11
+        LD      B,D
+        OUT     (C),A
+        LD      B,E
+        OUTD 
+        DEC     A
+
+AYout1
+    DUP 10
+        LD      B,D
+        OUT     (C),A
+        LD      B,E
+        OUTD 
+        DEC     A
+    EDUP 
+        LD      B,D
+        OUT     (C),A
+        LD      B,E
+        OUTD 
+        LD      (AY_13),A
+        LD      HL,10072
+        EXX 
+        EI 
+        RET 
+
+SONG
+

@@ -1,0 +1,892 @@
+8000  21C686         LD   HL,L86C6
+8003  C36282         JP   L8262
+8006  CD0785         CALL L8507
+8009  C3CA83         JP   L83CA
+800C  C68656   L800C DEFB #C6,#86,"V"
+800F  977097         DEFB #97,"p",#97
+8012  3298C6         DEFB "2",#98,#C6
+8015  869498         DEFB #86,#94,#98
+8018  F69858         DEFB #F6,#98,"X"
+801B  99BA99         DEFB #99,#BA,#99
+801E  1C9A7E         DEFB #1C,#9A,"~"
+8021  9AE09A         DEFB #9A,#E0,#9A
+8024  429BC6         DEFB "B",#9B,#C6
+8027  86049C         DEFB #86,#04,#9C
+802A  C686           DEFB #C6,#86
+802C  789CB8   L802C DEFB "x",#9C,#B8
+802F  9CF89C         DEFB #9C,#F8,#9C
+8032  389D78         DEFB "8",#9D,"x"
+8035  9DB89D         DEFB #9D,#B8,#9D
+8038  F89D38         DEFB #F8,#9D,"8"
+803B  9E789E         DEFB #9E,"x",#9E
+803E  B89EF8         DEFB #B8,#9E,#F8
+8041  9E389F         DEFB #9E,"8",#9F
+8044  789FC6         DEFB "x",#9F,#C6
+8047  86C686         DEFB #86,#C6,#86
+804A  B89F           DEFB #B8,#9F
+804C  F80E10   L804C DEFB #F8,#0E,#10
+804F  0E600D         DEFB #0E,"`",#0D
+8052  800CD8         DEFB #80,#0C,#D8
+8055  0B280B         DEFB #0B,"(",#0B
+8058  880AF0         DEFB #88,#0A,#F0
+805B  096009         DEFB #09,"`",#09
+805E  E00858         DEFB #E0,#08,"X"
+8061  08E007         DEFB #08,#E0,#07
+8064  7C0708         DEFB "|",#07,#08
+8067  07B006         DEFB #07,#B0,#06
+806A  4006EC         DEFB "@",#06,#EC
+806D  059405         DEFB #05,#94,#05
+8070  4405F8         DEFB "D",#05,#F8
+8073  04B004         DEFB #04,#B0,#04
+8076  70042C         DEFB "p",#04,","
+8079  04FD03         DEFB #04,#FD,#03
+807C  BE0384         DEFB #BE,#03,#84
+807F  035803         DEFB #03,"X",#03
+8082  2003F6         DEFB " ",#03,#F6
+8085  02CA02         DEFB #02,#CA,#02
+8088  A2027C         DEFB #A2,#02,"|"
+808B  025802         DEFB #02,"X",#02
+808E  380216         DEFB "8",#02,#16
+8091  02F801         DEFB #02,#F8,#01
+8094  DF01C2         DEFB #DF,#01,#C2
+8097  01AC01         DEFB #01,#AC,#01
+809A  90017B         DEFB #90,#01,"{"
+809D  016501         DEFB #01,"e",#01
+80A0  51013E         DEFB "Q",#01,">"
+80A3  012C01         DEFB #01,",",#01
+80A6  1C010B         DEFB #1C,#01,#0B
+80A9  01FC00         DEFB #01,#FC,#00
+80AC  EF00E1         DEFB #EF,#00,#E1
+80AF  00D600         DEFB #00,#D6,#00
+80B2  C800BD         DEFB #C8,#00,#BD
+80B5  00B200         DEFB #00,#B2,#00
+80B8  A8009F         DEFB #A8,#00,#9F
+80BB  009600         DEFB #00,#96,#00
+80BE  8E0085         DEFB #8E,#00,#85
+80C1  007E00         DEFB #00,"~",#00
+80C4  770070         DEFB "w",#00,"p"
+80C7  006B00         DEFB #00,"k",#00
+80CA  64005E         DEFB "d",#00,"^"
+80CD  005900         DEFB #00,"Y",#00
+80D0  54004F         DEFB "T",#00,"O"
+80D3  004B00         DEFB #00,"K",#00
+80D6  470042         DEFB "G",#00,"B"
+80D9  003F00         DEFB #00,"?",#00
+80DC  3B0038         DEFB ";",#00,"8"
+80DF  003500         DEFB #00,"5",#00
+80E2  32002F         DEFB "2",#00,"/"
+80E5  002C00         DEFB #00,",",#00
+80E8  2A0027         DEFB "*",#00,"'"
+80EB  002500         DEFB #00,"%",#00
+80EE  230021         DEFB "#",#00,"!"
+80F1  001F00         DEFB #00,#1F,#00
+80F4  1D001C         DEFB #1D,#00,#1C
+80F7  001A00         DEFB #00,#1A,#00
+80FA  190017         DEFB #19,#00,#17
+80FD  001600         DEFB #00,#16,#00
+8100  150013         DEFB #15,#00,#13
+8103  001200         DEFB #00,#12,#00
+8106  110010         DEFB #11,#00,#10
+8109  000F00         DEFB #00,#0F,#00
+810C  000000   L810C DEFB #00,#00,#00
+810F  000000         DEFB #00,#00,#00
+8112  000000         DEFB #00,#00,#00
+8115  000000         DEFB #00,#00,#00
+8118  000000         DEFB #00,#00,#00
+811B  000000         DEFB #00,#00,#00
+811E  000000         DEFB #00,#00,#00
+8121  000000         DEFB #00,#00,#00
+8124  010101         DEFB #01,#01,#01
+8127  010101         DEFB #01,#01,#01
+812A  010100         DEFB #01,#01,#00
+812D  000000         DEFB #00,#00,#00
+8130  010101         DEFB #01,#01,#01
+8133  010101         DEFB #01,#01,#01
+8136  010102         DEFB #01,#01,#02
+8139  020202         DEFB #02,#02,#02
+813C  000000         DEFB #00,#00,#00
+813F  010101         DEFB #01,#01,#01
+8142  010102         DEFB #01,#01,#02
+8145  020202         DEFB #02,#02,#02
+8148  020303         DEFB #02,#03,#03
+814B  030000         DEFB #03,#00,#00
+814E  010101         DEFB #01,#01,#01
+8151  010202         DEFB #01,#02,#02
+8154  020203         DEFB #02,#02,#03
+8157  030303         DEFB #03,#03,#03
+815A  040400         DEFB #04,#04,#00
+815D  000101         DEFB #00,#01,#01
+8160  010202         DEFB #01,#02,#02
+8163  020303         DEFB #02,#03,#03
+8166  030404         DEFB #03,#04,#04
+8169  040505         DEFB #04,#05,#05
+816C  000001         DEFB #00,#00,#01
+816F  010202         DEFB #01,#02,#02
+8172  020303         DEFB #02,#03,#03
+8175  040404         DEFB #04,#04,#04
+8178  050506         DEFB #05,#05,#06
+817B  060000         DEFB #06,#00,#00
+817E  010102         DEFB #01,#01,#02
+8181  020303         DEFB #02,#03,#03
+8184  040405         DEFB #04,#04,#05
+8187  050606         DEFB #05,#06,#06
+818A  070700         DEFB #07,#07,#00
+818D  010102         DEFB #01,#01,#02
+8190  020303         DEFB #02,#03,#03
+8193  040405         DEFB #04,#04,#05
+8196  050606         DEFB #05,#06,#06
+8199  070708         DEFB #07,#07,#08
+819C  000101         DEFB #00,#01,#01
+819F  020203         DEFB #02,#02,#03
+81A2  040405         DEFB #04,#04,#05
+81A5  050607         DEFB #05,#06,#07
+81A8  070808         DEFB #07,#08,#08
+81AB  090001         DEFB #09,#00,#01
+81AE  010203         DEFB #01,#02,#03
+81B1  030405         DEFB #03,#04,#05
+81B4  050607         DEFB #05,#06,#07
+81B7  070809         DEFB #07,#08,#09
+81BA  090A00         DEFB #09,#0A,#00
+81BD  010102         DEFB #01,#01,#02
+81C0  030404         DEFB #03,#04,#04
+81C3  050607         DEFB #05,#06,#07
+81C6  070809         DEFB #07,#08,#09
+81C9  0A0A0B         DEFB #0A,#0A,#0B
+81CC  000102   L81CC DEFB #00,#01,#02
+81CF  020304         DEFB #02,#03,#04
+81D2  050606         DEFB #05,#06,#06
+81D5  070809         DEFB #07,#08,#09
+81D8  0A0A0B         DEFB #0A,#0A,#0B
+81DB  0C0001         DEFB #0C,#00,#01
+81DE  020303         DEFB #02,#03,#03
+81E1  040506         DEFB #04,#05,#06
+81E4  070809         DEFB #07,#08,#09
+81E7  0A0A0B         DEFB #0A,#0A,#0B
+81EA  0C0D00         DEFB #0C,#0D,#00
+81ED  010203         DEFB #01,#02,#03
+81F0  040506         DEFB #04,#05,#06
+81F3  070708         DEFB #07,#07,#08
+81F6  090A0B         DEFB #09,#0A,#0B
+81F9  0C0D0E         DEFB #0C,#0D,#0E
+81FC  000102   L81FC DEFB #00,#01,#02
+81FF  030405         DEFB #03,#04,#05
+8202  060708         DEFB #06,#07,#08
+8205  090A0B         DEFB #09,#0A,#0B
+8208  0C0D0E         DEFB #0C,#0D,#0E
+820B  0F             DEFB #0F
+820C  BC       L820C DEFB #BC
+820D  9920     L820D DEFB #99," "
+820F  1F       L820F DEFB #1F
+8210  789C     L8210 DEFB "x",#9C
+8212  03       L8212 DEFB #03
+8213  00       L8213 DEFB #00
+8214  FC81     L8214 DEFB #FC,#81
+8216  01       L8216 DEFB #01
+8217  5A9920   L8217 DEFB "Z",#99," "
+821A  18       L821A DEFB #18
+821B  389D     L821B DEFB "8",#9D
+821D  03       L821D DEFB #03
+821E  00       L821E DEFB #00
+821F  CC81     L821F DEFB #CC,#81
+8221  35       L8221 DEFB "5"
+8222  5A9920   L8222 DEFB "Z",#99," "
+8225  18       L8225 DEFB #18
+8226  789C     L8226 DEFB "x",#9C
+8228  03       L8228 DEFB #03
+8229  00       L8229 DEFB #00
+822A  CC81     L822A DEFB #CC,#81
+822C  3A       L822C DEFB ":"
+822D  BC9920   L822D DEFB #BC,#99," "
+8230  1F789C         DEFB #1F,"x",#9C
+8233  00             DEFB #00
+8234  00       L8234 DEFB #00
+8235  FC8101   L8235 DEFB #FC,#81,#01
+8238  00       L8238 DEFB #00
+8239  00       L8239 DEFB #00
+823A  5A9920   L823A DEFB "Z",#99," "
+823D  18389D         DEFB #18,"8",#9D
+8240  00             DEFB #00
+8241  00       L8241 DEFB #00
+8242  CC8135   L8242 DEFB #CC,#81,"5"
+8245  01       L8245 DEFB #01
+8246  01       L8246 DEFB #01
+8247  5A9920   L8247 DEFB "Z",#99," "
+824A  18789C         DEFB #18,"x",#9C
+824D  00             DEFB #00
+824E  00       L824E DEFB #00
+824F  CC813A   L824F DEFB #CC,#81,":"
+8252  03       L8252 DEFB #03
+8253  03       L8253 DEFB #03
+8254  0C       L8254 DEFB #0C
+8255  0E       L8255 DEFB #0E
+8256  7000     L8256 DEFB "p",#00
+8258  8500     L8258 DEFB #85,#00
+825A  00       L825A DEFB #00
+825B  00       L825B DEFB #00
+825C  0F       L825C DEFB #0F
+825D  0C       L825D DEFB #0C
+825E  0C       L825E DEFB #0C
+825F  0000     L825F DEFB #00,#00
+8261  00       L8261 DEFB #00
+8262  220F83   L8262 LD   (L830F),HL
+8265  22F282         LD   (L82F2),HL
+8268  223F83         LD   (L833F),HL
+826B  E5             PUSH HL
+826C  7E             LD   A,(HL)
+826D  32EB85         LD   (L85EB),A
+8270  320885         LD   (L8508),A
+8273  23             INC  HL
+8274  23             INC  HL
+8275  7E             LD   A,(HL)
+8276  E1             POP  HL
+8277  F5             PUSH AF
+8278  E5             PUSH HL
+8279  110300         LD   DE,#0003
+827C  19             ADD  HL,DE
+827D  22E382         LD   (L82E3),HL
+8280  112000         LD   DE,#0020
+8283  19             ADD  HL,DE
+8284  220083         LD   (L8300),HL
+8287  19             ADD  HL,DE
+8288  5E             LD   E,(HL)
+8289  23             INC  HL
+828A  56             LD   D,(HL)
+828B  23             INC  HL
+828C  011E00         LD   BC,#001E
+828F  09             ADD  HL,BC
+8290  221E83         LD   (L831E),HL
+8293  E1             POP  HL
+8294  19             ADD  HL,DE
+8295  223283         LD   (L8332),HL
+8298  215482         LD   HL,L8254
+829B  115582         LD   DE,L8255
+829E  010D00         LD   BC,#000D
+82A1  70             LD   (HL),B
+82A2  EDB0           LDIR 
+82A4  210C82         LD   HL,L820C
+82A7  110D82         LD   DE,L820D
+82AA  014700         LD   BC,#0047
+82AD  70             LD   (HL),B
+82AE  EDB0           LDIR 
+82B0  3EFF           LD   A,#FF
+82B2  323482         LD   (L8234),A
+82B5  324182         LD   (L8241),A
+82B8  324E82         LD   (L824E),A
+82BB  321382         LD   (L8213),A
+82BE  321E82         LD   (L821E),A
+82C1  322982         LD   (L8229),A
+82C4  21FC81         LD   HL,L81FC
+82C7  223582         LD   (L8235),HL
+82CA  224282         LD   (L8242),HL
+82CD  224F82         LD   (L824F),HL
+82D0  F1             POP  AF
+82D1  2A1E83         LD   HL,(L831E)
+82D4  85             ADD  A,L
+82D5  6F             LD   L,A
+82D6  8C             ADC  A,H
+82D7  95             SUB  L
+82D8  67             LD   H,A
+82D9  222683         LD   (L8326),HL
+82DC  CD1D83         CALL L831D
+82DF  CDE284         CALL L84E2
+82E2  21C986         LD   HL,L86C9
+82E5  110C80         LD   DE,L800C
+82E8  3E10           LD   A,#10
+82EA  4E       L82EA LD   C,(HL)
+82EB  23             INC  HL
+82EC  46             LD   B,(HL)
+82ED  23             INC  HL
+82EE  E5             PUSH HL
+82EF  69             LD   L,C
+82F0  60             LD   H,B
+82F1  01C686         LD   BC,L86C6
+82F4  09             ADD  HL,BC
+82F5  EB             EX   DE,HL
+82F6  73             LD   (HL),E
+82F7  23             INC  HL
+82F8  72             LD   (HL),D
+82F9  23             INC  HL
+82FA  EB             EX   DE,HL
+82FB  E1             POP  HL
+82FC  3D             DEC  A
+82FD  20EB           JR   NZ,L82EA
+82FF  21E986         LD   HL,L86E9
+8302  112C80         LD   DE,L802C
+8305  3E10           LD   A,#10
+8307  4E       L8307 LD   C,(HL)
+8308  23             INC  HL
+8309  46             LD   B,(HL)
+830A  23             INC  HL
+830B  E5             PUSH HL
+830C  60             LD   H,B
+830D  69             LD   L,C
+830E  01C686         LD   BC,L86C6
+8311  09             ADD  HL,BC
+8312  EB             EX   DE,HL
+8313  73             LD   (HL),E
+8314  23             INC  HL
+8315  72             LD   (HL),D
+8316  23             INC  HL
+8317  EB             EX   DE,HL
+8318  E1             POP  HL
+8319  3D             DEC  A
+831A  20EB           JR   NZ,L8307
+831C  C9             RET  
+831D  212D87   L831D LD   HL,L872D
+8320  7E             LD   A,(HL)
+8321  87             ADD  A,A
+8322  D22A83         JP   NC,L832A
+8325  212987         LD   HL,L8729
+8328  7E             LD   A,(HL)
+8329  87             ADD  A,A
+832A  23       L832A INC  HL
+832B  221E83         LD   (L831E),HL
+832E  4F             LD   C,A
+832F  87             ADD  A,A
+8330  81             ADD  A,C
+8331  216587         LD   HL,L8765
+8334  85             ADD  A,L
+8335  6F             LD   L,A
+8336  8C             ADC  A,H
+8337  95             SUB  L
+8338  67             LD   H,A
+8339  5E             LD   E,(HL)
+833A  23             INC  HL
+833B  56             LD   D,(HL)
+833C  23             INC  HL
+833D  EB             EX   DE,HL
+833E  01C686         LD   BC,L86C6
+8341  09             ADD  HL,BC
+8342  222D85         LD   (L852D),HL
+8345  EB             EX   DE,HL
+8346  5E             LD   E,(HL)
+8347  23             INC  HL
+8348  56             LD   D,(HL)
+8349  23             INC  HL
+834A  EB             EX   DE,HL
+834B  09             ADD  HL,BC
+834C  224B85         LD   (L854B),HL
+834F  EB             EX   DE,HL
+8350  5E             LD   E,(HL)
+8351  23             INC  HL
+8352  56             LD   D,(HL)
+8353  23             INC  HL
+8354  EB             EX   DE,HL
+8355  09             ADD  HL,BC
+8356  226B85         LD   (L856B),HL
+8359  C9             RET  
+835A  21CC81   L835A LD   HL,L81CC
+835D  85             ADD  A,L
+835E  6F             LD   L,A
+835F  8C             ADC  A,H
+8360  95             SUB  L
+8361  67             LD   H,A
+8362  7E             LD   A,(HL)
+8363  F600           OR   #00
+8365  C9             RET  
+8366  3E02     L8366 LD   A,#02
+8368  32AB83         LD   (L83AB),A
+836B  DD215A99       LD   IX,#995A
+836F  1600           LD   D,#00
+8371  5F             LD   E,A
+8372  87             ADD  A,A
+8373  83             ADD  A,E
+8374  5F             LD   E,A
+8375  DD19           ADD  IX,DE
+8377  DD7E01         LD   A,(IX+1)
+837A  CB7F           BIT  7,A
+837C  0E10           LD   C,#10
+837E  C28283         JP   NZ,L8382
+8381  4A             LD   C,D
+8382  CB77     L8382 BIT  6,A
+8384  0602           LD   B,#02
+8386  C28A83         JP   NZ,L838A
+8389  42             LD   B,D
+838A  E61F     L838A AND  #1F
+838C  67             LD   H,A
+838D  DD7E00         LD   A,(IX+0)
+8390  5F             LD   E,A
+8391  E6F0           AND  #F0
+8393  0F             RRCA 
+8394  0F             RRCA 
+8395  0F             RRCA 
+8396  0F             RRCA 
+8397  57             LD   D,A
+8398  7B             LD   A,E
+8399  E60F           AND  #0F
+839B  6F             LD   L,A
+839C  DD5E02         LD   E,(IX+2)
+839F  DDCB016E       BIT  5,(IX+1)
+83A3  C8             RET  Z
+83A4  CBFA           SET  7,D
+83A6  C9             RET  
+83A7  21789C   L83A7 LD   HL,#9C78
+83AA  010200         LD   BC,#0002
+83AD  09             ADD  HL,BC
+83AE  7E             LD   A,(HL)
+83AF  C63A           ADD  A,#3A
+83B1  214C80         LD   HL,L804C
+83B4  87             ADD  A,A
+83B5  85             ADD  A,L
+83B6  6F             LD   L,A
+83B7  8C             ADC  A,H
+83B8  95             SUB  L
+83B9  67             LD   H,A
+83BA  7E             LD   A,(HL)
+83BB  23             INC  HL
+83BC  66             LD   H,(HL)
+83BD  6F             LD   L,A
+83BE  CB7A           BIT  7,D
+83C0  2804           JR   Z,L83C6
+83C2  CBBA           RES  7,D
+83C4  19             ADD  HL,DE
+83C5  C9             RET  
+83C6  A7       L83C6 AND  A
+83C7  ED52           SBC  HL,DE
+83C9  C9             RET  
+83CA  DD210C82 L83CA LD   IX,L820C
+83CE  3A1382         LD   A,(L8213)
+83D1  3C             INC  A
+83D2  2849           JR   Z,L841D
+83D4  3D             DEC  A
+83D5  326483         LD   (L8364),A
+83D8  2A0C82         LD   HL,(L820C)
+83DB  226D83         LD   (L836D),HL
+83DE  2A1082         LD   HL,(L8210)
+83E1  22A883         LD   (L83A8),HL
+83E4  2A1482         LD   HL,(L8214)
+83E7  225B83         LD   (L835B),HL
+83EA  3A1682         LD   A,(L8216)
+83ED  32B083         LD   (L83B0),A
+83F0  3A1282         LD   A,(L8212)
+83F3  326783         LD   (L8367),A
+83F6  3C             INC  A
+83F7  321282         LD   (L8212),A
+83FA  DDBE02         CP   (IX+2)
+83FD  C20684         JP   NZ,L8406
+8400  3A0F82         LD   A,(L820F)
+8403  321282         LD   (L8212),A
+8406  CD6683   L8406 CALL L8366
+8409  79             LD   A,C
+840A  0F             RRCA 
+840B  CB08           RRC  B
+840D  B0             OR   B
+840E  325B82         LD   (L825B),A
+8411  0D             DEC  C
+8412  F21984         JP   P,L8419
+8415  7C             LD   A,H
+8416  325A82         LD   (L825A),A
+8419  7D       L8419 LD   A,L
+841A  CD5A83         CALL L835A
+841D  325C82   L841D LD   (L825C),A
+8420  CDA783         CALL L83A7
+8423  225482         LD   (L8254),HL
+8426  DD211782       LD   IX,L8217
+842A  3A1E82         LD   A,(L821E)
+842D  3C             INC  A
+842E  2849           JR   Z,L8479
+8430  3D             DEC  A
+8431  326483         LD   (L8364),A
+8434  2A1782         LD   HL,(L8217)
+8437  226D83         LD   (L836D),HL
+843A  2A1B82         LD   HL,(L821B)
+843D  22A883         LD   (L83A8),HL
+8440  2A1F82         LD   HL,(L821F)
+8443  225B83         LD   (L835B),HL
+8446  3A2182         LD   A,(L8221)
+8449  32B083         LD   (L83B0),A
+844C  3A1D82         LD   A,(L821D)
+844F  326783         LD   (L8367),A
+8452  3C             INC  A
+8453  321D82         LD   (L821D),A
+8456  DDBE02         CP   (IX+2)
+8459  C26284         JP   NZ,L8462
+845C  3A1A82         LD   A,(L821A)
+845F  321D82         LD   (L821D),A
+8462  CD6683   L8462 CALL L8366
+8465  3A5B82         LD   A,(L825B)
+8468  B1             OR   C
+8469  B0             OR   B
+846A  325B82         LD   (L825B),A
+846D  0D             DEC  C
+846E  F27584         JP   P,L8475
+8471  7C             LD   A,H
+8472  325A82         LD   (L825A),A
+8475  7D       L8475 LD   A,L
+8476  CD5A83         CALL L835A
+8479  325D82   L8479 LD   (L825D),A
+847C  CDA783         CALL L83A7
+847F  225682         LD   (L8256),HL
+8482  DD212282       LD   IX,L8222
+8486  3A2982         LD   A,(L8229)
+8489  3C             INC  A
+848A  284D           JR   Z,L84D9
+848C  3D             DEC  A
+848D  326483         LD   (L8364),A
+8490  2A2282         LD   HL,(L8222)
+8493  226D83         LD   (L836D),HL
+8496  2A2682         LD   HL,(L8226)
+8499  22A883         LD   (L83A8),HL
+849C  2A2A82         LD   HL,(L822A)
+849F  225B83         LD   (L835B),HL
+84A2  3A2C82         LD   A,(L822C)
+84A5  32B083         LD   (L83B0),A
+84A8  3A2882         LD   A,(L8228)
+84AB  326783         LD   (L8367),A
+84AE  3C             INC  A
+84AF  322882         LD   (L8228),A
+84B2  DDBE02         CP   (IX+2)
+84B5  C2BE84         JP   NZ,L84BE
+84B8  3A2582         LD   A,(L8225)
+84BB  322882         LD   (L8228),A
+84BE  CD6683   L84BE CALL L8366
+84C1  3A5B82         LD   A,(L825B)
+84C4  CB01           RLC  C
+84C6  CB00           RLC  B
+84C8  B1             OR   C
+84C9  B0             OR   B
+84CA  325B82         LD   (L825B),A
+84CD  0D             DEC  C
+84CE  F2D584         JP   P,L84D5
+84D1  7C             LD   A,H
+84D2  325A82         LD   (L825A),A
+84D5  7D       L84D5 LD   A,L
+84D6  CD5A83         CALL L835A
+84D9  325E82   L84D9 LD   (L825E),A
+84DC  CDA783         CALL L83A7
+84DF  225882         LD   (L8258),HL
+84E2  216182   L84E2 LD   HL,L8261
+84E5  11BFFF         LD   DE,#FFBF
+84E8  0EFD           LD   C,#FD
+84EA  AF             XOR  A
+84EB  B6             OR   (HL)
+84EC  3E0D           LD   A,#0D
+84EE  2005           JR   NZ,L84F5
+84F0  D603           SUB  #03
+84F2  2B             DEC  HL
+84F3  2B             DEC  HL
+84F4  2B             DEC  HL
+84F5  42       L84F5 LD   B,D
+84F6  ED79           OUT  (C),A
+84F8  43             LD   B,E
+84F9  EDAB           OUTD 
+84FB  3D             DEC  A
+84FC  F2F584         JP   P,L84F5
+84FF  AF             XOR  A
+8500  325B82         LD   (L825B),A
+8503  326182         LD   (L8261),A
+8506  C9             RET  
+8507  3E04     L8507 LD   A,#04
+8509  3D             DEC  A
+850A  320885         LD   (L8508),A
+850D  CA5A85         JP   Z,L855A
+8510  3D             DEC  A
+8511  CA3C85         JP   Z,L853C
+8514  3D             DEC  A
+8515  C0             RET  NZ
+8516  DD212D82       LD   IX,L822D
+851A  DD350B         DEC  (IX+11)
+851D  F0             RET  P
+851E  3A3982         LD   A,(L8239)
+8521  323882         LD   (L8238),A
+8524  2A2D85         LD   HL,(L852D)
+8527  7E             LD   A,(HL)
+8528  3C             INC  A
+8529  CC1D83         CALL Z,L831D
+852C  217C88         LD   HL,#887C
+852F  117060         LD   DE,#6070
+8532  CDFD85         CALL L85FD
+8535  222D85         LD   (L852D),HL
+8538  327A85         LD   (L857A),A
+853B  C9             RET  
+853C  DD213A82 L853C LD   IX,L823A
+8540  DD350B         DEC  (IX+11)
+8543  F0             RET  P
+8544  3A4682         LD   A,(L8246)
+8547  324582         LD   (L8245),A
+854A  21D388         LD   HL,#88D3
+854D  117060         LD   DE,#6070
+8550  CDFD85         CALL L85FD
+8553  224B85         LD   (L854B),HL
+8556  329C85         LD   (L859C),A
+8559  C9             RET  
+855A  DD214782 L855A LD   IX,L8247
+855E  DD350B         DEC  (IX+11)
+8561  F27985         JP   P,L8579
+8564  3A5382         LD   A,(L8253)
+8567  325282         LD   (L8252),A
+856A  210089         LD   HL,#8900
+856D  117060         LD   DE,#6070
+8570  CDFD85         CALL L85FD
+8573  226B85         LD   (L856B),HL
+8576  32BE85         LD   (L85BE),A
+8579  3E00     L8579 LD   A,#00
+857B  A7             AND  A
+857C  CA9B85         JP   Z,L859B
+857F  212D82         LD   HL,L822D
+8582  110C82         LD   DE,L820C
+8585  EDA0           LDI  
+8587  EDA0           LDI  
+8589  EDA0           LDI  
+858B  EDA0           LDI  
+858D  EDA0           LDI  
+858F  EDA0           LDI  
+8591  EDA0           LDI  
+8593  EDA0           LDI  
+8595  EDA0           LDI  
+8597  EDA0           LDI  
+8599  EDA0           LDI  
+859B  3E00     L859B LD   A,#00
+859D  A7             AND  A
+859E  CABD85         JP   Z,L85BD
+85A1  213A82         LD   HL,L823A
+85A4  111782         LD   DE,L8217
+85A7  EDA0           LDI  
+85A9  EDA0           LDI  
+85AB  EDA0           LDI  
+85AD  EDA0           LDI  
+85AF  EDA0           LDI  
+85B1  EDA0           LDI  
+85B3  EDA0           LDI  
+85B5  EDA0           LDI  
+85B7  EDA0           LDI  
+85B9  EDA0           LDI  
+85BB  EDA0           LDI  
+85BD  3E00     L85BD LD   A,#00
+85BF  A7             AND  A
+85C0  CADF85         JP   Z,L85DF
+85C3  214782         LD   HL,L8247
+85C6  112282         LD   DE,L8222
+85C9  EDA0           LDI  
+85CB  EDA0           LDI  
+85CD  EDA0           LDI  
+85CF  EDA0           LDI  
+85D1  EDA0           LDI  
+85D3  EDA0           LDI  
+85D5  EDA0           LDI  
+85D7  EDA0           LDI  
+85D9  EDA0           LDI  
+85DB  EDA0           LDI  
+85DD  EDA0           LDI  
+85DF  3E00     L85DF LD   A,#00
+85E1  326182         LD   (L8261),A
+85E4  210000         LD   HL,#0000
+85E7  225F82         LD   (L825F),HL
+85EA  3E06           LD   A,#06
+85EC  320885         LD   (L8508),A
+85EF  AF             XOR  A
+85F0  327A85         LD   (L857A),A
+85F3  329C85         LD   (L859C),A
+85F6  32BE85         LD   (L85BE),A
+85F9  32E085         LD   (L85E0),A
+85FC  C9             RET  
+85FD  7E       L85FD LD   A,(HL)
+85FE  23             INC  HL
+85FF  BA             CP   D
+8600  DA2C86         JP   C,L862C
+8603  BB             CP   E
+8604  DA4286         JP   C,L8642
+8607  FE80           CP   #80
+8609  DA6786         JP   C,L8667
+860C  CA7E86         JP   Z,L867E
+860F  FE90           CP   #90
+8611  DA8586         JP   C,L8685
+8614  CAA586         JP   Z,L86A5
+8617  FEA1           CP   #A1
+8619  DAA786         JP   C,L86A7
+861C  FEB1           CP   #B1
+861E  DAAF86         JP   C,L86AF
+8621  D6B1           SUB  #B1
+8623  DD770B         LD   (IX+11),A
+8626  DD770C         LD   (IX+12),A
+8629  C3FD85         JP   L85FD
+862C  DD770A   L862C LD   (IX+10),A
+862F  DD360600       LD   (IX+6),#00
+8633  DD7E07         LD   A,(IX+7)
+8636  FE10           CP   #10
+8638  CA3C86         JP   Z,L863C
+863B  AF             XOR  A
+863C  DD7707   L863C LD   (IX+7),A
+863F  3EFF           LD   A,#FF
+8641  C9             RET  
+8642  D660     L8642 SUB  #60
+8644  010C80         LD   BC,L800C
+8647  87             ADD  A,A
+8648  81             ADD  A,C
+8649  4F             LD   C,A
+864A  88             ADC  A,B
+864B  91             SUB  C
+864C  47             LD   B,A
+864D  0A             LD   A,(BC)
+864E  03             INC  BC
+864F  08             EX   AF,AF'
+8650  0A             LD   A,(BC)
+8651  47             LD   B,A
+8652  08             EX   AF,AF'
+8653  4F             LD   C,A
+8654  0A             LD   A,(BC)
+8655  DD7702         LD   (IX+2),A
+8658  03             INC  BC
+8659  0A             LD   A,(BC)
+865A  DD7703         LD   (IX+3),A
+865D  03             INC  BC
+865E  DD7100         LD   (IX+0),C
+8661  DD7001         LD   (IX+1),B
+8664  C3FD85         JP   L85FD
+8667  D670     L8667 SUB  #70
+8669  012C80         LD   BC,L802C
+866C  87             ADD  A,A
+866D  81             ADD  A,C
+866E  4F             LD   C,A
+866F  88             ADC  A,B
+8670  91             SUB  C
+8671  47             LD   B,A
+8672  0A             LD   A,(BC)
+8673  DD7704         LD   (IX+4),A
+8676  03             INC  BC
+8677  0A             LD   A,(BC)
+8678  DD7705         LD   (IX+5),A
+867B  C3FD85         JP   L85FD
+867E  DD3607FF L867E LD   (IX+7),#FF
+8682  3EFF           LD   A,#FF
+8684  C9             RET  
+8685  D681     L8685 SUB  #81
+8687  C29186         JP   NZ,L8691
+868A  AF             XOR  A
+868B  DD7707         LD   (IX+7),A
+868E  C3FD85         JP   L85FD
+8691  DD360710 L8691 LD   (IX+7),#10
+8695  32E085         LD   (L85E0),A
+8698  7E             LD   A,(HL)
+8699  32E585         LD   (L85E5),A
+869C  23             INC  HL
+869D  7E             LD   A,(HL)
+869E  32E685         LD   (L85E6),A
+86A1  23             INC  HL
+86A2  C3FD85         JP   L85FD
+86A5  AF       L86A5 XOR  A
+86A6  C9             RET  
+86A7  D691     L86A7 SUB  #91
+86A9  32EB85         LD   (L85EB),A
+86AC  C3FD85         JP   L85FD
+86AF  D6A1     L86AF SUB  #A1
+86B1  87             ADD  A,A
+86B2  87             ADD  A,A
+86B3  87             ADD  A,A
+86B4  87             ADD  A,A
+86B5  010C81         LD   BC,L810C
+86B8  81             ADD  A,C
+86B9  4F             LD   C,A
+86BA  88             ADC  A,B
+86BB  91             SUB  C
+86BC  47             LD   B,A
+86BD  DD7108         LD   (IX+8),C
+86C0  DD7009         LD   (IX+9),B
+86C3  C3FD85         JP   L85FD
+86C6  063B00   L86C6 DEFB #06,";",#00
+86C9  000090   L86C9 DEFB #00,#00,#90
+86CC  10AA10         DEFB #10,#AA,#10
+86CF  6C1100         DEFB "l",#11,#00
+86D2  00CE11         DEFB #00,#CE,#11
+86D5  301292         DEFB "0",#12,#92
+86D8  12F412         DEFB #12,#F4,#12
+86DB  5613B8         DEFB "V",#13,#B8
+86DE  131A14         DEFB #13,#1A,#14
+86E1  7C1400         DEFB "|",#14,#00
+86E4  003E15         DEFB #00,">",#15
+86E7  0000           DEFB #00,#00
+86E9  B215F2   L86E9 DEFB #B2,#15,#F2
+86EC  153216         DEFB #15,"2",#16
+86EF  7216B2         DEFB "r",#16,#B2
+86F2  16F216         DEFB #16,#F2,#16
+86F5  321772         DEFB "2",#17,"r"
+86F8  17B217         DEFB #17,#B2,#17
+86FB  F21732         DEFB #F2,#17,"2"
+86FE  187218         DEFB #18,"r",#18
+8701  B21800         DEFB #B2,#18,#00
+8704  000000         DEFB #00,#00,#00
+8707  F2189F         DEFB #F2,#18,#9F
+870A  002843         DEFB #00,"(","C"
+870D  293139         DEFB ")","1","9"
+8710  39352E         DEFB "9","5","."
+8713  20434F         DEFB " ","C","O"
+8716  4D504F         DEFB "M","P","O"
+8719  534552         DEFB "S","E","R"
+871C  204259         DEFB " ","B","Y"
+871F  205457         DEFB " ","T","W"
+8722  494E20         DEFB "I","N"," "
+8725  532E20         DEFB "S","."," "
+8728  20             DEFB " "
+8729  0C0D0E   L8729 DEFB #0C,#0D,#0E
+872C  00             DEFB #00
+872D  000101   L872D DEFB #00,#01,#01
+8730  020203         DEFB #02,#02,#03
+8733  030505         DEFB #03,#05,#05
+8736  04040A         DEFB #04,#04,#0A
+8739  0A0707         DEFB #0A,#07,#07
+873C  080809         DEFB #08,#08,#09
+873F  090505         DEFB #09,#05,#05
+8742  06060B         DEFB #06,#06,#0B
+8745  0B0F0F         DEFB #0B,#0F,#0F
+8748  101012         DEFB #10,#10,#12
+874B  121111         DEFB #12,#11,#11
+874E  131314         DEFB #13,#13,#14
+8751  141516         DEFB #14,#15,#16
+8754  161717         DEFB #16,#17,#17
+8757  181819         DEFB #18,#18,#19
+875A  191E1E         DEFB #19,#1E,#1E
+875D  1F1F19         DEFB #1F,#1F,#19
+8760  191A1B         DEFB #19,#1A,#1B
+8763  1CFF           DEFB #1C,#FF
+8765  6101E5   L8765 DEFB "a",#01,#E5
+8768  012002         DEFB #01," ",#02
+876B  610142         DEFB "a",#01,"B"
+876E  022002         DEFB #02," ",#02
+8771  6101E5         DEFB "a",#01,#E5
+8774  017B02         DEFB #01,"{",#02
+8777  FF0283         DEFB #FF,#02,#83
+877A  03BF03         DEFB #03,#BF,#03
+877D  EF0373         DEFB #EF,#03,"s"
+8780  04AF04         DEFB #04,#AF,#04
+8783  EF03D0         DEFB #EF,#03,#D0
+8786  040C05         DEFB #04,#0C,#05
+8789  EF0373         DEFB #EF,#03,"s"
+878C  044805         DEFB #04,"H",#05
+878F  7A05FE         DEFB "z",#05,#FE
+8792  053A06         DEFB #05,":",#06
+8795  7A0559         DEFB "z",#05,"Y"
+8798  06A606         DEFB #06,#A6,#06
+879B  6101F3         DEFB "a",#01,#F3
+879E  06FD06         DEFB #06,#FD,#06
+87A1  610128         DEFB "a",#01,"("
+87A4  076307         DEFB #07,"c",#07
+87A7  FF0283         DEFB #FF,#02,#83
+87AA  03DB07         DEFB #03,#DB,#07
+87AD  2908BC         DEFB ")",#08,#BC
+87B0  080409         DEFB #08,#04,#09
+87B3  190983         DEFB #19,#09,#83
+87B6  039E09         DEFB #03,#9E,#09
+87B9  AC09B7         DEFB #AC,#09,#B7
+87BC  09BA09         DEFB #09,#BA,#09
+87BF  190983         DEFB #19,#09,#83
+87C2  03C509         DEFB #03,#C5,#09
+87C5  EF0326         DEFB #EF,#03,"&"
+87C8  0A680A         DEFB #0A,"h",#0A
+87CB  610128         DEFB "a",#01,"("
+87CE  07840A         DEFB #07,#84,#0A
+87D1  EF03F6         DEFB #EF,#03,#F6
+87D4  0A380B         DEFB #0A,"8",#0B
+87D7  EF03F6         DEFB #EF,#03,#F6
+87DA  0A670B         DEFB #0A,"g",#0B
+87DD  EF03AF         DEFB #EF,#03,#AF
+87E0  0BD50B         DEFB #0B,#D5,#0B
+87E3  FB0B0B         DEFB #FB,#0B,#0B
+87E6  0C1B0C         DEFB #0C,#1B,#0C
+87E9  2B0CAF         DEFB "+",#0C,#AF
+87EC  0BB00C         DEFB #0B,#B0,#0C
+87EF  2B0C00         DEFB "+",#0C,#00
+87F2  0D230D         DEFB #0D,"#",#0D
+87F5  610167         DEFB "a",#01,"g"
+87F8  0D8C0D         DEFB #0D,#8C,#0D
+87FB  2B0CC7         DEFB "+",#0C,#C7
+87FE  0D230D         DEFB #0D,"#",#0D

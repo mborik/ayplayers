@@ -1,0 +1,201 @@
+;PT2 Duration Calculator
+;Author Sergey Bulba <vorobey@mail.khstu.ru>
+;Support page http://bulba.at.kz/
+;(c)2005 S.V.Bulba
+
+;Based on Ay_Emul's GetTime function and
+;on Universal PT2 player for ZX Spectrum and MSX
+
+;Calculation delay is about from 0.1 to 0.5 second
+;(depending of given PT2 module)
+
+;Precision of calculation is 1 interrupt
+
+;Limitations
+;-----------
+;No any checkings of module structure, so, can
+;deadlock on damaged modules or on random data.
+;If you want, you can add deadlock and crash
+;checking from Ay_Emul (will decrease speed).
+
+;Remarks
+;-------
+;You can load PT2.4 Phantom Family modules at
+;any address (not only at compilation address)
+
+	ORG #8000
+
+;TEST CODE TO CALL FROM BASIC
+	LD HL,#C000
+
+;Start of GetTime
+;HL - PT2 MODULE ADDRESS
+
+	DI ;SP is used, any interrupts are not allowed
+
+	LD A,(HL)
+	LD (PT2TDl),A
+	PUSH HL
+	PUSH HL
+	INC HL
+	INC HL
+	INC HL
+	LD E,(HL)
+	INC HL
+	LD D,(HL)
+	POP HL
+	SUB A
+	SBC HL,DE
+	LD (PT2TMdAd),HL
+	LD H,A
+	LD L,A
+	LD (PT2TIME),HL
+	POP DE
+	LD L,131
+	ADD HL,DE
+	PUSH HL
+	LD HL,99
+	ADD HL,DE
+	LD C,(HL)
+	INC HL
+	LD B,(HL)
+	EX DE,HL
+	ADD HL,BC
+	LD (PT2TPtPtr),HL
+	LD (PT2TSP_+1),SP
+
+PT2TLP	POP HL
+	LD A,(HL)
+	ADD A,A
+	JP C,PT2TEXIT
+	ADD A,(HL)
+	INC HL
+	PUSH HL
+	ADD A,A
+	LD E,A
+	LD D,0
+	RL D
+PT2TPtPtr EQU $+1
+	LD HL,#2121
+	ADD HL,DE
+PT2TMdAd EQU $+1
+	LD DE,#1111
+	LD SP,HL
+	POP HL
+	ADD HL,DE
+	LD (PT2TAdInPtA),HL
+	POP HL
+	ADD HL,DE
+	LD (PT2TAdInPtB),HL
+	POP HL
+	ADD HL,DE
+	LD (PT2TAdInPtC),HL
+PT2TSP_ LD SP,#3131
+	LD A,1
+	LD (PT2TSKACNT),A
+	LD (PT2TSKBCNT),A
+	LD (PT2TSKCCNT),A
+
+
+PT2TLP2	LD HL,PT2TSKACNT
+	DEC (HL)
+	JR NZ,PT2TCHB
+PT2TAdInPtA EQU $+1
+	LD BC,#0101
+	LD A,(BC)
+	AND A
+	JR Z,PT2TLP
+PT2TSKPA EQU $+2
+	LD XL,#2E
+	CALL PT2TPD
+	LD A,XL
+	LD (PT2TSKPA),A
+	LD (PT2TSKACNT),A
+	LD (PT2TAdInPtA),BC
+
+PT2TCHB	LD HL,PT2TSKBCNT
+	DEC (HL)
+	JR NZ,PT2TCHC
+PT2TAdInPtB EQU $+1
+	LD BC,#0101
+PT2TSKPB EQU $+2
+	LD XL,#2E
+	CALL PT2TPD
+	LD A,XL
+	LD (PT2TSKPB),A
+	LD (PT2TSKBCNT),A
+	LD (PT2TAdInPtB),BC
+
+PT2TCHC	LD HL,PT2TSKCCNT
+	DEC (HL)
+	JR NZ,PT2TTm
+PT2TAdInPtC EQU $+1
+	LD BC,#0101
+PT2TSKPC EQU $+2
+	LD XL,#2E
+	CALL PT2TPD
+	LD A,XL
+	LD (PT2TSKPC),A
+	LD (PT2TSKCCNT),A
+	LD (PT2TAdInPtC),BC
+
+PT2TTm
+PT2TDl	EQU $+1
+	LD DE,#11
+PT2TIME	EQU $+1
+	LD HL,#2121
+	ADD HL,DE
+	LD (PT2TIME),HL
+	JP PT2TLP2
+
+PT2TSSk	INC A
+	LD XL,A
+	JR PT2TPD
+
+PT2TSDl	LD A,(BC)
+	LD (PT2TDl),A
+	JR PT2TPD2
+
+PT2TPD4	INC BC
+PT2TPD3	INC BC
+PT2TPD2	INC BC
+PT2TPD	LD A,(BC)
+	INC BC
+	ADD A,#1F
+	JR C,PT2TPD
+	ADD A,#61
+	RET C
+	INC A
+	JR Z,PT2TPD
+	ADD A,#E
+	JR C,PT2TPD3
+	INC A
+	RET Z
+	ADD A,#10
+	JR C,PT2TPD
+	ADD A,#40
+	JR C,PT2TSSk
+	ADD A,#10
+	JR C,PT2TPD
+	INC A
+	JR Z,PT2TSDl
+	INC A
+	JR Z,PT2TPD2
+	INC A
+	JR Z,PT2TPD4
+	INC A
+	JR Z,PT2TPD
+	JR PT2TPD2
+
+PT2TEXIT
+;	LD HL,(PT2TIME)
+
+;TEST CODE TO RETURN TO BASIC
+	LD BC,(PT2TIME)
+	EI ;REMOVE TO DISABLE INTERRUPTS
+
+	RET 
+
+PT2TSKACNT EQU $
+PT2TSKBCNT EQU $+1
+PT2TSKCCNT EQU $+2
