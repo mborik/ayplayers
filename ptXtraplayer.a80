@@ -177,6 +177,8 @@ tp_2:		ld	a,h
 		sub	low (#F8*2)
 		jr	nz,tp_0
 
+		ld	(GlobalAttn+1),a
+		ld	(chkfadeout+1),a
 		ld	hl,music_setup
 		res	7,(hl)
 
@@ -902,8 +904,16 @@ ch_vol:		or	(ix+CHP.Volume)
 		ld	h,0
 		ld	de,VT_
 		add	hl,de
-		ld	a,(hl)
-ch_env:		bit	0,c
+		ld	e,(hl)
+GlobalAttn:	ld	a,0		; GLOBAL ATTENUATION
+		cp	8		; if value of attenuation is higher
+		jr	c,ch_globvol	; then this value we will stop
+		set	0,c		; also envelopes (bit.0 in flags)...
+ch_globvol:	sub	e
+		jr	c,ch_env
+		xor	a
+ch_env:		neg
+		bit	0,c
 		jr	nz,ch_noen
 		or	(ix+CHP.Env_En)
 ch_noen:	ld	(Ampl),a
@@ -961,6 +971,7 @@ music_play:	xor	a
 		ld	hl,DelyCnt
 		dec	(hl)
 		jp	nz,pl2
+		call	chkfadeout
 		ld	hl,ChanA+CHP.NtSkCn
 		dec	(hl)
 		jr	nz,pl1b
@@ -1091,10 +1102,13 @@ lout:		out	(c),a
 		ret
 
 checklp:	ld	hl,music_setup
-		set	7,(hl)
+		bit	1,(hl)
+		jr	nz,enablefade
 		bit	0,(hl)
 		ret	z
-		pop	hl
+
+noloop:		set	7,(hl)
+deadend:	pop	hl
 		ld	hl,DelyCnt
 		inc	(hl)
 		ld	hl,ChanA+CHP.NtSkCn
@@ -1107,8 +1121,58 @@ music_mute:	xor	a
 		ld	(AYREGS+AR_AmplB),hl
 		jr	rout_a0
 
+enablefade:	ld	a,48
+forcefade:	ld	hl,chkfadeout+1
+		inc	(hl)
+		ld	hl,(CrPsPtr+1)
+		ld	(resetfadeout+1),hl
+		ld	(resetfadeout1+1),bc
+		ld	(countfadeout+1),a
+		ld	(divfadeout+1),a
 
-music_setup:	db	0
+chkfadeout:	ld	a,0
+		or	a
+		ret	z
+		ld	a,(music_setup)
+		rlca
+		jr	c,deadend
+countfadeout:	ld	a,#3E
+		dec	a
+		ld	(countfadeout+1),a
+		ret	nz
+		ld	a,(GlobalAttn+1)
+		inc	a
+		cp	16
+		jr	z,resetfadeout
+		ld	(GlobalAttn+1),a
+divfadeout:	ld	a,#3E
+		srl	a
+		ld	l,a
+		srl	l
+		add	a,l
+		jr	nz,divfadeout1
+		inc	a
+divfadeout1:	ld	(countfadeout+1),a
+		ld	(divfadeout+1),a
+		ret
+
+resetfadeout:	ld	hl,#2121
+		ld	(CrPsPtr+1),hl
+resetfadeout1:	ld	hl,#2121
+		ld	(AdInPtA+1),hl
+		xor	a
+		ld	(ChanA+CHP.NtSkCn),a
+		ld	hl,music_setup
+		jr	noloop
+
+
+; bit.0 if you want to play without looping
+; bit.1 if you play looped but fadeout after few seconds
+; bit.7 is set each time when loop is passed
+; ...or simplified:	2 - fadeout after loop
+;			1 - no loop
+;			0 - loop forever
+music_setup:	db	2
 
 
 ;------------------------------------------------------------------------------
@@ -1283,8 +1347,8 @@ MDLADDR
 ;		incbin	"songs/nq-ready-to-travel.pt3"
 ;		incbin	"songs/dizzyXXrmx.pt3"
 ;		incbin	"songs/sickmind.pt3"
-		incbin	"songs/illusion.pt2"
-;		incbin	"songs/rage.pt2"
+;		incbin	"songs/illusion.pt2"
+		incbin	"songs/rage.pt2"
 
 
 		savesna	"ptXtraplayer.sna",demo
