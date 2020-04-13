@@ -185,6 +185,8 @@ tp_2:		ld	a,h
 		ld	de,VARS+1
 		ld	bc,VAR0END-VARS-1
 		ldir
+		inc	hl
+		ld	(AdInPtA+1),hl		; ptr to zero
 		inc	a
 		ld	(DelyCnt),a
 		ld	hl,#F001	; H - CHP.Volume, L - CHP.NtSkCn
@@ -192,7 +194,6 @@ tp_2:		ld	a,h
 		ld	(ChanB+CHP.NtSkCn),hl
 		ld	(ChanC+CHP.NtSkCn),hl
 		pop	hl
-		ld	(AdInPtA+1),hl		; ptr to zero
 		ld	(ChanA+CHP.OrnPtr),hl	; ornament 0 is "0,1,0"
 		ld	(ChanB+CHP.OrnPtr),hl	; in all versions from
 		ld	(ChanC+CHP.OrnPtr),hl	; 3.xx to 3.6x and VTII
@@ -1279,10 +1280,11 @@ VARSEND		equ	$
 
 MDLADDR
 ;		incbin	"songs/zakzakzak.pt3"
-		incbin	"songs/nq-ready-to-travel.pt3"
+;		incbin	"songs/nq-ready-to-travel.pt3"
 ;		incbin	"songs/dizzyXXrmx.pt3"
 ;		incbin	"songs/sickmind.pt3"
-;		incbin	"songs/illusion.pt2"
+		incbin	"songs/illusion.pt2"
+;		incbin	"songs/rage.pt2"
 
 
 		savesna	"ptXtraplayer.sna",demo
