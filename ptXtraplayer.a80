@@ -2,8 +2,8 @@
 ; Copyright (c) 2004-2007 S.V.Bulba (http://bulba.untergrund.net)
 ; formatted for Pasmo by Gasman
 ; optimized by Cheveron
-; sjasmplus adaptation by © 2013 z00m^SinDiKAT
-; improved by © 2016-2020 mborik/GembaBoys
+; sjasmplus adaptation by © 2013 z00m/SinDiKat
+; improved by © 2016-2020 mborik/SinDiKat
 
 
 		device	zxspectrum128

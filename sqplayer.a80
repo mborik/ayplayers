@@ -17,7 +17,7 @@ DEMOPLAY	di
 
 
 ; Povodny player generovany SQ-Linkerom doplneny o GLOBVOL,
-; tj. moznost globalneho utlmenia ~ © 2009 mborik/RM-TEAM.
+; tj. moznost globalneho utlmenia ~ © 2009 mborik/SinDiKat.
 ; Upravene na prehravanie SQT suborov, ktorym je potrebne
 ; na zaciatku relokovat absolutne adresy, dalej bol doplneny
 ; stavovy bajt podobny aky ma moj PT3 player, cize je mozne

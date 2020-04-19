@@ -1,5 +1,5 @@
-; Bzyk's Sound Tracker 1.x compiled song player
-; improved by © 2020 mborik/SinDiKat
+; Sound Tracker 1.x compiled song player © 1990 Bzyk/Pentagram
+; refactored, optimized and improved by © 2020 mborik/SinDiKat
 
 
 		device	zxspectrum128
@@ -15,6 +15,14 @@ demo.loop	ei
 		call	music_play
 		jr	demo.loop
 
+
+; bit.0 if you want to play without looping
+; bit.1 if you play looped but fadeout after few seconds
+; bit.7 is set each time when loop is passed
+; ...or simplified:	2 - fadeout after loop
+;			1 - no loop
+;			0 - loop forever
+music_setup:	db	2
 
 ;------------------------------------------------------------------------------
 music_init:	ld	hl,songdata
@@ -48,6 +56,8 @@ music_init0:	ld	a,(hl)
 		ld	bc,ORNALEN
 		xor	a
 		call	scan_until
+		ld	(apply_volenv+1),a
+		ld	(chkfadeout+1),a
 		dec	a
 		ld	(CHN1+CHP.SmpCnt),a
 		ld	(CHN2+CHP.SmpCnt),a
@@ -58,6 +68,8 @@ music_init0:	ld	a,(hl)
 		ld	(CHN1+CHP.OrnPtr),hl
 		ld	(CHN2+CHP.OrnPtr),hl
 		ld	(CHN3+CHP.OrnPtr),hl
+		ld	hl,music_setup
+		res	7,(hl)
 		call	outay
 		ei
 		ret
@@ -77,56 +89,19 @@ module_addr:	ld	bc,0
 		ex	de,hl
 		ret
 
-read_sample:	ld	d,0
-		ld	e,a
-		add	a,a
-		add	a,e
-		ld	e,a
-		ld	l,(ix+CHP.SmpPtr)
-		ld	h,(ix+CHP.SmpPtr+1)
-		add	hl,de
-		inc	hl
-		ld	a,(hl)
-		bit	7,a
-		ld	c,#10
-		jr	nz,.no_noise
-		ld	c,d
-.no_noise:	bit	6,a
-		ld	b,2
-		jr	nz,.no_tone
-		ld	b,d
-.no_tone:	inc	hl
-		ld	e,(hl)
-		dec	hl
-		dec	hl
-		ld	d,(hl)
-		ld	l,a
-		and	#1F
-		ld	h,a
-		ld	a,d
-		push	af
-		and	#F0
-		rrca
-		rrca
-		rrca
-		rrca
-		ld	d,a
-		pop	af
-		and	#0F
-		bit	5,l
-		ld	l,a
-		ret	z
-		set	4,d
-		ret
-
 new_position:	ld	a,(current_pos)
 		ld	c,a
 		ld	hl,song_length
 		cp	(hl)
-		jr	c,.noloop
+		jr	c,.continue
+		ld	hl,music_setup
+		bit	1,(hl)
+		call	nz,enablefade
+		bit	0,(hl)
+		jp	nz,noloop
 		xor	a
 		ld	c,a
-.noloop:	inc	a
+.continue:	inc	a
 		ld	(current_pos),a
 		ld	l,c
 		ld	h,0
@@ -160,7 +135,7 @@ adv_patt_step:	dec	(ix+CHP.PatStpCnt)
 music_play:	ld	a,(tempo_cnt)
 		dec	a
 		ld	(tempo_cnt),a
-		jp	nz,playback
+		jr	nz,playback
 		ld	a,(speed)
 		ld	(tempo_cnt),a
 
@@ -188,8 +163,92 @@ music_play:	ld	a,(tempo_cnt)
 		ld	hl,(chn3_pattptr)
 		call	read_pattern
 		ld	(chn3_pattptr),hl
-		jp	playback
 
+;------------------------------------------------------------------------------
+playback:	call	chkfadeout
+		ld	ix,CHN1
+		call	adv_sample
+		ld	a,c
+		ld	(sample_index+1),a
+		call	read_sample
+		ld	a,c
+		or	b
+		rrca
+		ld	(AYREGS+AR.Mixer),a
+		ld	a,(ix+CHP.SmpCnt)
+		inc	a
+		jr	z,.chn2
+		call	set_noise
+		call	get_tone
+		ld	(AYREGS+AR.TonA),hl
+
+.chn2:		ld	hl,AYREGS+AR.AmplA
+		call	apply_volenv
+		ld	ix,CHN2
+		call	adv_sample
+		ld	a,(ix+CHP.SmpCnt)
+		inc	a
+		jr	z,.chn3
+		ld	a,c
+		ld	(sample_index+1),a
+		call	read_sample
+		ld	a,(AYREGS+AR.Mixer)
+		or	c
+		or	b
+		ld	(AYREGS+AR.Mixer),a
+		call	set_noise
+		call	get_tone
+		ld	(AYREGS+AR.TonB),hl
+
+.chn3:		ld	hl,AYREGS+AR.AmplB
+		call	apply_volenv
+		ld	ix,CHN3
+		call	adv_sample
+		ld	a,(ix+CHP.SmpCnt)
+		inc	a
+		jr	z,.finish
+		ld	a,c
+		ld	(sample_index+1),a
+		call	read_sample
+		ld	a,(AYREGS+AR.Mixer)
+		rlc	c
+		rlc	b
+		or	b
+		or	c
+		ld	(AYREGS+AR.Mixer),a
+		call	set_noise
+		call	get_tone
+		ld	(AYREGS+AR.TonC),hl
+
+.finish:	ld	hl,AYREGS+AR.AmplC
+		call	apply_volenv
+
+outay:		ld	hl,AYREGS+AR.EnvSh
+		xor	a
+		or	(hl)
+		ld	a,AR.EnvSh
+		jr	nz,.fillregs
+		sub	3
+		dec	hl
+		dec	hl
+		dec	hl
+.fillregs:	ld	bc,#FFFD
+.loop:		out	(c),a
+		res	6,b
+		outd
+		set	6,b
+		dec	a
+		ret	m
+		jr	.loop
+
+music_mute:	ld	hl,AYREGS
+		ld	de,AYREGS+1
+		ld	bc,AR.EnvSh-1
+		ld	(hl),b
+		ldir
+		ex	hl,de
+		ld	a,AR.EnvSh
+		jr	outay.fillregs
 
 c_note:		ld	(ix+CHP.Note),a
 		ld	(ix+CHP.SmpIndex),0
@@ -266,82 +325,6 @@ c_envelope:	sub	#80
 		pop	hl
 		jr	read_pattern
 
-;------------------------------------------------------------------------------
-playback:	ld	ix,CHN1
-		call	adv_sample
-		ld	a,c
-		ld	(sample_index+1),a
-		call	read_sample
-		ld	a,c
-		or	b
-		rrca
-		ld	(AYREGS+AR.Mixer),a
-		ld	a,(ix+CHP.SmpCnt)
-		inc	a
-		jr	z,.chn2
-		call	set_noise
-		call	get_tone
-		ld	(AYREGS+AR.TonA),hl
-
-.chn2:		ld	hl,AYREGS+AR.AmplA
-		call	apply_volenv
-		ld	ix,CHN2
-		call	adv_sample
-		ld	a,(ix+CHP.SmpCnt)
-		inc	a
-		jr	z,.chn3
-		ld	a,c
-		ld	(sample_index+1),a
-		call	read_sample
-		ld	a,(AYREGS+AR.Mixer)
-		or	c
-		or	b
-		ld	(AYREGS+AR.Mixer),a
-		call	set_noise
-		call	get_tone
-		ld	(AYREGS+AR.TonB),hl
-
-.chn3:		ld	hl,AYREGS+AR.AmplB
-		call	apply_volenv
-		ld	ix,CHN3
-		call	adv_sample
-		ld	a,(ix+CHP.SmpCnt)
-		inc	a
-		jr	z,.finish
-		ld	a,c
-		ld	(sample_index+1),a
-		call	read_sample
-		ld	a,(AYREGS+AR.Mixer)
-		rlc	c
-		rlc	b
-		or	b
-		or	c
-		ld	(AYREGS+AR.Mixer),a
-		call	set_noise
-		call	get_tone
-		ld	(AYREGS+AR.TonC),hl
-
-.finish:	ld	hl,AYREGS+AR.AmplC
-		call	apply_volenv
-
-outay:		ld	hl,AYREGS+AR.EnvSh
-		xor	a
-		or	(hl)
-		ld	a,#0D
-		jr	nz,.silent
-		sub	3
-		dec	hl
-		dec	hl
-		dec	hl
-.silent:	ld	bc,#FFFD
-.loop:		out	(c),a
-		res	6,b
-		outd
-		set	6,b
-		dec	a
-		ret	m
-		jr	.loop
-
 adv_sample:	ld	a,(ix+CHP.SmpCnt)
 		inc	a
 		ret	z
@@ -371,6 +354,48 @@ adv_sample:	ld	a,(ix+CHP.SmpCnt)
 		ld	a,(hl)
 		inc	a
 		ld	(ix+CHP.SmpCnt),a
+		ret
+
+read_sample:	ld	d,0
+		ld	e,a
+		add	a,a
+		add	a,e
+		ld	e,a
+		ld	l,(ix+CHP.SmpPtr)
+		ld	h,(ix+CHP.SmpPtr+1)
+		add	hl,de
+		inc	hl
+		ld	a,(hl)
+		bit	7,a
+		ld	c,#10
+		jr	nz,.no_noise
+		ld	c,d
+.no_noise:	bit	6,a
+		ld	b,2
+		jr	nz,.no_tone
+		ld	b,d
+.no_tone:	inc	hl
+		ld	e,(hl)
+		dec	hl
+		dec	hl
+		ld	d,(hl)
+		ld	l,a
+		and	#1F
+		ld	h,a
+		ld	a,d
+		push	af
+		and	#F0
+		rrca
+		rrca
+		rrca
+		rrca
+		ld	d,a
+		pop	af
+		and	#0F
+		bit	5,l
+		ld	l,a
+		ret	z
+		set	4,d
 		ret
 
 set_noise:	ld	a,c
@@ -437,6 +462,51 @@ get_frequency:	add	a,0
 		ret
 
 ;------------------------------------------------------------------------------
+resetfadeout:	ld	hl,music_setup
+noloop:		set	7,(hl)
+		call	music_mute
+deadend:	pop	hl
+		xor	a
+		ld	(tempo_cnt),a
+		dec	a
+		ld	(CHN1+CHP.SmpCnt),a
+		ld	(CHN2+CHP.SmpCnt),a
+		ld	(CHN3+CHP.SmpCnt),a
+		ld	(chkfadeout+1),a
+		ret
+
+enablefade:	ld	a,48
+forcefade:	ld	(chkfadeout+1),a
+		ld	(countfadeout+1),a
+		ld	(divfadeout+1),a
+
+chkfadeout:	ld	a,0
+		or	a
+		ret	z
+		ld	a,(music_setup)
+		rlca
+		jr	c,deadend
+countfadeout:	ld	a,0
+		dec	a
+		ld	(countfadeout+1),a
+		ret	nz
+		ld	a,(apply_volenv+1)
+		inc	a
+		cp	16
+		jr	z,resetfadeout
+		ld	(apply_volenv+1),a
+divfadeout:	ld	a,0
+		srl	a
+		ld	e,a
+		srl	e
+		add	a,e
+		jr	nz,divfadeout1
+		inc	a
+divfadeout1:	ld	(countfadeout+1),a
+		ld	(divfadeout+1),a
+		ret
+
+;------------------------------------------------------------------------------
 positions:	dw	0
 ornaments:	dw	0
 patterns:	dw	0
@@ -476,20 +546,20 @@ freqtable:	dw	#0EF8, #0E10, #0D60, #0C80, #0BD8, #0B28, #0A88, #09F0
 
 
 ;------------------------------------------------------------------------------
-	struct AR
-TonA		word
-TonB		word
-TonC		word
-Noise		byte
-Mixer		byte
-AmplA		byte
-AmplB		byte
-AmplC		byte
-Env		word
-EnvSh		byte
+	struct AR	; AY Registers structure
+TonA		word	; 0
+TonB		word	; 2
+TonC		word	; 4
+Noise		byte	; 6
+Mixer		byte	; 7
+AmplA		byte	; 8
+AmplB		byte	; 9
+AmplC		byte	; 10
+Env		word	; 11
+EnvSh		byte	; 13
 	ends
 
-	struct CHP
+	struct CHP	; channel parameters structure
 EnvState	byte
 PatStep		byte
 SmpIndex	byte
@@ -509,8 +579,9 @@ SmpCnt		byte
 		org	#C000
 
 songdata
-;		incbin "songs/qjeta.stc"
-		incbin "songs/gasman_prelude.stc"
+		incbin "songs/qjeta.stc"
+;		incbin "songs/gasman_prelude.stc"
+;		incbin "songs/scalex_inferno.stc"
 
 
 		savesna "stcplayer.sna",demo
