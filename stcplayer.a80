@@ -70,9 +70,7 @@ music_init0:	ld	a,(hl)
 		ld	(CHN3+CHP.OrnPtr),hl
 		ld	hl,music_setup
 		res	7,(hl)
-		call	outay
-		ei
-		ret
+		jp	music_mute
 
 scan_until:	cp	(hl)
 		ret	z
@@ -243,8 +241,12 @@ outay:		ld	hl,AYREGS+AR.EnvSh
 
 music_mute:	ld	hl,AYREGS
 		ld	de,AYREGS+1
-		ld	bc,AR.EnvSh-1
+		ld	bc,AR.Mixer
 		ld	(hl),b
+		ldir
+		dec	(hl)
+		ld	l,low AYREGS
+		ld	c,AR.EnvSh-AR.Mixer-1
 		ldir
 		ex	hl,de
 		ld	a,AR.EnvSh
@@ -526,9 +528,9 @@ CHN2:		ds	10
 CHN3:		ds	10
 
 current_pos:	db	0
+@VARSLEN = $ - VARS
 
 AYREGS:		ds	14
-@VARSLEN = $ - VARS
 
 ;------------------------------------------------------------------------------
 freqtable:	dw	#0EF8, #0E10, #0D60, #0C80, #0BD8, #0B28, #0A88, #09F0
