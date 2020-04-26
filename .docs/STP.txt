@@ -1,90 +1,65 @@
-┌════════════════════════════════════════┐
-│░░░░░ О формате музыкальных модулей ░░░░│
-│░░░ Sound Tracker Pro by KSA software ░░│
-└════════════════════════════════════════┘
+========= Sound Tracker Pro by KSA software =========
+== song format description and plain disassembling ==
 
-   VfNG/NEW
+There may be some inaccuracies in the description, so be careful.
+This description is not written to eliminate all issues just to help
+you understand some specs when working with the player.
 
-   Как  и  обещалось  в  Echo 2, публикуем
-описание  формата компилированых модулей +
-player от STP PRO by KSA.
+┬а+0     playback speed;
+┬а+1     offset to TABL1;
+┬а+3.4   offset to TABL2;
+┬а+5.6   offset to TABL3;
+┬а+7.8   offset to TABL4;
+┬а+9     contains the number of elements to which you need to add the
+        real address +0 in memory. This is done by the initialization section.
+        If this byte is 0, then initialization has already been completed.
+        The first item to configure is from the address TABL2.
+        Each element is 2 bytes (low, high bytes offset from +0);
+┬а+10    data of the first pattern;
 
-   В  описании  могут встречатся отдельные
-неточности,  так  что  будьте внимательны.
-Это описание пишется не с целью устранения
-всех  вопросов, а только должно помочь вам
-разобраться в некоторых вещах при работе с
-player'ом.
+TABL1 + 0 length of music in positions;
+TABL1 + 1 position number for looping;
+TABL1 + 2 at 2 bytes / position:
+┬а┬а┬а┬а┬а┬а┬а┬а+0 6 * PATTERN number;
+┬а┬а┬а┬а┬а┬а┬а┬а+1 HEIGHT (pitch shift);
 
- +0 Скорость проигрывания;
+TABL2 descriptors of PATTERNs:
+        2 offset bytes for each channel, which means 6 bytes / PATTERN;
 
- +1 Смещение до TABL1;
+TABL3 offsets to ornaments.
+        The 0-th ornament serves to disable ornaments in the channel;
 
- +3,4 Смещение до TABL2;
+TABL4 offsets to samples;
 
- +5,6 Смещение до TABL3;
+;----------------------------------------------------------------------------
+ORNAMENT FORMAT:
 
- +7,8 Смещение до TABL4;
+┬а+0 loop point;
+┬а+1 full length;
+┬а+2, 1*(+0) note shifts;
 
- +9   В этом байте содержится число элемен-
-тов, к которым надо прибавить реальный ад-
-рес  +0 в памяти. Это делает секция иници-
-ализации. Если этот байт=0, значит инициа-
-лизация  уже  проведена.  Первый  элемент,
-требующий  настройки,  находится  с адреса
-TABL2.  Каждый  элемент-2  байта (младший,
-старший байты смещения от +0);
+SAMPLE FORMAT:
 
- +10 Первый паттерн;
+┬а+0 loop point;
+┬а+1 full length;
+┬а+2 4 bytes / QUARK:
 
-TABL1+0 длина музыки в позициях;
+┬а┬а┬а┬а┬а┬а┬а┬а+0 bits 0-3     amplitude;
+┬а┬а┬а┬а┬а┬а┬а┬а┬а┬а┬аbit 4        tone mask;
+┬а┬а┬а┬а┬а┬а┬а┬а┬а┬а┬аbit 7        noise mask;
 
-TABL1+1 номер позиции для зацикливания;
+┬а┬а┬а┬а┬а┬а┬а┬а+1 bit 0        envelope mask;
+┬а┬а┬а┬а┬а┬а┬а┬а┬а┬а┬аbits 1-5     noise frequency;
 
-TABL1+2 по 2 байта/позиция:
+┬а┬а┬а┬а┬а┬а┬а┬а+2/3 bytes of frequency vibratto;
 
-        +0 6*номер PATTERN;
-        +1 HEIGHT  (отклонения в нотах от
-           обычного звучания PATTERN);
-
-TABL2 описатели  PATTERN'ов:  по  2  байта
-смещения  для  каждого канала, значит по 6
-байт/PATTERN;
-
-TABL3 смещения до орнаментов. 0-й орнамент
-служит для отключения орнаментов в канале;
-
-ТABL4 смещения до сэмплов;
-
-формат орнамента:
-
- +0 точка зацикливания;
- +1 полная длина;
- +2, 1*(+0) отклонения от значения ноты;
-
-формат сэмпла:
-
- +0 точка зацикливания;
- +1 полная длина;
- +2 по 4 байта/QUARK:
-
-        +0 биты 0-3 амплитуда;
-           бит 4 маска тона;
-           бит 7 маска шума;
-
-        +1 бит 0 маска огибающей;
-           биты 1-5 частота шума;
-
-        +2,3 байты частотного вибратто;
-
-Каждый описатель PATTERN содержит указате-
-ли на описатели каналов. Каналы анализиру-
-ются следующим образом:
+Each pattern descriptor contains pointers to 3 channel descriptors.
+Channels are processed as follows:
 
         LD   HL,CHAN_POS
         LD   A,(HL)
         OR   A
-        JR   Z,конец PATTERN
+        JR   Z,END_OF_PATTERN
         LD   C,#10
 LOOP    LD   A,(HL)
         INC  HL
@@ -105,52 +80,45 @@ L9      SUB  #80
         SBC  A,C
         JR   NC,L7
 L8      ADD  A,#60
-в A-номер ноты. Ее установка, выход;
+: A = note number. EXIT;
 L7
-в A-номер сэмпла. LOOP;
+: A = number of the sample. LOOP;
 L6
-в A-номер орнамента. LOOP;
+: A = number of the ornament. LOOP;
 L5
-в A-сколько  INT'ов  не надо анализировать
-канал. LOOP;
+: A = speed. LOOP;
 L4
-в A-тип огибающей. В следующем байте-пери-
-од.  Установка  регистра  амплитуды в #1F,
-LOOP;
+: A = envelope shape. In the next byte will be period.
+        Also sets the amplitude to #1F, LOOP;
 L3
-выключение канала, выход;
+: channel off "R--" or reset, EXIT;
 L2
-установка величины, полученой в L5, выход;
+: setting the value obtained in L5, EXIT;
 L1      JR   Z,L0
-        DEC  A
-в A-число,  которое надо отнять от #0F для
-получения громкости. LOOP;
+┬а┬а┬а┬а┬а┬а┬а┬аDEC  A
+: A = number, which must be subtracted from #0F to get the volume. LOOP;
 L0
-в следующем байте-glissade. LOOP;
+: in the next byte should by glissado value. LOOP;
 
-Обязательно  просмотрите  player перед ис-
-пользованием   приведенных  здесь  данных.
-Его вы найдете щелкнув вниз статьей.
-;-----------------------------------------
+Be sure to check player before using the data given here.
+
+;----------------------------------------------------------------------------
 ;SOUND TRACKER PRO PLAYER
 ;DECOMPILED BY VfNG/NEW'97 FOR ECHO-3!
 ;THANX 2 STALKER 4 XLNT DIZASSEMBLER!
-;-----------------------------------------
-;MUSIC  EQU     адрес скомпилированого
-;               блока
-;-----------------------------------------
-LLC000  LD      HL,MUSIC
-        JP      INIT        ;инициализация
-        JP      PLAY        ;проигрывание
-        LD      BC,(LLC0FF) ;выключение
+;----------------------------------------------------------------------------
+LLC000  LD      HL,MUSIC    ; compiled song address
+        JP      INIT        ; initialization
+        JP      PLAY        ; playback in every INT
+        LD      BC,(LLC0FF) ; mute
         JP      SILENCE
-;-----------------------------------------
+;----------------------------------------------------------------------------
         DEFB    #00
         DEFB    "SOUND TRACKER PRO"
-;-----------------------------------------
+;----------------------------------------------------------------------------
 LLC046  DEFB    #00,#00,#00
 LLC049  DEFB    #70,#80,#F1,#D0,#00
-;-----------------------------------------
+;----------------------------------------------------------------------------
 INIT    DI
         LD      (LLC0F0),HL
         LD      A,#FC
@@ -235,7 +203,7 @@ LLC0EA  LD      E,(HL)
 LLC0F0  EQU     $-#02
         ADD     HL,BC
         RET
-;-----------------------------------------
+;----------------------------------------------------------------------------
 LLC0F4  DEFB    #00,#00
 LLC0F6  DEFB    #00,#00
 LLC0F8  DEFB    #00,#00
@@ -246,7 +214,7 @@ LLC0FD  DEFB    #00
 LLC0FE  DEFB    #00
 LLC0FF  DEFB    #00
 LLC100  DEFB    #00
-;-----------------------------------------
+;----------------------------------------------------------------------------
 PLAY    DI
         LD      (LLC5C3),SP
         LD      D,#00
@@ -1080,55 +1048,19 @@ LLC68A  EQU     $-#02
         LD      B,A
         LD      C,#F0
         JP      LLC2E4
-;-----------------------------------------
+;----------------------------------------------------------------------------
         DEFB    "KSA"
-;-----------------------------------------
-LLC6A8  DEFB    #F8,#0E,#10,#0E,#60
-        DEFB    #0D,#80,#0C,#D8
-        DEFB    #0B,#28,#0B,#88
-        DEFB    #0A,#F0,#09,#60
-        DEFB    #09,#E0,#08,#58
-        DEFB    #08,#E0,#07,#7C
-        DEFB    #07,#08,#07,#B0
-        DEFB    #06,#40,#06,#EC
-        DEFB    #05,#94,#05,#44
-        DEFB    #05,#F8,#04,#B0
-        DEFB    #04,#70,#04,#2C
-        DEFB    #04,#F0,#03,#BE
-        DEFB    #03,#84,#03,#58
-        DEFB    #03,#20,#03,#F6
-        DEFB    #02,#CA,#02,#A2
-        DEFB    #02,#7C,#02,#58
-        DEFB    #02,#38,#02,#16
-        DEFB    #02,#F8,#01,#DF
-        DEFB    #01,#C2,#01,#AC
-        DEFB    #01,#90,#01,#7B
-        DEFB    #01,#65,#01,#51
-        DEFB    #01,#3E,#01,#2C
-        DEFB    #01,#1C,#01,#0B
-        DEFB    #01,#FC,#00,#EF
-        DEFB    #00,#E1,#00,#D6
-        DEFB    #00,#C8,#00,#BD
-        DEFB    #00,#B2,#00,#A8
-        DEFB    #00,#9F,#00,#96
-        DEFB    #00,#8E,#00,#85
-        DEFB    #00,#7E,#00,#77
-        DEFB    #00,#70,#00,#6B
-        DEFB    #00,#64,#00,#5E
-        DEFB    #00,#59,#00,#54
-        DEFB    #00,#4F,#00,#4B
-        DEFB    #00,#47,#00,#42
-        DEFB    #00,#3F,#00,#3B
-        DEFB    #00,#38,#00,#35
-        DEFB    #00,#32,#00,#2F
-        DEFB    #00,#2C,#00,#2A
-        DEFB    #00,#27,#00,#25
-        DEFB    #00,#23,#00,#21
-        DEFB    #00,#1F,#00,#1D
-        DEFB    #00,#1C,#00,#1A
-        DEFB    #00,#19,#00,#17
-        DEFB    #00,#16,#00,#15
-        DEFB    #00,#13,#00,#12
-        DEFB    #00,#11,#00,#10
-        DEFB    #00,#0F,#00
-;-----------------------------------------
+;----------------------------------------------------------------------------
+LLC6A8  DEFW    #0EF8, #0E10, #0D60, #0C80, #0BD8, #0B28, #0A88, #09F0
+        DEFW    #0960, #08E0, #0858, #07E0, #077C, #0708, #06B0, #0640
+        DEFW    #05EC, #0594, #0544, #04F8, #04B0, #0470, #042C, #03F0
+        DEFW    #03BE, #0384, #0358, #0320, #02F6, #02CA, #02A2, #027C
+        DEFW    #0258, #0238, #0216, #01F8, #01DF, #01C2, #01AC, #0190
+        DEFW    #017B, #0165, #0151, #013E, #012C, #011C, #010B, #00FC
+        DEFW    #00EF, #00E1, #00D6, #00C8, #00BD, #00B2, #00A8, #009F
+        DEFW    #0096, #008E, #0085, #007E, #0077, #0070, #006B, #0064
+        DEFW    #005E, #0059, #0054, #004F, #004B, #0047, #0042, #003F
+        DEFW    #003B, #0038, #0035, #0032, #002F, #002C, #002A, #0027
+        DEFW    #0025, #0023, #0021, #001F, #001D, #001C, #001A, #0019
+        DEFW    #0017, #0016, #0015, #0013, #0012, #0011, #0010, #000F
+;----------------------------------------------------------------------------
