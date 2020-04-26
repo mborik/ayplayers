@@ -1,8 +1,13 @@
 ; Sound Tracker 1.x compiled song player © 1990 Bzyk/Pentagram
 ; refactored, optimized and improved by © 2020 mborik/SinDiKat
 
-
 		device	zxspectrum128
+
+@HEADLEN = 27	; file header length
+@SAMPLEN = 99	; single sample length
+@ORNALEN = 33	; single ornament length
+@PATTLEN = 7	; single pattern record length
+@NULL = 0
 
 
 		org	#8000
@@ -82,7 +87,7 @@ add_offset:	ld	e,(hl)
 		ld	d,(hl)
 		inc	hl
 		ex	de,hl
-module_addr:	ld	bc,0
+module_addr:	ld	bc,NULL
 		add	hl,bc
 		ex	de,hl
 		ret
@@ -436,7 +441,7 @@ get_tone:	ld	a,l
 		push	de
 		ld	l,(ix+CHP.OrnPtr)
 		ld	h,(ix+CHP.OrnPtr+1)
-sample_index:	ld	de,0
+sample_index:	ld	de,NULL
 		add	hl,de
 		ld	a,(ix+CHP.Note)
 		add	a,(hl)
@@ -509,10 +514,10 @@ divfadeout1:	ld	(countfadeout+1),a
 		ret
 
 ;------------------------------------------------------------------------------
-positions:	dw	0
-ornaments:	dw	0
-patterns:	dw	0
-samples:	dw	0
+positions:	dw	NULL
+ornaments:	dw	NULL
+patterns:	dw	NULL
+samples:	dw	NULL
 speed:		db	0
 tempo_cnt:	db	0
 song_length:	db	0
@@ -572,13 +577,8 @@ OrnPtr		word
 SmpCnt		byte
 	ends
 
-@HEADLEN = 27	; file header length
-@SAMPLEN = 99	; single sample length
-@ORNALEN = 33	; single ornament length
-@PATTLEN = 7	; single pattern record length
-
 ;------------------------------------------------------------------------------
-		org	#C000
+;		org	#C000
 
 songdata
 		incbin "songs/qjeta.stc"
@@ -586,5 +586,4 @@ songdata
 ;		incbin "songs/scalex_inferno.stc"
 
 
-		savesna "stcplayer.sna",demo
-		savetap "stcplayer.tap",CODE,"music",demo,$-demo,demo
+		savesna "STC.sna",demo

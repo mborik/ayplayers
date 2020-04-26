@@ -1,10 +1,9 @@
 ; Sound Tracker Pro compiled song player © 1997 KSA software
 ; refactored, optimized and improved by © 2020 mborik/SinDiKat
 
-@NULL = 0
-
-
 		device	zxspectrum128
+
+@NULL = 0
 
 
 		org	#8000
@@ -935,5 +934,4 @@ pattstep_cnt:	db	0
 songdata	incbin "songs/morning.stp"
 
 
-		savesna "stproplayer.sna",demo
-		savetap "stproplayer.tap",CODE,"music",demo,$-demo,demo
+		savesna "STP.sna",demo

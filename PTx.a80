@@ -8,6 +8,8 @@
 
 		device	zxspectrum128
 
+@NULL = 0
+
 
 		org	#8000
 
@@ -19,6 +21,13 @@ demoloop	ei
 		call	music_play
 		jr	demoloop
 
+; bit.0 if you want to play without looping
+; bit.1 if you play looped but fadeout after few seconds
+; bit.7 is set each time when loop is passed
+; ...or simplified:	2 - fadeout after loop
+;			1 - no loop
+;			0 - loop forever
+music_setup:	db	2
 
 music_init:	ld	hl,MDLADDR
 music_init0:	push	hl
@@ -132,17 +141,17 @@ pt2fmt_init:	ld	(delay),a
 		push	af
 		ld	a,2
 		push	af
-		ld	hl,$51CB			; bit 2,c
+		ld	hl,#51CB			; bit 2,c
 		ld	(SamCnv),hl
-		ld	a,$BB				; cp e
+		ld	a,#BB				; cp e
 		ld	(OrnCP),a
 		ld	(SamCP),a
-		ld	a,$7A				; ld a,d
+		ld	a,#7A				; ld a,d
 		ld	(OrnLD),a
 		ld	(SamLD),a
-		ld	a,$80				; add a,b
+		ld	a,#80				; add a,b
 		ld	(SamClc2),a
-		ld	hl,$8687			; add a,a,(hl)
+		ld	hl,#8687			; add a,a,(hl)
 		ld	de,PT2_EmptySmpOrn
 		ld	a,pt2pattdc-ptdecode-2
 
@@ -398,7 +407,7 @@ pt2pattdc:	and	a
 pd2_loop2:	ex	af,af'
 pd2_loop:	ld	a,(bc)
 		inc	bc
-		add	a,$20
+		add	a,#20
 		jr	z,pd2_rel
 		jr	c,pd2_sam
 		add	a,96
@@ -408,11 +417,11 @@ pd2_loop:	ld	a,(bc)
 		add	a,15
 		jp	z,pd_fin
 		jr	c,pd2_env
-		add	a,$10
+		add	a,#10
 		jr	c,pd2_orn
-		add	a,$40
+		add	a,#40
 		jr	c,pd2_skip
-		add	a,$10
+		add	a,#10
 		jr	c,pd2_vol
 		inc	a
 		jr	z,pd2_del
@@ -556,7 +565,7 @@ pd_res:		ld	(pdsp_+1),sp
 		push	hl
 		push	hl
 		push	hl
-pdsp_:		ld	sp,#3131
+pdsp_:		ld	sp,NULL
 pd_fin:		ld	a,(ix-12+CHP.NNtSkp)
 		ld	(ix-12+CHP.NtSkCn),a
 		ret
@@ -594,7 +603,7 @@ setport		res	2,(ix-12+CHP.Flags)
 		ld	h,(hl)
 		ld	l,a
 		push	hl
-PrNote:		ld	a,#3E
+PrNote:		ld	a,NULL
 		ld	(ix-12+CHP.Note),a
 		add	a,a
 		ld	l,a
@@ -608,10 +617,10 @@ PrNote:		ld	a,#3E
 		ld	(ix-12+CHP.TnDelt),l
 		ld	(ix-12+CHP.TnDelt+1),h
 		pop	de
-Version:	ld	a,#3E
+Version:	ld	a,NULL
 		cp	6
 		jr	c,LoStep	; old 3xxx for PT v3.5-
-PrSlide:	ld	de,#1111
+PrSlide:	ld	de,NULL
 		ld	(ix-12+CHP.CrTnSl),e
 		ld	(ix-12+CHP.CrTnSl+1),d
 LoStep:		ld	a,0		; signed tone step
@@ -711,12 +720,12 @@ setorn:		add	a,a
 		ld	e,a
 		ld	d,0
 		ld	(ix-12+CHP.PsInOr),d
-OrnPtrs:	ld	hl,#2121
+OrnPtrs:	ld	hl,NULL
 		add	hl,de
 		ld	e,(hl)
 		inc	hl
 		ld	d,(hl)
-mdaddr2:	ld	hl,#2121
+mdaddr2:	ld	hl,NULL
 		add	hl,de
 		ld	(ix-12+CHP.OrnPtr),l
 		ld	(ix-12+CHP.OrnPtr+1),h
@@ -725,12 +734,12 @@ mdaddr2:	ld	hl,#2121
 setsam:		add	a,a
 		ld	e,a
 		ld	d,0
-SamPtrs:	ld	hl,#2121
+SamPtrs:	ld	hl,NULL
 		add	hl,de
 		ld	e,(hl)
 		inc	hl
 		ld	d,(hl)
-mdaddr1:	ld	hl,#2121
+mdaddr1:	ld	hl,NULL
 		add	hl,de
 		ld	(ix-12+CHP.SamPtr),l
 		ld	(ix-12+CHP.SamPtr+1),h
@@ -847,7 +856,7 @@ ch_noac:	ex	de,hl
 		ld	e,(ix+CHP.CrTnSl)
 		ld	d,(ix+CHP.CrTnSl+1)
 		add	hl,de
-csp_:		ld	sp,#3131
+csp_:		ld	sp,NULL
 		ex	(sp),hl
 		xor	a
 		or	(ix+CHP.TSlCnt)
@@ -975,19 +984,19 @@ music_play:	xor	a
 		ld	hl,ChanA+CHP.NtSkCn
 		dec	(hl)
 		jr	nz,pl1b
-AdInPtA:	ld	bc,#0101
+AdInPtA:	ld	bc,NULL
 		ld	a,(bc)
 		and	a
 		jr	nz,pl1a
 		ld	d,a
 		ld	(Ns_base),a
-CrPsPtr:	ld	hl,#2121
+CrPsPtr:	ld	hl,NULL
 		inc	hl
 		ld	a,(hl)
 		inc	a
 		jr	nz,plnlp
 		call	checklp
-LPosPtr:	ld	hl,#2121
+LPosPtr:	ld	hl,NULL
 		ld	a,(hl)
 		inc	a
 plnlp:		ld	(CrPsPtr+1),hl
@@ -997,9 +1006,9 @@ PsCalc:		nop				; add a,a	nop
 		add	a,a
 		ld	e,a
 		rl	d
-PatsPtr:	ld	hl,#2121
+PatsPtr:	ld	hl,NULL
 		add	hl,de
-modaddr:	ld	de,#1111
+modaddr:	ld	de,NULL
 		ld	(psp_+1),sp
 		ld	sp,hl
 		pop	hl
@@ -1012,7 +1021,7 @@ modaddr:	ld	de,#1111
 		pop	hl
 		add	hl,de
 		ld	(AdInPtC+1),hl
-psp_:		ld	sp,#3131
+psp_:		ld	sp,NULL
 pl1a:		ld	ix,ChanA+12
 		call	ptdecode
 		ld	(AdInPtA+1),bc
@@ -1021,7 +1030,7 @@ pl1b:		ld	hl,ChanB+CHP.NtSkCn
 		dec	(hl)
 		jr	nz,pl1c
 		ld	ix,ChanB+12
-AdInPtB:	ld	bc,#0101
+AdInPtB:	ld	bc,NULL
 		call	ptdecode
 		ld	(AdInPtB+1),bc
 
@@ -1029,11 +1038,11 @@ pl1c:		ld	hl,ChanC+CHP.NtSkCn
 		dec	(hl)
 		jr	nz,pl1d
 		ld	ix,ChanC+12
-AdInPtC:	ld	bc,#0101
+AdInPtC:	ld	bc,NULL
 		call	ptdecode
 		ld	(AdInPtC+1),bc
 delay:		equ	$+1
-pl1d:		ld	a,#3E
+pl1d:		ld	a,NULL
 		ld	(DelyCnt),a
 pl2:		ld	ix,ChanA
 		ld	hl,(AYREGS+AR_TonA)
@@ -1059,7 +1068,7 @@ pl2:		ld	ix,ChanA
 		add	a,l
 		ld	(AYREGS+AR_Noise),a
 
-AddToEn:	ld	a,#3E
+AddToEn:	ld	a,NULL
 		ld	e,a
 		add	a,a
 		sbc	a,a
@@ -1076,9 +1085,9 @@ AddToEn:	ld	a,#3E
 		jr	z,rout_a0
 		dec	(hl)
 		jr	nz,rout
-Env_Del:	ld	a,#3E
+Env_Del:	ld	a,NULL
 		ld	(hl),a
-ESldAdd:	ld	hl,#2121
+ESldAdd:	ld	hl,NULL
 		add	hl,de
 		ld	(CurESld),hl
 
@@ -1136,7 +1145,7 @@ chkfadeout:	ld	a,0
 		ld	a,(music_setup)
 		rlca
 		jr	c,deadend
-countfadeout:	ld	a,#3E
+countfadeout:	ld	a,NULL
 		dec	a
 		ld	(countfadeout+1),a
 		ret	nz
@@ -1145,7 +1154,7 @@ countfadeout:	ld	a,#3E
 		cp	16
 		jr	z,resetfadeout
 		ld	(GlobalAttn+1),a
-divfadeout:	ld	a,#3E
+divfadeout:	ld	a,NULL
 		srl	a
 		ld	l,a
 		srl	l
@@ -1156,24 +1165,14 @@ divfadeout1:	ld	(countfadeout+1),a
 		ld	(divfadeout+1),a
 		ret
 
-resetfadeout:	ld	hl,#2121
+resetfadeout:	ld	hl,NULL
 		ld	(CrPsPtr+1),hl
-resetfadeout1:	ld	hl,#2121
+resetfadeout1:	ld	hl,NULL
 		ld	(AdInPtA+1),hl
 		xor	a
 		ld	(ChanA+CHP.NtSkCn),a
 		ld	hl,music_setup
 		jr	noloop
-
-
-; bit.0 if you want to play without looping
-; bit.1 if you play looped but fadeout after few seconds
-; bit.7 is set each time when loop is passed
-; ...or simplified:	2 - fadeout after loop
-;			1 - no loop
-;			0 - loop forever
-music_setup:	db	2
-
 
 ;------------------------------------------------------------------------------
 ; note table data
@@ -1311,7 +1310,6 @@ ChanA		ds	29
 ChanB		ds	29
 ChanC		ds	29
 
-
 ; GlobalVars
 DelyCnt		db	0
 CurESld		dw	0
@@ -1340,7 +1338,7 @@ VAR0END		equ	T1_		; init zeroes from VARS to VAR0END-1
 VARSEND		equ	$
 
 
-		org	#BABA
+;		org	#C000
 
 MDLADDR
 ;		incbin	"songs/zakzakzak.pt3"
@@ -1351,4 +1349,4 @@ MDLADDR
 		incbin	"songs/rage.pt2"
 
 
-		savesna	"ptXtraplayer.sna",demo
+		savesna	"PTx.sna",demo

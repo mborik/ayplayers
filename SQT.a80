@@ -6,16 +6,16 @@
 		device zxspectrum128
 
 
-		org	$8000
+		org	#8000
 
-DEMOPLAY	di
-		ld	sp,DEMOPLAY
-		call	SQ_INIT
+demoplay	di
+		ld	sp,demoplay
+		call	sq_init
 .loop		ei
 		halt
 		ld	a,1
 		out	(254),a
-		call	SQ_PLAY
+		call	sq_play
 		xor	a
 		out	(254),a
 		jr	.loop
@@ -27,17 +27,17 @@ DEMOPLAY	di
 ; ...or simplified:	2 - fadeout after loop
 ;			1 - no loop
 ;			0 - loop forever
-SQ_STATUS:	db	2
+sq_status:	db	2
 
-SQ_INIT:	ld	de,(RELOC_BASE)		; get the first absolute address
-		ld	hl,BUFFER+10		; which we use as base offset
+sq_init:	ld	de,(reloc_base)		; get the first absolute address
+		ld	hl,buffer+10		; which we use as base offset
 		xor	a			; after calc buffer address - 10
 		sbc	hl,de			; and relocate all following
 		push	hl			; absolute pointers in music data
-		ld	de,(RELOC_ENDPTR)
+		ld	de,(reloc_endptr)
 		add	hl,de
 		pop	bc
-RELOCATOR:	dec	hl
+relocator:	dec	hl
 		ld	d,(hl)
 		dec	hl
 		ld	e,(hl)
@@ -49,153 +49,153 @@ RELOCATOR:	dec	hl
 		ld	(hl),d
 		dec	hl
 		ld	a,l
-		sub	RELOC_BASE % 256
-		jr	nz,RELOCATOR
-		ld	hl,SQ_STATUS
+		sub	reloc_base % 256
+		jr	nz,relocator
+		ld	hl,sq_status
 		res	7,(hl)			; clear the loop flags
-		ld	(CHKFADEOUT+1),a
-		ld	(GLOBVOL+1),a
+		ld	(chkfadeout+1),a
+		ld	(globvol+1),a
 		dec	a
-		ld	(SQ_REST+1),a		; reset end-song detector
+		ld	(sq_rest+1),a		; reset end-song detector
 
 		ld	a,8			; player initialization
-		ld	(CHNZ1),a
-		ld	(CHNZ2),a
-		ld	(CHNZ3),a
-		ld	bc,$0101
-		call	SQ_REND1
-CHN_INIT: 	ld	hl,(I_POSITIONS)
-		ld	ix,CHNZ1
-		call	SQ_I9
-		call	SQ_I
-		call	SQ_I
-SQ_STOP:	ld	de,#073F		; AY regs 7-12 set to silence
-CHN_INILOOP:	call	OUT1
+		ld	(chnz1),a
+		ld	(chnz2),a
+		ld	(chnz3),a
+		ld	bc,#0101
+		call	sq_rend1
+chn_init: 	ld	hl,(i_positions)
+		ld	ix,chnz1
+		call	sq_i9
+		call	sq_i
+		call	sq_i
+sq_stop:	ld	de,#073F		; AY regs 7-12 set to silence
+chn_iniloop:	call	out1
 		ld	e,0
 		inc	d
 		ld	a,d
 		cp	12
-		jr	nz,CHN_INILOOP
+		jr	nz,chn_iniloop
 		ret
 
-SQ_DEADEND:	inc	(hl)			; playback ends, SQ_PLAY is dead
-		jr	SQ_STOP
+sq_deadend:	inc	(hl)			; playback ends, sq_play is dead
+		jr	sq_stop
 
-SQ_PLAY:	ld	hl,SQ_SYS
+sq_play:	ld	hl,sq_sys
 		dec	(hl)
-		jr	nz,CHKFADEOUT
-SQ_PLAYSPEED:	ld	(hl),0
+		jr	nz,chkfadeout
+sq_playspeed:	ld	(hl),0
 		inc	hl
 		dec	(hl)
 		ld	a,(hl)
 		or	a
-		call	z,SQ_REST
+		call	z,sq_rest
 		cp	4
-		call	c,SQ_I
+		call	c,sq_i
 
-SQ_PP		ld	ix,CHNZ1
+sq_pp		ld	ix,chnz1
 		ld	c,36
-		call	SQ_P
-		ld	ix,CHNZ2
+		call	sq_p
+		ld	ix,chnz2
 		ld	c,18
-		call	SQ_P
-		ld	ix,CHNZ3
+		call	sq_p
+		ld	ix,chnz3
 		ld	c,9
-		call	SQ_P
+		call	sq_p
 
-CHKFADEOUT:	ld	a,0			; check if we fading out
+chkfadeout:	ld	a,0			; check if we fading out
 		or	a
-		jr	z,SQ_C
-		ld	a,(SQ_STATUS)
+		jr	z,sq_c
+		ld	a,(sq_status)
 		bit	7,a
-		jr	nz,SQ_DEADEND
+		jr	nz,sq_deadend
 
-COUNTFADEOUT:	ld	a,0
+countfadeout:	ld	a,0
 		dec	a
-		ld	(COUNTFADEOUT+1),a
-		jr	nz,GLOBVOL
-		ld	a,(GLOBVOL+1)
+		ld	(countfadeout+1),a
+		jr	nz,globvol
+		ld	a,(globvol+1)
 		inc	a
 		cp	16
-		jr	z,RESETFADEOUT
-		ld	(GLOBVOL+1),a
-DIVFADEOUT:	ld	a,0
+		jr	z,resetfadeout
+		ld	(globvol+1),a
+divfadeout:	ld	a,0
 		srl	a
 		ld	l,a
 		srl	l
 		add	a,l
-		jr	nz,DIVFADEOUT1
+		jr	nz,divfadeout1
 		inc	a
-DIVFADEOUT1:	ld	(COUNTFADEOUT+1),a
-		ld	(DIVFADEOUT+1),a
+divfadeout1:	ld	(countfadeout+1),a
+		ld	(divfadeout+1),a
 
-GLOBVOL:	ld	a,0			; global attenuation
-		ld	(CHNZ1+11),a		; for all channels
-		ld	(CHNZ2+11),a
-		ld	(CHNZ3+11),a
+globvol:	ld	a,0			; global attenuation
+		ld	(chnz1+11),a		; for all channels
+		ld	(chnz2+11),a
+		ld	(chnz3+11),a
 		bit	3,a			; if value of attenuation
-		jr	z,SQ_C			; hits the 8 we turn off also
-		ld	hl,CHNZ1		; flags in all channels and
-		ld	de,CHZL 		; disable hw envelopes
+		jr	z,sq_c			; hits the 8 we turn off also
+		ld	hl,chnz1		; flags in all channels and
+		ld	de,chzl 		; disable hw envelopes
 		ld	c,3
-GLOBVOL1:	res	0,(hl)			; by reseting 0th bit
+globvol1:	res	0,(hl)			; by reseting 0th bit
 		add	hl,de
 		dec	c
-		jr	nz,GLOBVOL1
+		jr	nz,globvol1
 
-SQ_C:		xor	a			; zero mixer register in all chans
+sq_c:		xor	a			; zero mixer register in all chans
 		ld	l,a
 		ld	h,a
-		ld	(SQ_N+1),hl
-		ld	ix,CHNZ1
-		call	SQ_R
-		call	SQ_R
-		call	SQ_R
+		ld	(sq_n+1),hl
+		ld	ix,chnz1
+		call	sq_r
+		call	sq_r
+		call	sq_r
 
-SQ_N:		ld	bc,0			; configure mixer register
-		ld	a,b			; B = noise generators for ABC
-		rla				; C = tone generators for ABC
+sq_n:		ld	bc,0			; configure mixer register
+		ld	a,b			; B = noise generators for abc
+		rla				; C = tone generators for abc
 		rla
 		rla
 		or	c			; complementing because
 		cpl				; mixer is active in zero
-SQ_OFF: 	or	0			; and apply additional chn.off
+sq_off: 	or	0			; and apply additional chn.off
 		ld	e,a
 		ld	d,7			; out to mixer register 7
-OUT1:		ld	bc,$FFFD
+out1:		ld	bc,#FFFD
 		out	(c),d
-		ld	b,$BF
+		ld	b,#BF
 		out	(c),e
 		ret
 
-RESETFADEOUT:	ld	hl,-1
-		ld	(SQ_SYS),hl
-		ld	hl,SQ_STATUS
+resetfadeout:	ld	hl,-1
+		ld	(sq_sys),hl
+		ld	hl,sq_status
 		set	7,(hl)
 		xor	a
 		db	1 ; ld bc,* to skip next instruction
-ENABLEFADE:	ld	a,48
-FORCEFADE:	ld	hl,CHKFADEOUT+1
+enablefade:	ld	a,48
+forcefade:	ld	hl,chkfadeout+1
 		inc	(hl)
-		ld	(COUNTFADEOUT+1),a
-		ld	(DIVFADEOUT+1),a
+		ld	(countfadeout+1),a
+		ld	(divfadeout+1),a
 		cpl
-		ld	(SQ_REST+1),a
+		ld	(sq_rest+1),a
 		ret
 
-SQ_I:		ld	hl,0
-SQ_I1:		ld	ix,CHNZ1
-SQ_I9:		ld	a,(hl)
+sq_i:		ld	hl,0
+sq_i1:		ld	ix,chnz1
+sq_i9:		ld	a,(hl)
 		or	a
-		jr	nz,SQ_I3
-		ld	(SQ_REST+1),a		; flag that if next pattern will
-		ld	hl,(I_REPEAT)		; be hit we test fadeout or noloop
-SQ_I3:		ld	b,(hl)
+		jr	nz,sq_i3
+		ld	(sq_rest+1),a		; flag that if next pattern will
+		ld	hl,(i_repeat)		; be hit we test fadeout or noloop
+sq_i3:		ld	b,(hl)
 		rl	b
 		res	5,(ix+0)
-		jr	nc,SQ_I4
+		jr	nc,sq_i4
 		set	5,(ix+0)
-SQ_I4:		inc	hl
+sq_i4:		inc	hl
 		ld	a,(hl)
 		and	15
 		ld	(ix+26),a
@@ -206,15 +206,15 @@ SQ_I4:		inc	hl
 		rra
 		rra
 		cp	9
-		jr	c,ZBR
+		jr	c,zbr
 		sub	9
 		cpl
-ZBR:		ld	(ix+24),a
+zbr:		ld	(ix+24),a
 		inc	hl
-		ld	(SQ_I+1),hl
+		ld	(sq_i+1),hl
 		ld	l,b
 		ld	h,0
-		ld	de,(I_PATTERNS)
+		ld	de,(i_patterns)
 		add	hl,de
 		ld	e,(hl)
 		inc	hl
@@ -222,133 +222,133 @@ ZBR:		ld	(ix+24),a
 		inc	de
 		ld	(ix+22),e
 		ld	(ix+23),d
-		ld	de,CHZL
+		ld	de,chzl
 		add	ix,de
-		ld	(SQ_I1+2),ix
+		ld	(sq_i1+2),ix
 		ret
 
-SQ_NOFADE:	call	RESETFADEOUT
+sq_nofade:	call	resetfadeout
 		pop	af
 		ret
 
-SQ_REST:	ld	a,-1
+sq_rest:	ld	a,-1
 		or	a
-		jr	nz,SQ_REST0
-		ld	a,(SQ_STATUS)
+		jr	nz,sq_rest0
+		ld	a,(sq_status)
 		rrca				; bit 0. = noloop
-		jr	c,SQ_NOFADE
+		jr	c,sq_nofade
 		rrca				; bit 1. = fadeout
-		jr	nc,SQ_REST0
-		call	ENABLEFADE
-SQ_REST0:	ld	a,(CHNZ1+26)
-		ld	(CHNZ1+11),a
-		ld	a,(CHNZ2+26)
-		ld	(CHNZ2+11),a
-		ld	a,(CHNZ3+26)
-		ld	(CHNZ3+11),a
-		ld	hl,(CHNZ1+22)
+		jr	nc,sq_rest0
+		call	enablefade
+sq_rest0:	ld	a,(chnz1+26)
+		ld	(chnz1+11),a
+		ld	a,(chnz2+26)
+		ld	(chnz2+11),a
+		ld	a,(chnz3+26)
+		ld	(chnz3+11),a
+		ld	hl,(chnz1+22)
 		dec	hl
 		ld	b,(hl)
 		inc	hl
-		ld	(CHNZ1+18),hl
-		ld	hl,(CHNZ2+22)
-		ld	(CHNZ2+18),hl
-		ld	hl,(CHNZ3+22)
-		ld	(CHNZ3+18),hl
-		ld	hl,(CHNZ1+24)
-		ld	(CHNZ1+20),hl
-		ld	hl,(CHNZ2+24)
-		ld	(CHNZ2+20),hl
-		ld	hl,(CHNZ3+24)
-		ld	(CHNZ3+20),hl
-		ld	hl,(SQ_I+1)
+		ld	(chnz1+18),hl
+		ld	hl,(chnz2+22)
+		ld	(chnz2+18),hl
+		ld	hl,(chnz3+22)
+		ld	(chnz3+18),hl
+		ld	hl,(chnz1+24)
+		ld	(chnz1+20),hl
+		ld	hl,(chnz2+24)
+		ld	(chnz2+20),hl
+		ld	hl,(chnz3+24)
+		ld	(chnz3+20),hl
+		ld	hl,(sq_i+1)
 		ld	c,(hl)
 		inc	hl
-		ld	(SQ_I+1),hl
-		ld	hl,CHNZ1
-		ld	(SQ_I1+2),hl
+		ld	(sq_i+1),hl
+		ld	hl,chnz1
+		ld	(sq_i1+2),hl
 		ld	a,3
 		ld	d,0
-SQ_REST1:	res	4,(hl)
+sq_rest1:	res	4,(hl)
 		bit	5,(hl)
-		jr	z,SQ_REST2
+		jr	z,sq_rest2
 		set	4,(hl)
-SQ_REST2:	ld	e,21
+sq_rest2:	ld	e,21
 		add	hl,de
 		ld	(hl),d
-		ld	e,CHZL-21
+		ld	e,chzl-21
 		add	hl,de
 		dec	a
-		jr	nz,SQ_REST1
-SQ_REND1:	ld	(SQ_SYS),bc
+		jr	nz,sq_rest1
+sq_rend1:	ld	(sq_sys),bc
 		ld	a,c
-SQ_REND2:	ld	(SQ_PLAYSPEED+1),a
+sq_rend2:	ld	(sq_playspeed+1),a
 		ld	a,b
 		ret
 
-SQ_P:		ld	a,(ix+21)
+sq_p:		ld	a,(ix+21)
 		or	a
-		jr	z,Y01
+		jr	z,y01
 		dec	(ix+21)
 		bit	7,(ix+0)
-		jr	nz,Y33
+		jr	nz,y33
 		ret
 
-Y01:		ld	e,(ix+18)
+y01:		ld	e,(ix+18)
 		ld	d,(ix+19)
 		set	6,(ix+0)
 		res	7,(ix+0)
 		ld	a,(de)
 		inc	de
 		bit	7,a
-		jr	z,Y02
+		jr	z,y02
 
-Y05:		ld	(ix+18),e
+y05:		ld	(ix+18),e
 		ld	(ix+19),d
 		ld	b,a
 		bit	6,a
-		jr	z,Y60
+		jr	z,y60
 
 		dec	de
 		ld	(ix+27),e
 		ld	(ix+28),d
-Y34:		and	31
-		jp	SQ_SMP
+y34:		and	31
+		jp	sq_smp
 
-Y60:		bit	5,a
-		jr	nz,Y06
+y60:		bit	5,a
+		jr	nz,y06
 
 		and	15
 		bit	4,b
-		jr	z,Y07
+		jr	z,y07
 		neg
-Y07:		add	a,(ix+12)
+y07:		add	a,(ix+12)
 		ld	(ix+12),a
-Y33:		ld	e,(ix+27)
+y33:		ld	e,(ix+27)
 		ld	d,(ix+28)
 		res	6,(ix+0)
 		ld	a,(de)
 		bit	7,a
-		jr	nz,Y34
+		jr	nz,y34
 		inc	de
-		jp	SMP_ORN
+		jp	smp_orn
 
-Y06:		and	15
+y06:		and	15
 		ld	(ix+21),a
 		bit	4,b
 		ret	z
 		or	a
-		jr	z,Y33
+		jr	z,y33
 		set	7,(ix+0)
-		jr	Y33
+		jr	y33
 
-Y02:		cp	96
-		jp	c,Y03
+y02:		cp	96
+		jp	c,y03
 		sub	96
 		cp	15
-		jr	c,Y04
+		jr	c,y04
 
-		ld	hl,SQ_OFF+1
+		ld	hl,sq_off+1
 		ld	b,a
 		ld	a,(hl)
 		or	c
@@ -356,114 +356,114 @@ Y02:		cp	96
 		set	3,(ix+0)
 		ld	a,b
 		sub	15
-		jp	z,Z26
+		jp	z,z26
 
-Y04:		dec	a
+y04:		dec	a
 		ex	de,hl
 		ld	c,(hl)
 		inc	hl
 		bit	6,(ix+0)
-		jr	z,Y69
+		jr	z,y69
 		ld	(ix+18),l
 		ld	(ix+19),h
 		res	6,(ix+0)
-Y69:		cp	8
-		jr	c,Z38
+y69:		cp	8
+		jr	c,z38
 		set	0,(ix+0)
 		ld	l,c
 		ld	e,a
 		ld	d,13
-		call	OUT1
+		call	out1
 		ld	d,11
 		ld	e,l
-		jp	OUT1
+		jp	out1
 
-Z38:		cp	6			; channel volume set
-		jr	nc,Z36
+z38:		cp	6			; channel volume set
+		jr	nc,z36
 		bit	4,(ix+0)
 		ret	z
 		or	a
-		jr	nz,Z31
+		jr	nz,z31
 		ld	a,c
-SQ_V:		and	15
+sq_v:		and	15
 		ld	(ix+11),a
 		ret
 
-Z31:		dec	a			; channel volume slide
-		jr	nz,Z32
+z31:		dec	a			; channel volume slide
+		jr	nz,z32
 		ld	a,c
 		add	a,(ix+11)
-		jr	SQ_V
+		jr	sq_v
 
-Z32:		dec	a			; global volume set
-		jr	nz,Z33
+z32:		dec	a			; global volume set
+		jr	nz,z33
 		ld	a,c
-		ld	(CHNZ1+11),a
-		ld	(CHNZ2+11),a
-		ld	(CHNZ3+11),a
+		ld	(chnz1+11),a
+		ld	(chnz2+11),a
+		ld	(chnz3+11),a
 		ret
 
-Z33:		dec	a			; global volume slide
-		jr	nz,Z34
+z33:		dec	a			; global volume slide
+		jr	nz,z34
 		ld	b,3
-		ld	de,CHZL
-		ld	hl,CHNZ1+11
-Z33_2:		ld	a,(hl)
+		ld	de,chzl
+		ld	hl,chnz1+11
+z33_2:		ld	a,(hl)
 		add	a,c
 		and	15
 		ld	(hl),a
 		add	hl,de
-		djnz	Z33_2
+		djnz	z33_2
 		ret
 
-Z34:		ld	hl,SQ_SYS		; speed set
+z34:		ld	hl,sq_sys		; speed set
 		dec	a
-		jr	nz,Z35
+		jr	nz,z35
 		ld	a,c
-SQ_S:		and	31
-		jr	nz,SQ_Z
+sq_s:		and	31
+		jr	nz,sq_z
 		ld	a,32
-SQ_Z:		ld	(hl),a
-		jp	SQ_REND2
+sq_z:		ld	(hl),a
+		jp	sq_rend2
 
-Z35:		ld	a,(hl)			; speed slide
+z35:		ld	a,(hl)			; speed slide
 		add	a,c
-		jr	SQ_S
+		jr	sq_s
 
-Z36:		sub	6
+z36:		sub	6
 		ld	b,0
 		ld	a,c
 		ld	c,b
-		jr	nz,Z37
+		jr	nz,z37
 		dec	b
 		neg
-Z37:		set	2,(ix+0)
+z37:		set	2,(ix+0)
 		ld	(ix+13),c
 		ld	(ix+14),c
 		ld	(ix+15),a
 		ld	(ix+16),b
 		ret
 
-Y03:		ld	(ix+12),a
+y03:		ld	(ix+12),a
 		dec	de
 		ld	(ix+27),e
 		ld	(ix+28),d
 		inc	de
-		call	SMP_ORN
+		call	smp_orn
 		bit	6,(ix+0)
 		ret	z
-Z26:		ld	(ix+18),e
+z26:		ld	(ix+18),e
 		ld	(ix+19),d
 		ret
 
-SMP_ORN:	ld	a,(de)
+smp_orn:	ld	a,(de)
 		inc	de
 		bit	7,a
-		jr	z,SMP_ORN9
+		jr	z,smp_orn9
 		ld	b,a
 		rra
 		and	31
-		call	nz,SQ_SMP
+		call	nz,sq_smp
 		bit	6,b
 		ret	z
 		ld	a,(de)
@@ -473,21 +473,21 @@ SMP_ORN:	ld	a,(de)
 		rra
 		rra
 		srl	a
-		call	nz,SQ_ORN
+		call	nz,sq_orn
 		ld	a,(de)
 		inc	de
 		and	15
 		ret	z
-SMP_ORN9:	jp	Y04
+smp_orn9:	jp	y04
 
-SQ_SMP: 	push	bc
+sq_smp: 	push	bc
 		add	a,a
 		ld	c,a
 		ld	b,0
 		ld	a,(ix+0)
 		and	%11110000
 		ld	(ix+0),a
-		ld	hl,(I_SAMPLES)
+		ld	hl,(i_samples)
 		add	hl,bc
 		ld	c,(hl)
 		inc	hl
@@ -507,24 +507,24 @@ SQ_SMP: 	push	bc
 		inc	hl
 		ld	(hl),32
 		inc	hl
-		ld	(SQ_NXT+1),hl
+		ld	(sq_nxt+1),hl
 		pop	bc
-		ld	hl,SQ_OFF+1
+		ld	hl,sq_off+1
 		ld	a,(hl)
 		or	c
 		xor	c
 		ld	(hl),a
 		ret
 
-SQ_ORN: 	add	a,a
+sq_orn: 	add	a,a
 		ld	c,a
 		ld	b,0
-		ld	hl,(I_ORNAMENTS)
+		ld	hl,(i_ornaments)
 		add	hl,bc
 		ld	c,(hl)
 		inc	hl
 		ld	b,(hl)
-SQ_NXT: 	ld	hl,0
+sq_nxt: 	ld	hl,0
 		ld	(hl),c
 		inc	hl
 		ld	(hl),b
@@ -539,40 +539,40 @@ SQ_NXT: 	ld	hl,0
 		set	1,(ix+0)
 		ret
 
-OUT2:		ld	hl,SQ_N+1		; carry was projected into tone
+out2:		ld	hl,sq_n+1		; carry was projected into tone
 		rl	(hl)			; generator and disable noise
-		inc	hl			; generator in SQ_N
+		inc	hl			; generator in sq_n
 		rl	(hl)
 		ld	a,(ix+17)		; then get channel number
 		add	a,8			; add 8 (AY reg number)
 		out	(c),a			; so we change volume regs
-		ld	b,$BF
+		ld	b,#BF
 		out	(c),e			; and send value in E
-		jp	SQ_ZCH
+		jp	sq_zch
 
-SQ_R:		ld	l,(ix+3)
+sq_r:		ld	l,(ix+3)
 		ld	h,(ix+4)
-		ld	bc,$FFFD
+		ld	bc,#FFFD
 		ld	d,(ix+0)
 		ld	e,0
 		bit	3,d			; if nothing to play, then mute
-		jr	nz,OUT2
+		jr	nz,out2
 		ld	a,(hl)
 		and	15
-		jr	nz,SQ_R1
+		jr	nz,sq_r1
 		bit	0,d			; set envelopes if needed
-		jr	z,SQ_R2
+		jr	z,sq_r2
 		ld	e,16
-		jr	SQ_R2
+		jr	sq_r2
 
-SQ_R1:		sub	(ix+11) 		; subtract global attenuation
-		jr	c,SQ_R2 		; from actual channel volume
+sq_r1:		sub	(ix+11) 		; subtract global attenuation
+		jr	c,sq_r2 		; from actual channel volume
 		ld	e,a
 
-SQ_R2:		ld	a,(ix+17)		; then get channel number
+sq_r2:		ld	a,(ix+17)		; then get channel number
 		add	a,8			; add 8 (AY reg number)
 		out	(c),a			; so we change volume regs
-		ld	b,$BF
+		ld	b,#BF
 		out	(c),e
 		ld	a,(hl)
 		inc	hl
@@ -584,16 +584,16 @@ SQ_R2:		ld	a,(ix+17)		; then get channel number
 		ld	e,(hl)
 		rl	e
 		bit	5,(hl)			; will be noise enabled?
-		jr	z,SQ_ZNN
+		jr	z,sq_znn
 		adc	a,0
-		ld	b,$FF
+		ld	b,#FF
 		out	(c),d
-		ld	b,$BF
+		ld	b,#BF
 		out	(c),a
-SQ_ZNN:		ld	a,e
+sq_znn:		ld	a,e
 		rla
 		ex	de,hl
-		ld	hl,SQ_N+1		; set SQ_N to both generators
+		ld	hl,sq_n+1		; set sq_n to both generators
 		rl	(hl)			; status for channel
 		inc	hl
 		rla
@@ -608,7 +608,7 @@ SQ_ZNN:		ld	a,e
 		push	de
 		ld	d,0
 		dec	(ix+5)
-		jp	nz,FQ_2
+		jp	nz,fq_2
 		ld	l,(ix+1)
 		ld	h,(ix+2)
 		ld	a,(hl)
@@ -616,26 +616,26 @@ SQ_ZNN:		ld	a,e
 		cp	32
 		ld	c,(hl)
 		inc	hl
-		jr	nz,FQ_1
+		jr	nz,fq_1
 		set	3,(ix+0)
 		res	1,(ix+0)
-FQ_1:		ld	b,a
+fq_1:		ld	b,a
 		add	a,a
 		add	a,b
 		ld	e,a
 		add	hl,de
 		ld	(ix+5),c
-FQ_2:		ld	(ix+3),l
+fq_2:		ld	(ix+3),l
 		ld	(ix+4),h
 		ld	a,(ix+12)
 		bit	1,(ix+0)
-		jr	z,FQ_5
+		jr	z,fq_5
 		ld	l,(ix+8)
 		ld	h,(ix+9)
 		add	a,(hl)
 		inc	hl
 		dec	(ix+10)
-		jp	nz,FQ_4
+		jp	nz,fq_4
 		ex	af,af'
 		ld	l,(ix+6)
 		ld	h,(ix+7)
@@ -643,40 +643,40 @@ FQ_2:		ld	(ix+3),l
 		inc	hl
 		cp	32
 		ld	e,b
-		jr	z,FQ_3
+		jr	z,fq_3
 		ld	c,(hl)
 		ld	e,a
-FQ_3:		inc	hl
+fq_3:		inc	hl
 		add	hl,de
 		ld	(ix+10),c
 		ex	af,af'
-FQ_4:		ld	(ix+8),l
+fq_4:		ld	(ix+8),l
 		ld	(ix+9),h
-FQ_5:		add	a,(ix+20)
+fq_5:		add	a,(ix+20)
 		cp	45
-		jr	nc,FQ_6
+		jr	nc,fq_6
 		add	a,a
 		ld	e,a
-		ld	hl,FRQ2
+		ld	hl,frq2
 		add	hl,de
 		ld	d,(hl)
 		inc	hl
-		jp	FQ_7
+		jp	fq_7
 
-FQ_6:		ld	hl,FRQ1-45
+fq_6:		ld	hl,frq1-45
 		ld	e,a
 		add	hl,de
-FQ_7:		ld	e,(hl)
+fq_7:		ld	e,(hl)
 		ex	de,hl
 		pop	de			; we got a frequency,
 		bit	4,d			; need we add also fine-tuning?
 		res	4,d
-		jr	z,FQ_9
+		jr	z,fq_9
 		add	hl,de
 		db	1 ; ld bc,* to skip next instruction
-FQ_9:		sbc	hl,de
+fq_9:		sbc	hl,de
 		bit	2,(ix+0)
-		jr	z,OUT9
+		jr	z,out9
 		ld	c,(ix+13)
 		ld	b,(ix+14)
 		add	hl,bc
@@ -688,22 +688,22 @@ FQ_9:		sbc	hl,de
 		ld	(ix+14),h
 		ex	de,hl
 
-OUT9:		ld	a,(ix+17)		; get channel number
+out9:		ld	a,(ix+17)		; get channel number
 		add	a,a			; multiply by two
-		ld	bc,$FFFD		; and set tone frequency
+		ld	bc,#FFFD		; and set tone frequency
 		out	(c),a
-		ld	b,$BF
+		ld	b,#BF
 		out	(c),l
 		inc	a
-		ld	b,$FF
+		ld	b,#FF
 		out	(c),a
-		ld	b,$BF
+		ld	b,#BF
 		out	(c),h
-SQ_ZCH: 	ld	de,CHZL 		; and skip to next channel
+sq_zch: 	ld	de,chzl 		; and skip to next channel
 		add	ix,de			; state params with IX...
 		ret
 
-FRQ2:		db	13,93,12,156
+frq2:		db	13,93,12,156
 		db	11,231,11,60
 		db	10,155,10,2,9,115
 		db	8,235,8,107,7,242
@@ -720,7 +720,7 @@ FRQ2:		db	13,93,12,156
 		db	1,83,1,64
 		db	1,46,1,29,1,13
 
-FRQ1:		db	254,240,226,214
+frq1:		db	254,240,226,214
 		db	202,190,180,170
 		db	160,151,143,135
 		db	127,120,113,107
@@ -731,43 +731,42 @@ FRQ1:		db	254,240,226,214
 		db	27,25,24,22,21,20
 		db	19,18,17,16,15,14
 
-CHNZ1:		db	0
+chnz1:		db	0
 		dw	0,0,0,0,0,0,0,0
 		dw	2,0,0,0,0,0
-CHNZ2:		db	0
+chnz2:		db	0
 		dw	0,0,0,0,0,0,0,0
 		dw	1,0,0,0,0,0
-CHNZ3:		db	0
+chnz3:		db	0
 		dw	0,0,0,0,0,0,0,0
 		dw	0,0,0,0,0,0
 
-SQ_SYS: 	dw	#0101
+sq_sys: 	dw	#0101
 
-CHZL:		equ	CHNZ2-CHNZ1	; offset between channels
+chzl:		equ	chnz2-chnz1	; offset between channels
 
 
 ;		org	#C000
 
-BUFFER:		ds	2		; song length
-RELOC_BASE:
-I_SAMPLES:	ds	2		; samples lookup table address
-I_ORNAMENTS:	ds	2		; ornaments lookup table address
-I_PATTERNS:	ds	2		; patterns lookup tables address
-I_POSITIONS:	ds	2		; positions defitions address
-I_REPEAT:	ds	2		; pointer to repeat position
-RELOC_ENDPTR:	ds	2		; pointer to first sample definition
+buffer:		ds	2		; song length
+reloc_base:
+i_samples:	ds	2		; samples lookup table address
+i_ornaments:	ds	2		; ornaments lookup table address
+i_patterns:	ds	2		; patterns lookup tables address
+i_positions:	ds	2		; positions defitions address
+i_repeat:	ds	2		; pointer to repeat position
+reloc_endptr:	ds	2		; pointer to first sample definition
 ; and particular pattern lookup tables follows until first sample defintion...
 
 
-; song data in format as was stored in .sqt file starts at BUFFER label
-; and it starting with absolute addresses which we need to relocate in SQ_INIT
-		org	BUFFER
+; song data in format as was stored in .sqt file starts at buffer label
+; and it starting with absolute addresses which we need to relocate in sq_init
+		org	buffer
 
 ;		incbin "songs/music.sqt"
-;		incbin "songs/minimum.bin",$510
+;		incbin "songs/minimum.bin",#510
 		incbin "songs/happy.sqt"
 ;		incbin "songs/boulder128menu.sqt"
 
 
-		savesna "sqplayer.sna",DEMOPLAY
-		savetap "sqplayer.tap",CODE,"music",DEMOPLAY,$-DEMOPLAY,DEMOPLAY
+		savesna "SQT.sna",demoplay
