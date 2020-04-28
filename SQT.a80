@@ -19,6 +19,7 @@ demoplay	di
 	endif
 
 
+	ifndef SINGLESETUP
 ; bit.0 if you want to play without looping
 ; bit.1 if you play looped but fadeout after few seconds
 ; bit.7 is set each time when loop is passed
@@ -26,6 +27,7 @@ demoplay	di
 ;			1 - no loop
 ;			0 - loop forever
 sq_status:	db	2
+	endif
 
 sq_init:	ld	de,(reloc_base)		; get the first absolute address
 		ld	hl,buffer+10		; which we use as base offset
