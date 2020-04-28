@@ -11,6 +11,7 @@
 @NULL = 0
 
 
+	ifndef PUREPLAYER
 		org	#8000
 
 demo		di
@@ -20,6 +21,8 @@ demoloop	ei
 		halt
 		call	music_play
 		jr	demoloop
+	endif
+
 
 ; bit.0 if you want to play without looping
 ; bit.1 if you play looped but fadeout after few seconds
@@ -1338,6 +1341,7 @@ VAR0END		equ	T1_		; init zeroes from VARS to VAR0END-1
 VARSEND		equ	$
 
 
+	ifndef PUREPLAYER
 ;		org	#C000
 
 MDLADDR
@@ -1350,3 +1354,4 @@ MDLADDR
 
 
 		savesna	"PTx.sna",demo
+	endif

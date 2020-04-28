@@ -6,6 +6,7 @@
 		device zxspectrum128
 
 
+	ifndef PUREPLAYER
 		org	#8000
 
 demoplay	di
@@ -13,12 +14,9 @@ demoplay	di
 		call	sq_init
 .loop		ei
 		halt
-		ld	a,1
-		out	(254),a
 		call	sq_play
-		xor	a
-		out	(254),a
 		jr	.loop
+	endif
 
 
 ; bit.0 if you want to play without looping
@@ -747,7 +745,9 @@ sq_sys: 	dw	#0101
 chzl:		equ	chnz2-chnz1	; offset between channels
 
 
+	ifndef PUREPLAYER
 ;		org	#C000
+	endif
 
 buffer:		ds	2		; song length
 reloc_base:
@@ -760,6 +760,7 @@ reloc_endptr:	ds	2		; pointer to first sample definition
 ; and particular pattern lookup tables follows until first sample defintion...
 
 
+	ifndef PUREPLAYER
 ; song data in format as was stored in .sqt file starts at buffer label
 ; and it starting with absolute addresses which we need to relocate in sq_init
 		org	buffer
@@ -771,3 +772,4 @@ reloc_endptr:	ds	2		; pointer to first sample definition
 
 
 		savesna "SQT.sna",demoplay
+	endif
