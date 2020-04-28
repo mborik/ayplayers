@@ -126,8 +126,9 @@ divfadeout:	ld	a,0
 		add	a,l
 		jr	nz,divfadeout1
 		inc	a
-divfadeout1:	ld	(countfadeout+1),a
-		ld	(divfadeout+1),a
+divfadeout1:	ld	(divfadeout+1),a
+		add	a,a
+		ld	(countfadeout+1),a
 
 globvol:	ld	a,0			; global attenuation
 		ld	(chnz1+11),a		; for all channels
