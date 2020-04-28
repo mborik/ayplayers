@@ -84,8 +84,16 @@ music_init0:	ld	(module_addr+1),hl
 		ld	(ChA.Xpitch+1),hl
 		ld	(ChB.Xpitch+1),hl
 		ld	(ChC.playback+2),a
+
+		ld	(chkfadeout+1),a
+		ld	(apply_volume+1),a
+		ld	(ChA.attn+1),a
+		ld	(ChB.attn+1),a
+		ld	(ChC.attn+1),a
 		dec	a
 		ld	(current_pos+1),a
+		ld	hl,music_setup
+		res	7,(hl)
 
 music_mute:	xor	a
 		ld	(AYREG_EnvSh+1),a
@@ -115,19 +123,46 @@ module_addr:	ld	bc,0
 		ret
 
 ; ---------------------------------------------------------------------------
+resetfadeout:	ld	hl,music_setup
+noloop:		set	7,(hl)
+		xor	a
+		ld	(AYREG_AmplA),a
+		ld	(AYREG_AmplB),a
+		ld	(AYREG_AmplC),a
+		ld	(AYREG_EnvSh+1),a
+		dec	a
+		ld	(tempocnt_0),a
+		ld	(chkfadeout+1),a
+		ld	xl,#3F
+		jp	retsp
+
+enablefade:	ld	a,48
+forcefade:	ld	(chkfadeout+1),a
+		ld	(countfadeout+1),a
+		ld	(divfadeout+1),a
+		xor	a
+		ld	(apply_volume+1),a
+		jr	loop_position
+
+; ---------------------------------------------------------------------------
 new_position:	ld	hl,(ChB.datptr+1)
 		or	(hl)
-		jp	nz,ChA.ornpos
+		jp	nz,chkfadeout
 		ld	hl,(ChC.datptr+1)
 		or	(hl)
-		jp	nz,ChA.ornpos
+		jp	nz,chkfadeout
 		ld	b,a
 current_pos:	ld	a,0
 		inc	a
 song_length:	cp	0
+		jr	nz,song_continue
+		ld	hl,music_setup
+		bit	1,(hl)
+		jr	nz,enablefade
+		bit	0,(hl)
 		jr	nz,noloop
 loop_position:	ld	a,0
-noloop:		ld	(current_pos+1),a
+song_continue:	ld	(current_pos+1),a
 		ld	c,a
 
 positions:	ld	hl,NULL
@@ -208,7 +243,7 @@ ChC.setport:	ld	a,(hl)
 
 ChC.setvol:	jr	z,ChC.setport
 		dec	a
-		ld	(ChC.attn+1),a
+		ld	(ChC.volume+1),a
 		jr	ChC.readpatt
 
 ChC.setrst:	ld	a,#FC
@@ -283,10 +318,10 @@ ChB.playback:	ld	a,(hl)
 		jp	nz,ChA.playback
 		ld	hl,tempocnt_2
 		dec	(hl)
-		jp	p,ChA.ornpos
+		jp	p,chkfadeout
 ChB.datptr:	ld	hl,NULL
 		or	(hl)
-		jp	z,ChA.ornpos
+		jp	z,chkfadeout
 ChB.readpatt:	ld	a,(hl)
 		inc	hl
 		cp	#C0
@@ -322,13 +357,13 @@ ChB.nocmd:	sub	#80
 
 ChB.setvol:	jr	z,ChB.setport
 		dec	a
-		ld	(ChB.Xattn+1),a
+		ld	(ChB.Xvolume+1),a
 		jr	ChB.readpatt
 
 ChB.nop:	ld	(ChB.datptr+1),hl
 ChB.exit:	ld	a,0
 		ld	(tempocnt_2),a
-		jp	ChA.ornpos
+		jp	chkfadeout
 
 ChB.setrst:	ld	a,#FC
 		ld	(ChB.Xsmppos+1),a
@@ -410,10 +445,10 @@ ChB.ornoffs:	ld	hl,NULL
 
 ; ---------------------------------------------------------------------------
 ChA.playback:	dec	a
-		jp	nz,ChA.ornpos
+		jp	nz,chkfadeout
 		dec	hl
 		dec	(hl)
-		jp	p,ChA.ornpos
+		jp	p,chkfadeout
 ChA.datptr:	ld	hl,NULL
 		or	(hl)
 		jp	z,new_position
@@ -452,13 +487,13 @@ ChA.nocmd:	sub	#80
 
 ChA.setvol:	jr	z,ChA.setport
 		dec	a
-		ld	(ChA.Xattn+1),a
+		ld	(ChA.Xvolume+1),a
 		jr	ChA.readpatt
 
 ChA.nop:	ld	(ChA.datptr+1),hl
 ChA.exit:	ld	a,0
 		ld	(tempocnt_1),a
-		jp	ChA.ornpos
+		jp	chkfadeout
 
 ChA.setrst:	ld	a,#FC
 		ld	(ChA.Xsmppos+1),a
@@ -578,8 +613,8 @@ ChB.Xornloop:	ld	a,0
 		ld	(ChB.ornloop+1),a
 ChB.Xsmploop:	ld	a,0
 		ld	(ChB.smploop+1),a
-ChB.Xattn:	ld	a,0
-		ld	(ChB.attn+1),a
+ChB.Xvolume:	ld	a,0
+		ld	(ChB.volume+1),a
 ChB.Xampl:	ld	a,#0F
 		ld	(ChB.ampl+1),a
 ChB.Xnote:	ld	a,0
@@ -604,8 +639,8 @@ ChA.Xornloop:	ld	a,0
 		ld	(ChA.ornloop+1),a
 ChA.Xsmploop:	ld	a,0
 		ld	(ChA.smploop+1),a
-ChA.Xattn:	ld	a,0
-		ld	(ChA.attn+1),a
+ChA.Xvolume:	ld	a,0
+		ld	(ChA.volume+1),a
 ChA.Xampl:	ld	a,#0F
 		ld	(ChA.ampl+1),a
 ChA.Xnote:	ld	a,0
@@ -629,6 +664,47 @@ ChB.Xinst2:	ld	(ChB.ornpos+1),a
 		ld	(ChB.Xinst2),a
 		ld	(ChA.Xinst1),a
 		ld	(ChB.Xinst1),a
+
+; ---------------------------------------------------------------------------
+chkfadeout:	ld	a,0
+		or	a
+		jr	z,ChA.ornpos
+		ld	a,(music_setup)
+		rlca
+		jp	c,retsp
+countfadeout:	ld	a,0
+		dec	a
+		ld	(countfadeout+1),a
+		jr	nz,ChA.ornpos
+		ld	e,16
+apply_volume:	ld	a,0
+		inc	a
+		cp	e
+		jp	z,resetfadeout
+		ld	(apply_volume+1),a
+		ld	(ChA.attn+1),a
+		ld	(ChB.attn+1),a
+		ld	(ChC.attn+1),a
+		bit	3,a			; if value of attenuation
+		jr	z,divfadeout		; hits the 8 we turn off
+		xor	a			; also hw envelopes
+		ld	(env.shape+1),a
+		ld	(AYREG_EnvSh+1),a
+		ld	a,e
+		dec	a
+		ld	(ChA.ampl+1),a
+		ld	(ChB.ampl+1),a
+		ld	(ChC.ampl+1),a
+divfadeout:	ld	a,0
+		srl	a
+		ld	e,a
+		srl	e
+		add	a,e
+		jr	nz,divfadeout1
+		inc	a
+divfadeout1:	ld	(divfadeout+1),a
+		add	a,a
+		ld	(countfadeout+1),a
 
 ChA.ornpos:	ld	de,0
 ChA.ornptr:	ld	hl,NULL
@@ -660,16 +736,21 @@ ChA.readsmp:	ld	(ChA.smppos+1),a
 		pop	bc
 		ld	sp,hl
 		pop	de
+		ld	h,0
 		ld	a,e
 		and	#0F
-ChA.attn:	sub	0
+ChA.volume:	sub	0
 		ld	l,a
 		ccf
 		sbc	a,a
 		and	l
 		srl	d
-		jr	nc,ChA.ampl
-		or	#10
+		jr	nc,ChA.attn
+		set	4,h
+ChA.attn:	sub	0
+		jr	nc,ChA.attnn
+		xor	a
+ChA.attnn:	or	h
 ChA.ampl:	and	0
 		ld	(AYREG_AmplA),a
 		ld	a,e
@@ -723,16 +804,21 @@ ChB.readsmp:	ld	(ChB.smppos+1),a
 		pop	bc
 		ld	sp,hl
 		pop	de
+		ld	h,0
 		ld	a,e
 		and	#0F
-ChB.attn:	sub	0
+ChB.volume:	sub	0
 		ld	l,a
 		ccf
 		sbc	a,a
 		and	l
 		srl	d
-		jr	nc,ChB.ampl
-		or	#10
+		jr	nc,ChB.attn
+		set	4,h
+ChB.attn:	sub	0
+		jr	nc,ChB.attnn
+		xor	a
+ChB.attnn:	or	h
 ChB.ampl:	and	0
 		ld	(AYREG_AmplB),a
 		ld	a,e
@@ -787,16 +873,21 @@ ChC.readsmp:	ld	(ChC.smppos+1),a
 		pop	bc
 		ld	sp,hl
 		pop	de
+		ld	h,0
 		ld	a,e
 		and	#0F
-ChC.attn:	sub	0
+ChC.volume:	sub	0
 		ld	l,a
 		ccf
 		sbc	a,a
 		and	l
 		srl	d
-		jr	nc,ChC.ampl
-		or	#10
+		jr	nc,ChC.attn
+		set	4,h
+ChC.attn:	sub	0
+		jr	nc,ChC.attnn
+		xor	a
+ChC.attnn:	or	h
 ChC.ampl:	and	0
 		ld	(AYREG_AmplC),a
 		ld	a,e
@@ -900,7 +991,7 @@ noenvelopes:	ld	a,#0A
 		ei
 		ret
 
-; ---------------------------------------------------------------------------
+;------------------------------------------------------------------------------
 freqtable	dw	#0EF8, #0E10, #0D60, #0C80, #0BD8, #0B28, #0A88, #09F0
 		dw	#0960, #08E0, #0858, #07E0, #077C, #0708, #06B0, #0640
 		dw	#05EC, #0594, #0544, #04F8, #04B0, #0470, #042C, #03F0
@@ -931,7 +1022,8 @@ pattstep_cnt:	db	0
 ;-----------------------------------------------------------------------------
 		org	#C000
 
-songdata	incbin "songs/morning.stp"
+songdata	incbin "songs/miles.stp"
+;		incbin "songs/morning.stp"
 
 
 		savesna "STP.sna",demo
