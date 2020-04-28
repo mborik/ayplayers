@@ -26,7 +26,7 @@ demo.loop	ei
 	ifndef SINGLESETUP
 ; bit.0 if you want to play without looping
 ; bit.1 if you play looped but fadeout after few seconds
-; bit.7 is set each time when loop is passed
+; bit.7 is set each time when loop or fadeout was passed
 ; ...or simplified:	2 - fadeout after loop
 ;			1 - no loop
 ;			0 - loop forever
